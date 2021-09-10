@@ -3,16 +3,20 @@ require_once('core/Render.php');
 
 $variable = null;
 
+// évite les messages d'erreurs type "warning" lorsque $_GET['page'] n'existe pas
 if (!isset($_GET['page'])) {
     $_GET['page'] = "";
 }
 
-$params = explode('/', $_GET['page']);
 
-if ($params[0] != "") {
-    $controller = $params[0];
+// obtient chaque arguments de l'URL
+$settings = explode('/', $_GET['page']);
 
-    $action = isset($params[1]) ? $params[1] : 'index';
+if ($settings[0] != "") {
+    $controller = $settings[0];
+
+    // définit l'action du controller exercises
+    $action = isset($settings[1]) ? $settings[1] : 'home';
 
     switch ($action) {
         case 'answering':
@@ -21,7 +25,7 @@ if ($params[0] != "") {
         case 'new':
             Render::render('new/index');
             break;
-        case 'index':
+        case 'home':
             Render::render('exercises/index');
             break;
         default:
