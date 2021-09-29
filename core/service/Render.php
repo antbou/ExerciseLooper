@@ -15,11 +15,11 @@ class Render
 
         // Toues les données suivantes seront sotckées dans un tampon temporaire 
         ob_start();
-        require('templates/' . $path . '.html.php');
+        require('../templates/' . $path . '.html.php');
 
         // récupère le contenu du tampon puis l'efface
         $pageContent = ob_get_clean();
 
-        require('templates/base.html.php');
+        require('../templates/base.html.php');
     }
 }

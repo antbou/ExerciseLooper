@@ -43,7 +43,7 @@ class Router
             }
         }
 
-        // Http::notFoundException();
+        Http::notFoundException();
     }
 
     public function getUrl(string $routeName, array $params)
