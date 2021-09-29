@@ -22,19 +22,18 @@ class Router
      * @param string $method
      * @return Router
      */
-    public function add(string $path, string $name, string $controllerName, string $method): Router
+    public function add(string $path, string $name, string $controllerName, string $method): void
     {
         $route = new Route($path, $controllerName, $method);
-        $this->routes = [$name => $route];
-        return $this;
+        $this->routes += [$name => $route];
     }
 
     /**
      * Permet de trouver et d'appeler un contrôleur associé à une route
      *
-     * @return void
+     * @return boolean
      */
-    public function process(): void
+    public function process(): bool
     {
         /** @var Route */
         foreach ($this->routes as $name => $route) {
@@ -53,11 +52,12 @@ class Router
                 // Permet d'appeler la méthode de l'object avec ou sans paramètres
                 call_user_func_array([$controller, $method], $params);
 
-                return;
+                return true;
             }
         }
 
         Http::notFoundException();
+        return false;
     }
 
     /**
@@ -67,7 +67,7 @@ class Router
      * @param array $params
      * @return Route
      */
-    public function getUrl(string $routeName, array $params): Route
+    public function getUrl(string $routeName, array $params): string
     {
         // Si aucun nom de route ne correspond
         if (!array_key_exists($routeName, $this->routes)) {

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class RouteTest extends TestCase
 {
     /**
-     * @covers $team->doesMatch()
+     * @covers $route->doesMatch()
      */
     public function testDoesMatch()
     {
@@ -25,7 +25,7 @@ class RouteTest extends TestCase
     }
 
     /**
-     * @covers $team->generateUrl()
+     * @covers $route->generateUrl()
      */
     public function testGenerateUrl()
     {
