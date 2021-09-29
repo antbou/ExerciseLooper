@@ -13,19 +13,33 @@ class Router
         $this->url = $url;
     }
 
+    /**
+     * Créé la route et la stocke dans un tableau
+     *
+     * @param string $path
+     * @param string $name
+     * @param string $controllerName
+     * @param string $method
+     * @return Router
+     */
     public function add(string $path, string $name, string $controllerName, string $method): Router
     {
         $route = new Route($path, $controllerName, $method);
-        $this->routes += [$name => $route];
+        $this->routes = [$name => $route];
         return $this;
     }
 
-    public function process()
+    /**
+     * Permet de trouver et d'appeler un contrôleur associé à une route
+     *
+     * @return void
+     */
+    public function process(): void
     {
         /** @var Route */
         foreach ($this->routes as $name => $route) {
 
-            if ($route->match($this->url)) {
+            if ($route->doesMatch($this->url)) {
 
                 require_once('../controllers/' . $route->getControllerName() . '.php');
 
@@ -46,7 +60,14 @@ class Router
         Http::notFoundException();
     }
 
-    public function getUrl(string $routeName, array $params)
+    /**
+     * Permet d'obtenir l'URL d'une route en fonction du nom de cette dernière
+     *
+     * @param string $routeName
+     * @param array $params
+     * @return Route
+     */
+    public function getUrl(string $routeName, array $params): Route
     {
         // Si aucun nom de route ne correspond
         if (!array_key_exists($routeName, $this->routes)) {
@@ -57,7 +78,12 @@ class Router
         return $this->routes[$routeName]->generateUrl($params);
     }
 
-    public function setConfig()
+    /**
+     * Récupère les données du fichier de configuration route Config
+     *
+     * @return void
+     */
+    public function setConfig(): void
     {
         $routes = include('../config/routeConfig.php');
 

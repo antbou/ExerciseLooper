@@ -1,3 +1,3 @@
 <section class="container">
-    <a href="/"><img src="/resources/logo.png" /></a>
+    <a href=<?= $router->getUrl('HomePage', []); ?>><img src="/resources/logo.png" /></a>
 </section>

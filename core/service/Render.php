@@ -10,7 +10,10 @@ class Render
      */
     public static function render(string $path, array $variables = [])
     {
-        // importe des variables dans la table de symboles locale à partir d'un tableau
+        $router = new Router();
+        $router->setConfig();
+
+        // Extrait les variables du tableau
         extract($variables);
 
         // Toues les données suivantes seront sotckées dans un tampon temporaire 

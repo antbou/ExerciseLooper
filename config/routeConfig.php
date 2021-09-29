@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'homePage' => [
+    'HomePage' => [
         'URI' => '/',
         'Controller' => 'HomeController',
         'Method' => 'show'
-    ],
+    ]
 ];
