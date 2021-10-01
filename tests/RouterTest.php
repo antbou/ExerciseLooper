@@ -13,11 +13,13 @@ class RouterTest extends TestCase
     {
 
         $router = new Router();
-        $router->add('/test1/:id', 'testName1', 'testController1', 'testMethod1');
-        $router->add('/test2/:id', 'testName2', 'testController2', 'testMethod2');
+        $router->add('test1/:id', 'testName1', 'testController1', 'testMethod1');
+        $router->add('test2/:id', 'testName2', 'testController2', 'testMethod2');
+
+        $urlToTest = 'test1/18';
 
 
-        $this->assertSame('test1/18', $router->getUrl('testName1', ['id' => 18]));
-        $this->assertNotSame('test1/18', $router->getUrl('testName1', ['id' => 20]));
+        $this->assertSame($urlToTest, $router->getUrl('testName1', ['id' => 18]));
+        $this->assertNotSame($urlToTest, $router->getUrl('testName1', ['id' => 20]));
     }
 }

@@ -33,7 +33,7 @@ class Router
      *
      * @return boolean
      */
-    public function process(): bool
+    public function process(): void
     {
         /** @var Route */
         foreach ($this->routes as $name => $route) {
@@ -47,17 +47,17 @@ class Router
 
                 $controller = new $class;
 
+                // récupère les paramètres de l'url depuis la route
                 $params = $route->getMatches();
 
-                // Permet d'appeler la méthode de l'object avec ou sans paramètres
+                // Permet d'appeler la méthode de l'object (controller) avec ou sans paramètres
                 call_user_func_array([$controller, $method], $params);
 
-                return true;
+                return;
             }
         }
 
         Http::notFoundException();
-        return false;
     }
 
     /**
