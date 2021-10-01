@@ -1,4 +1,9 @@
 <?php
+
+namespace Looper\core\services;
+
+use Looper\core\services\Router;
+
 class Render
 {
     /**
