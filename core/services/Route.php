@@ -1,5 +1,7 @@
 <?php
 
+namespace Looper\core\services;
+
 class Route
 {
 

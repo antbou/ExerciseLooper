@@ -1,7 +1,9 @@
 <?php
 
-require_once('Route.php');
-require_once('Http.php');
+namespace Looper\core\services;
+
+use Looper\core\services\Http;
+use Looper\core\services\Route;
 
 class Router
 {
@@ -40,9 +42,8 @@ class Router
 
             if ($route->doesMatch($this->url)) {
 
-                require_once('../controllers/' . $route->getControllerName() . '.php');
-
-                $class = $route->getControllerName();
+                $className = $route->getControllerName();
+                $class = "Looper\controllers\\$className";
                 $method = $route->getMethod();
 
                 $controller = new $class;
@@ -71,7 +72,7 @@ class Router
     {
         // Si aucun nom de route ne correspond
         if (!array_key_exists($routeName, $this->routes)) {
-            throw new Exception('No route matches this name');
+            throw new \Exception('No route matches this name');
         }
 
         /** @var Route */
