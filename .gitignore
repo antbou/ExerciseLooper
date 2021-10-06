@@ -1,3 +1,4 @@
 docker/db.env
 .vscode
 vendor
+.env.php

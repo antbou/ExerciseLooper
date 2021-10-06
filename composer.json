@@ -4,9 +4,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Looper\\controllers\\": "controllers/",
-            "Looper\\core\\": "core/",
-            "Looper\\core\\service\\": "core/services/"
+            "Looper\\": "/"
         }
     }
 }
