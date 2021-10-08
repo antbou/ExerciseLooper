@@ -6,13 +6,7 @@ use Looper\core\models\Database;
 
 abstract class Model
 {
-    private $pdo;
     protected $table;
-
-    public function __construct()
-    {
-        $this->pdo = Database::getPdo();
-    }
 
     /**
      * Sauvegarde les propriétés de l'objet en base de donnée
@@ -55,7 +49,7 @@ abstract class Model
 
     private function execute(string $query, array $params)
     {
-        $sth = $this->pdo->prepare($query);
+        $sth = Database::getPdo()->prepare($query);
 
         return $sth->execute($params);
     }

@@ -8,6 +8,14 @@ use Looper\core\models\Database;
 class Repository
 {
 
+    /**
+     * Retourne un objet ou un tableau d'objet en fonction de la requête saisie
+     *
+     * @param string $query
+     * @param array $params
+     * @param string $className
+     * @return void
+     */
     public static function findCustom(string $query, array $params, string $className): array | object
     {
         $sth = Database::getPdo()->prepare($query);
