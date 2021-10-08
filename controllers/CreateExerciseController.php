@@ -8,6 +8,6 @@ class CreateExerciseController
 {
     public function show()
     {
-        Http::response('new/index');
+        Http::response('new/index', ['exerciseName' => 'New Exercise']);
     }
 }
