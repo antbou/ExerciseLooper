@@ -25,7 +25,7 @@ Par la suite, un simple start ou stop suffira pour lancer ou arréter les conten
 ```docker-compose start```, ```docker-compose stop```
 
 ### Configuration fichier local
-Le fichier de configuration local doit être créer à la racine du projet ```.env.php``` et doit contenir les informations suivantes :
+Le fichier de configuration local ```.env.php``` doit être créer à la racine du projet  et doit contenir les informations suivantes :
 - ```define("DBHOST", "TO_CHANGE");``` Attention, l'adresse IP à indiquer doit correspondre à l'adresse IP du conteneur MYSQL
 - ```define("DBNAME", "TO_CHANGE");```
 - ```define("DBUSERNAME", "TO_CHANGE");```
