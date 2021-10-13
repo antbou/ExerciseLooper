@@ -12,6 +12,10 @@ class Exercise extends Model
     private int $status;
     protected $table = "exercises";
 
+    const UNDERCONSTRUCT = 0;
+    const ANSWERED = 1;
+    const TERMINATE = 2;
+
     public function getId(): string
     {
         return $this->id;

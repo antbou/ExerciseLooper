@@ -5,6 +5,7 @@ namespace Looper\controllers;
 use Looper\core\services\Field;
 use Looper\core\services\FormValidator;
 use Looper\core\services\Http;
+use Looper\models\Exercise;
 
 class CreateExerciseController
 {
@@ -16,11 +17,14 @@ class CreateExerciseController
     public function validate()
     {
         $form = new FormValidator('exercise');
+        $form->addField(['title' => new Field('title', 'string', true)]);
 
-        $form->addField(new Field('title', 'int', true));
+        if ($form->process()) {
 
-        $form->process();
-
-        var_dump($form->getFields()[0]->error);
+            $exercise = new Exercise();
+            $exercise->setTitle($form->getFields()['title']->value);
+            $exercise->setStatus(Exercise::UNDERCONSTRUCT);
+            $exercise->save();
+        }
     }
 }

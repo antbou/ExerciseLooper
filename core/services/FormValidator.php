@@ -14,13 +14,15 @@ class FormValidator
     public function __construct(string $name)
     {
         $this->name = $name;
+        $this->fields = [];
     }
 
-    public function process()
+    public function process(): bool
     {
         if (!$this->isPostValid()) {
-            return;
+            return false;
         }
+        $res = true;
 
         foreach ($this->fields as $field) {
 
@@ -32,9 +34,12 @@ class FormValidator
              * Le champs n'est pas vide ou accepte d'être vide
              */
             if (!$this->isSet($field) || !$this->isNotEmpty($field) || !$this->$checkType($field)) {
+                $res = false;
                 continue;
             }
         }
+
+        return $res;
     }
 
     private function isInt(Field $field)
@@ -59,9 +64,9 @@ class FormValidator
         return true;
     }
 
-    public function addField(Field $field): void
+    public function addField($field): void
     {
-        $this->fields[] = $field;
+        $this->fields += $field;
     }
 
     public function getFields(): array
