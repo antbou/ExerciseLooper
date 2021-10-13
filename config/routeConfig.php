@@ -10,5 +10,10 @@ return [
         'URI' => '/exercises/new',
         'Controller' => 'CreateExerciseController',
         'Method' => 'show'
+    ],
+    'ValidateExercise' => [
+        'URI' => '/exercises',
+        'Controller' => 'CreateExerciseController',
+        'Method' => 'validate'
     ]
 ];
