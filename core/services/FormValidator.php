@@ -50,7 +50,7 @@ class FormValidator
     private function isInt(Field $field)
     {
         if (!is_int($this->post[$field->name])) {
-            $field->error = "Le champs n'est du bon type";
+            $field->error = "La valeur entrée n'est pas correcte";
             return false;
         }
 
@@ -62,7 +62,7 @@ class FormValidator
     private function isString(Field $field)
     {
         if (!is_string($this->post[$field->name])) {
-            $field->error = "Le champs n'est du bon type";
+            $field->error = "La valeur entrée n'est pas correcte";
             return false;
         }
         $field->value = htmlspecialchars($this->post[$field->name]);

@@ -1,7 +1,3 @@
-<?php
-
-use Looper\core\services\Router;
-?>
 <header class="dashboard">
     <section class="container">
         <p><img src="/resources/logo.png" /></p>

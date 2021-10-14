@@ -2,7 +2,7 @@
 
 namespace Looper\core\services;
 
-use Looper\core\services\Router;
+use Looper\core\services\RouterManager;
 
 class Render
 {
@@ -15,13 +15,12 @@ class Render
      */
     public static function render(string $path, array $variables = [])
     {
-        $router = new Router();
-        $router->setConfig();
+        $router = RouterManager::getRouter();
 
         // Extrait les variables du tableau
         extract($variables);
 
-        // Toues les données suivantes seront sotckées dans un tampon temporaire 
+        // Toutes les données suivantes seront sotckées dans un tampon temporaire 
         ob_start();
         require('../templates/' . $path . '.html.php');
 

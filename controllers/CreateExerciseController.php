@@ -20,7 +20,7 @@ class CreateExerciseController
         $form->addField(['title' => new Field('title', 'string', true)]);
 
         if (!$form->process()) {
-            Http::redirect('/exercises/new');
+            Http::redirectToRoute('CreateExercise');
         }
 
         $exercise = new Exercise();
@@ -28,7 +28,7 @@ class CreateExerciseController
         $exercise->setStatus(Exercise::UNDERCONSTRUCT);
 
         if (!$exercise->save()) {
-            Http::redirect('/exercises/new');
+            Http::redirectToRoute('CreateExercise');
         }
     }
 }
