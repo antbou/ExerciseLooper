@@ -20,13 +20,15 @@ class CreateExerciseController
         $form->addField(['title' => new Field('title', 'string', true)]);
 
         if (!$form->process()) {
-            echo "erreur";
-            die;
+            Http::redirect('/exercises/new');
         }
 
         $exercise = new Exercise();
         $exercise->setTitle($form->getFields()['title']->value);
         $exercise->setStatus(Exercise::UNDERCONSTRUCT);
-        $exercise->save();
+
+        if (!$exercise->save()) {
+            Http::redirect('/exercises/new');
+        }
     }
 }
