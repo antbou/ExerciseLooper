@@ -6,27 +6,44 @@ Il s'agit d'un site web de gestion d'exercice développé en PHP vanilla corresp
 - docker (https://www.docker.com/products/docker-desktop)
 
 ### Configuration des outils
-Dans un premier temps, il faut se rendre à la racine du répértoire du projet
+
 #### composer : 
-Pour installer les dépendances ```composer i```
+
+```
+# Installer les dépendances 
+composer i
+# Gener l'autoload
+composer dump-autoload
+```
 #### docker : 
 
-Un fichier de configuration local concernant les informations de base de donnée (MYSQL) doit d'être créer dans le dossier "docker"
-Le fichier se nommera ```db.env``` et devra contenir les informations suivantes :
-- MYSQL_ROOT_PASSWORD=TO_CHANGE
-- MYSQL_DATABASE=TO_CHANGE
-- MYSQL_USER=TO_CHANGE
-- MYSQL_PASSWORD=TO_CHANGE
+Un fichier de configuration local docker pour MYSQL
+```
+# docker/db.env
+MYSQL_ROOT_PASSWORD=TO_CHANGE
+MYSQL_DATABASE=TO_CHANGE
+MYSQL_USER=TO_CHANGE
+MYSQL_PASSWORD=TO_CHANGE
+```
 
-Lors du premier lancement de l'application, il faut créer les images avec la commande suivante :
-```docker-compose build```
+```
+# A effectuer au premier lancement de l'application afain de créer les images :
+docker-compose up
+```
 
-Par la suite, un simple start ou stop suffira pour lancer ou arréter les conteneurs
-```docker-compose start```, ```docker-compose stop```
+```
+# Démarrer les containers (une fois les images créées)
+docker-compose start
+# Arreter les containers
+docker-compose stop
+```
 
 ### Configuration fichier local
 Le fichier de configuration local ```.env.php``` doit être créer à la racine du projet  et doit contenir les informations suivantes :
-- ```define("DBHOST", "TO_CHANGE");``` Attention, l'adresse IP à indiquer doit correspondre à l'adresse IP du conteneur MYSQL
-- ```define("DBNAME", "TO_CHANGE");```
-- ```define("DBUSERNAME", "TO_CHANGE");```
-- ```define("DBPASSWORD", "TO_CHANGE");```
+```
+# Attention, l'adresse IP à indiquer doit correspondre à l'adresse IP du conteneur MYSQL
+define("DBHOST", "TO_CHANGE"); 
+define("DBNAME", "TO_CHANGE");
+define("DBUSERNAME", "TO_CHANGE");
+define("DBPASSWORD", "TO_CHANGE");
+```
