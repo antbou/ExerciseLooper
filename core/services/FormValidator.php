@@ -17,6 +17,11 @@ class FormValidator
         $this->fields = [];
     }
 
+    /**
+     * Effectue une vérification des différents champs du formulaires
+     *
+     * @return boolean
+     */
     public function process(): bool
     {
         if (!$this->isPostValid()) {
@@ -89,16 +94,21 @@ class FormValidator
 
     private function isSet(Field $field)
     {
-        if (!isset($this->post[$field->name])) {
+        if (!isset($this->post[$field->name]) || !array_key_exists($field->name, $this->post)) {
             $field->error = "Error lors du traitement du champs";
             return false;
         }
         return true;
     }
 
+    /**
+     * Vérifie que POST contient bien un tableau multidimensionnel avec le bon nom
+     *
+     * @return boolean
+     */
     private function isPostValid(): bool
     {
-        if (!isset($_POST[$this->name])) {
+        if (!isset($_POST[$this->name]) || !is_array($_POST[$this->name])) {
             $this->error = "Erreurs lors du traitement";
             return false;
         }

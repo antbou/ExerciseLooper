@@ -19,12 +19,14 @@ class CreateExerciseController
         $form = new FormValidator('exercise');
         $form->addField(['title' => new Field('title', 'string', true)]);
 
-        if ($form->process()) {
-
-            $exercise = new Exercise();
-            $exercise->setTitle($form->getFields()['title']->value);
-            $exercise->setStatus(Exercise::UNDERCONSTRUCT);
-            $exercise->save();
+        if (!$form->process()) {
+            echo "erreur";
+            die;
         }
+
+        $exercise = new Exercise();
+        $exercise->setTitle($form->getFields()['title']->value);
+        $exercise->setStatus(Exercise::UNDERCONSTRUCT);
+        $exercise->save();
     }
 }

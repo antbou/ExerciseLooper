@@ -41,10 +41,10 @@ class Exercise extends Model
         return $this->status;
     }
 
-    public function save()
+    public function save(): bool
     {
         $attributes = ['id' => $this->id, 'title' => $this->title, 'status' => $this->status];
 
-        $this->saveObject($attributes);
+        return $this->saveObject($attributes);
     }
 }
