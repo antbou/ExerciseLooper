@@ -2,12 +2,13 @@
 
 namespace Looper\controllers;
 
+use Looper\core\controllers\AbstractController;
 use Looper\core\services\Http;
 
-class CreateExerciseController
+class CreateExerciseController extends AbstractController
 {
     public function show()
     {
-        Http::response('new/index');
+        Http::response(path: 'new/index', hasForm: true);
     }
 }
