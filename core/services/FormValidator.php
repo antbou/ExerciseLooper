@@ -8,7 +8,7 @@ class FormValidator
 {
     private array $fields;
     public string $name;
-    private array $post;
+    public array $post;
     public string $error;
 
     public function __construct(string $name)
@@ -27,6 +27,7 @@ class FormValidator
         if (!$this->isPostValid()) {
             return false;
         }
+
         $res = true;
 
         foreach ($this->fields as $field) {
@@ -47,7 +48,7 @@ class FormValidator
         return $res;
     }
 
-    private function isInt(Field $field)
+    private function isInt(Field $field): bool
     {
         if (!is_int($this->post[$field->name])) {
             $field->error = "La valeur entrée n'est pas correcte";
@@ -59,7 +60,7 @@ class FormValidator
         return true;
     }
 
-    private function isString(Field $field)
+    private function isString(Field $field): bool
     {
         if (!is_string($this->post[$field->name])) {
             $field->error = "La valeur entrée n'est pas correcte";
@@ -69,17 +70,7 @@ class FormValidator
         return true;
     }
 
-    public function addField($field): void
-    {
-        $this->fields += $field;
-    }
-
-    public function getFields(): array
-    {
-        return $this->fields;
-    }
-
-    private function isNotEmpty(Field $field)
+    private function isNotEmpty(Field $field): bool
     {
         if ($field->canBeEmpty) {
             return true;
@@ -92,8 +83,9 @@ class FormValidator
         return true;
     }
 
-    private function isSet(Field $field)
+    private function isSet(Field $field): bool
     {
+
         if (!isset($this->post[$field->name]) || !array_key_exists($field->name, $this->post)) {
             $field->error = "Error lors du traitement du champs";
             return false;
@@ -108,6 +100,7 @@ class FormValidator
      */
     private function isPostValid(): bool
     {
+
         if (!isset($_POST[$this->name]) || !is_array($_POST[$this->name])) {
             $this->error = "Erreurs lors du traitement";
             return false;
@@ -116,5 +109,15 @@ class FormValidator
         $this->post = $_POST[$this->name];
 
         return true;
+    }
+
+    public function addField($field): void
+    {
+        $this->fields += $field;
+    }
+
+    public function getFields(): array
+    {
+        return $this->fields;
     }
 }
