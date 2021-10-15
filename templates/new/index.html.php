@@ -17,7 +17,6 @@
             </div>
 
             <div class="actions">
-                <input type="hidden" name="authenticity_token" value="3VCCEDy2nEgIsT3P6pQHzmt/9nZnEDXiD/IJSvOHOJeq4bku+TsLFBz7c+xmwU2D435hgS2l1LDPsP4YMwtMyg==" />
                 <input type="submit" name="commit" value="Create Exercise" data-disable-with="Create Exercise" />
             </div>
         </form>

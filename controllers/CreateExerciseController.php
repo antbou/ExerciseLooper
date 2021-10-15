@@ -12,16 +12,17 @@ class CreateExerciseController extends AbstractController
 {
     public function show()
     {
-        Http::response('new/index', ['exerciseName' => 'New Exercise']);
+        Http::response('new/index', ['exerciseName' => 'New Exercise'], hasForm: true);
     }
 
     public function validate()
     {
         $form = new FormValidator('exercise');
-        $form->addField(['title' => new Field('title', 'string', true)]);
+        $form->addField(['title' => new Field('title', 'string', false)]);
 
-        if (!$form->process()) {
-            Http::redirectToRoute('CreateExercise');
+        // En cas d'erreur
+        if (!$form->process() || !$this->csrfValidator()) {
+            Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
         }
 
         $exercise = new Exercise();
@@ -29,8 +30,7 @@ class CreateExerciseController extends AbstractController
         $exercise->setStatus(Exercise::UNDERCONSTRUCT);
 
         if (!$exercise->save()) {
-            Http::redirectToRoute('CreateExercise');
+            Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
         }
-        Http::response(path: 'new/index', hasForm: true);
     }
 }
