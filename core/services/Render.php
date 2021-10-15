@@ -13,10 +13,13 @@ class Render
      * @param array $variables
      * @return void
      */
-    public static function render(string $path, array $variables = [])
+    public static function render(string $path, array $variables = [], bool $hasForm = false)
     {
         $router = RouterManager::getRouter();
 
+        if ($hasForm) {
+            $_SESSION['token'] = md5(uniqid(mt_rand(), true));
+        }
         // Extrait les variables du tableau
         extract($variables);
 
