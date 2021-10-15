@@ -14,7 +14,7 @@ abstract class Model
      * @param array $attributes
      * @return void
      */
-    protected function saveObject(array $attributes)
+    protected function saveObject(array $attributes): bool
     {
         $sql = null;
 
@@ -44,13 +44,16 @@ abstract class Model
             $sql = "UPDATE $this->table SET $fields WHERE id = :id";
         }
 
-        $this->execute($sql, $attributes);
+        return $this->execute($sql, $attributes);
     }
 
     private function execute(string $query, array $params)
     {
-        $sth = Database::getPdo()->prepare($query);
-
-        return $sth->execute($params);
+        try {
+            $sth = Database::getPdo()->prepare($query);
+            return $sth->execute($params);
+        } catch (\PDOException $e) {
+            return false;
+        }
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
-require('core/service/Route.php');
-
+use Looper\core\services\Route;
 use PHPUnit\Framework\TestCase;
 
 class RouteTest extends TestCase
