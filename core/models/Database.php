@@ -23,8 +23,8 @@ class Database
                 self::$instance = new PDO('mysql:host=' . DBHOST . ';dbname=' . DBNAME . ';charset=utf8', DBUSERNAME, DBPASSWORD);
             }
             return self::$instance;
-        } catch (PDOException $e) {
-            echo 'Échec de la connexion : ' . $e->getMessage();
+        } catch (PDOException $e) { // in case of error for the debug
+            echo 'Connection failure : ' . $e->getMessage();
             exit;
         }
     }
@@ -40,10 +40,11 @@ class Database
         return $result;
     }
 
-    public static function selectOne(string $query, array $params): ?array
+    public static function selectOne(string $query, array $params, $className): ?object
     {
         $sth = self::getPdo()->prepare($query);
         $sth->execute($params);
+        $sth->setFetchMode(PDO::FETCH_CLASS, $className);
 
         $result = $sth->fetch();
 

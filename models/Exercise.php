@@ -7,7 +7,7 @@ use Looper\core\models\Model;
 class Exercise extends Model
 {
 
-    private $id;
+    private ?int $id;
     private string $title;
     private int $status;
 
@@ -18,7 +18,7 @@ class Exercise extends Model
         $exercise = new Exercise();
         $exercise->id = (isset($params['id'])) ? $params['id'] : null;
         $exercise->title = $params['title'];
-        $exercise->status = ($params['status']) ? ExerciseState::UNDERCONSTRUCT : $params['status'];
+        $exercise->status = (isset($params['status'])) ? $params['status'] : ExerciseState::UNDERCONSTRUCT;
 
         return $exercise;
     }
@@ -28,25 +28,31 @@ class Exercise extends Model
         return $this->id;
     }
 
+    public function setId(int $id): Exercise
+    {
+        $this->id = $id;
+        return $this;
+    }
+
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title)
+    public function setTitle(string $title): Exercise
     {
         $this->title = $title;
-        return $this;
-    }
-
-    public function setStatus(int $status)
-    {
-        $this->status = $status;
         return $this;
     }
 
     public function getStatus(): int
     {
         return $this->status;
+    }
+
+    public function setStatus(int $status): Exercise
+    {
+        $this->status = $status;
+        return $this;
     }
 }

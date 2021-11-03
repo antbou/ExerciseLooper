@@ -2,11 +2,13 @@
 
 namespace Looper\core\models;
 
-use PDO;
 use Looper\core\models\Database;
+use Looper\core\models\traits\Table;
 
 class Repository
 {
+    use Table;
+
     /**
      * Return a specific item
      *
@@ -15,17 +17,11 @@ class Repository
      */
     public static function find(int $id, string $classname): ?object
     {
-        $table = strtolower((new \ReflectionClass($classname))->getShortName()) . 's';
-
-        $item = Database::selectOne("select * from $table where id = :id", ['id' => $id]);
-
-        return ($item) ? new $classname($item) : null;
+        return Database::selectOne('select * from ' . self::getShortName($classname) . ' where id = :id', ['id' => $id], $classname);
     }
 
     public static function findAll(string $classname): array
     {
-        $table = strtolower((new \ReflectionClass($classname))->getShortName()) . 's';
-
-        return Database::selectMany("SELECT * FROM $table", [], $classname);
+        return Database::selectMany('select * from ' . self::getShortName($classname), [], $classname);
     }
 }
