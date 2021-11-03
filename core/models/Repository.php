@@ -7,46 +7,25 @@ use Looper\core\models\Database;
 
 class Repository
 {
-
     /**
-     * Retourne un objet ou un tableau d'objet en fonction de la requête saisie
+     * Return a specific item
      *
-     * @param string $query
-     * @param array $params
-     * @param string $className
+     * @param integer $id
      * @return void
      */
-    public static function findCustom(string $query, array $params, string $className): array | object
+    public static function find(int $id, string $classname): ?object
     {
-        $sth = Database::getPdo()->prepare($query);
-        $sth->execute($params);
-        $sth->setFetchMode(PDO::FETCH_CLASS, $className);
-        $result = $sth->fetchAll();
+        $table = strtolower((new \ReflectionClass($classname))->getShortName()) . 's';
 
-        // Retourne un objet à la place d'un tableau d'objet si ce dernier ne contient qu'un objet.
-        if (count($result) === 1) {
-            $result = $result[0];
-        }
+        $item = Database::selectOne("select * from $table where id = :id", ['id' => $id]);
 
-        return $result;
+        return ($item) ? new $classname($item) : null;
     }
 
-
-    /**
-     * Method find
-     * Permet de trouver un objet par son ID
-     *
-     * @param int $id
-     * @param string $className
-     *
-     * @return object
-     */
-    public static function find(int $id, string $className): array | object
+    public static function findAll(string $classname): array
     {
-        $query = 'select * from ' . strtolower((new \ReflectionClass($className))->getShortName()) . 's' . ' where id = :id';
+        $table = strtolower((new \ReflectionClass($classname))->getShortName()) . 's';
 
-        $result = self::findCustom($query, ['id' => $id], $className);
-
-        return $result;
+        return Database::selectMany("SELECT * FROM $table", [], $classname);
     }
 }

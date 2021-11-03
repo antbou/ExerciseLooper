@@ -10,19 +10,15 @@ class Exercise extends Model
     private $id;
     private string $title;
     private int $status;
-    protected $table = "exercises";
 
-    const UNDERCONSTRUCT = 0;
-    const ANSWERED = 1;
-    const TERMINATE = 2;
+    protected $table = 'exercises';
 
     public static function make(array $params)
     {
         $exercise = new Exercise();
-
         $exercise->id = (isset($params['id'])) ? $params['id'] : null;
         $exercise->title = $params['title'];
-        $exercise->status = $params['status'];
+        $exercise->status = ($params['status']) ? ExerciseState::UNDERCONSTRUCT : $params['status'];
 
         return $exercise;
     }
@@ -52,12 +48,5 @@ class Exercise extends Model
     public function getStatus(): int
     {
         return $this->status;
-    }
-
-    public function save(): bool
-    {
-        $attributes = ['id' => $this->id, 'title' => $this->title, 'status' => $this->status];
-
-        return $this->saveObject($attributes);
     }
 }
