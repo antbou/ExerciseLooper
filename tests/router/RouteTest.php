@@ -35,8 +35,8 @@ class RouteTest extends TestCase
         $param = ['id' => 18];
 
         $route = new Route($path, $controllerName, $method);
-        $urlTrue = 'test/18';
-        $urlFalse = 'test/false';
+        $urlTrue = '/test/18';
+        $urlFalse = '/test/false';
 
         $this->assertSame($urlTrue, $route->generateUrl($param));
         $this->assertNotSame($urlFalse, $route->generateUrl($param));
