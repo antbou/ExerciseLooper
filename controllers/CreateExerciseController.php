@@ -33,5 +33,7 @@ class CreateExerciseController extends AbstractController
         if (!$exercise->save()) {
             Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
         }
+
+        Http::redirectToRoute('AddFieldExercise', ['id' => $exercise->getId()]);
     }
 }
