@@ -8,18 +8,18 @@ use Looper\models\Exercise;
 
 abstract class Model
 {
-    abstract function setId(int $id): Exercise;
 
     use Children;
 
+
     protected $table;
 
-    public function __construct()
-    {
-        $this->pdo = Database::getPdo();
-    }
-
-    public function create(): bool // create db record from object
+    /**
+     * create db record from object
+     *
+     * @return boolean
+     */
+    public function create(): bool
     {
 
         $fields = [];
@@ -40,4 +40,50 @@ abstract class Model
             return false;
         }
     }
+
+    /**
+     * Removes the object from the database
+     *
+     * @return boolean
+     */
+    public function delete(): bool
+    {
+        try {
+            Database::execute("DELETE FROM {$this->table} WHERE id = :id", ['id' => $this->getId()]);
+            return true;
+        } catch (\PDOException $Exception) {
+            return false;
+        }
+    }
+
+    /**
+     * update the object in the database
+     *
+     * @return boolean
+     */
+    public function update(): bool
+    {
+        $fields  = [];
+
+        foreach ($this->toArray() as $field => $fieldsBind) {
+
+            if ($field !== 'id') {
+                $fields[] = "$field=:$field";
+            }
+        }
+
+        $fields = implode(',', $fields);
+
+        $query = "UPDATE {$this->table} SET $fields WHERE id=:id";
+
+        try {
+            return Database::execute($query, $this->toArray());
+        } catch (\PDOException $Exception) {
+            return false;
+        }
+    }
+
+    abstract function setId(int $id): Exercise;
+
+    abstract function getId(): int;
 }
