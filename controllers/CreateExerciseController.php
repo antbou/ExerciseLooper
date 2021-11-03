@@ -25,7 +25,7 @@ class CreateExerciseController extends AbstractController
             Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
         }
 
-        $exercise = new Exercise([
+        $exercise = Exercise::make([
             'title' => $form->getFields()['title']->value,
             'status' => Exercise::UNDERCONSTRUCT
         ]);

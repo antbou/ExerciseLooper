@@ -15,5 +15,10 @@ return [
         'URI' => '/exercises',
         'Controller' => 'CreateExerciseController',
         'Method' => 'validate'
+    ],
+    'AddFieldExercise' => [
+        'URI' => '/exercises/:idExercise/fields',
+        'Controller' => 'FieldController',
+        'Method' => 'create'
     ]
 ];

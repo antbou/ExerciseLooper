@@ -16,11 +16,15 @@ class Exercise extends Model
     const ANSWERED = 1;
     const TERMINATE = 2;
 
-    public function __construct(array $params)
+    public static function make(array $params)
     {
-        $this->id = (isset($params['id'])) ? $params['id'] : null;
-        $this->title = $params['title'];
-        $this->status = $params['status'];
+        $exercise = new Exercise();
+
+        $exercise->id = (isset($params['id'])) ? $params['id'] : null;
+        $exercise->title = $params['title'];
+        $exercise->status = $params['status'];
+
+        return $exercise;
     }
 
     public function getId(): string
@@ -36,11 +40,13 @@ class Exercise extends Model
     public function setTitle(string $title)
     {
         $this->title = $title;
+        return $this;
     }
 
     public function setStatus(int $status)
     {
         $this->status = $status;
+        return $this;
     }
 
     public function getStatus(): int

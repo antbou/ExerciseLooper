@@ -41,7 +41,7 @@ class Repository
      *
      * @return object
      */
-    public static function find(int $id, string $className): object
+    public static function find(int $id, string $className): array | object
     {
         $query = 'select * from ' . strtolower((new \ReflectionClass($className))->getShortName()) . 's' . ' where id = :id';
 
