@@ -1,6 +1,6 @@
 <?php
 
-namespace Looper\core\services;
+namespace Looper\core\forms;
 
 class Field
 {

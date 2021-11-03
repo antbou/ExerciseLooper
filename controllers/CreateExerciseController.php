@@ -2,8 +2,8 @@
 
 namespace Looper\controllers;
 
-use Looper\core\services\Field;
-use Looper\core\services\FormValidator;
+use Looper\core\forms\Field;
+use Looper\core\forms\FormValidator;
 use Looper\core\controllers\AbstractController;
 use Looper\core\services\Http;
 use Looper\models\Exercise;
@@ -18,16 +18,17 @@ class CreateExerciseController extends AbstractController
     public function validate()
     {
         $form = new FormValidator('exercise');
-        $form->addField(['title' => new Field('title', 'string', false)]);
+        $form->addField(['title' => new Field('title', 'string', true)]);
 
-        // En cas d'erreur
+        // In case of errors
         if (!$form->process() || !$this->csrfValidator()) {
             Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
         }
 
-        $exercise = new Exercise();
-        $exercise->setTitle($form->getFields()['title']->value);
-        $exercise->setStatus(Exercise::UNDERCONSTRUCT);
+        $exercise = new Exercise([
+            'title' => $form->getFields()['title']->value,
+            'status' => Exercise::UNDERCONSTRUCT
+        ]);
 
         if (!$exercise->save()) {
             Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);

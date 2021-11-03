@@ -1,8 +1,8 @@
 <?php
 
-namespace Looper\core\services;
+namespace Looper\core\forms;
 
-use Looper\core\services\Field;
+use Looper\core\forms\Field;
 
 class FormValidator
 {
