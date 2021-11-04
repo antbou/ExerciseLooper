@@ -16,9 +16,9 @@ return [
         'Controller' => 'CreateExerciseController',
         'Method' => 'validate'
     ],
-    'AddFieldExercise' => [
+    'CreateQuestion' => [
         'URI' => '/exercises/:idExercise/fields',
-        'Controller' => 'FieldController',
+        'Controller' => 'QuestionController',
         'Method' => 'create'
     ]
 ];

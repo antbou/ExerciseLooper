@@ -36,7 +36,8 @@
             </section>
             <section class="column">
                 <h1>New Field</h1>
-                <form action="/exercises/541/fields" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="qENJvZCtG+aHnoqNJD5icjAylcE7qlFqTlczD455wf/TNcFYOParMyVBg/t60vhUdCkI3VolrNpL8L18uBKP2Q==" />
+                <form action=<?= $router->getUrl('CreateQuestion', ['idExercise' => $exercise->getId()]) ?> accept-charset="UTF-8" method="post">
+                    <input type="hidden" name="authenticity_token" value=<?= $_SESSION['token'] ?> />
 
                     <div class="field">
                         <label for="field_label">Label</label>

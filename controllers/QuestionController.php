@@ -6,8 +6,10 @@ use Looper\core\services\Http;
 use Looper\core\controllers\AbstractController;
 use Looper\core\models\Repository;
 use Looper\models\Exercise;
+use Looper\models\Question;
+use Looper\models\QuestionState;
 
-class FieldController extends AbstractController
+class QuestionController extends AbstractController
 {
     public function create($id)
     {
@@ -19,6 +21,6 @@ class FieldController extends AbstractController
             Http::notFoundException();
         }
 
-        Http::response('new/fields', ['exerciseName' => $exercise->getPublicName()]);
+        Http::response('new/question', ['exercise' => $exercise]);
     }
 }
