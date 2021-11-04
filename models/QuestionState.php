@@ -16,7 +16,7 @@ class QuestionState
      * @param integer $val
      * @return void
      */
-    public static function toString(int $val)
+    public static function toString(int $val): string
     {
         $tmp = new ReflectionClass(get_called_class());
         $a = $tmp->getConstants();

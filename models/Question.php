@@ -67,4 +67,9 @@ class Question extends Model
         $this->exercises_id = $exercises_id;
         return $this;
     }
+
+    public function getValueKindName(): string
+    {
+        return QuestionState::toString($this->valueKind);
+    }
 }
