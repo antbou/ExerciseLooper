@@ -13,6 +13,17 @@ class Question extends Model
 
     protected $table = 'questions';
 
+    public static function make(array $params)
+    {
+        $question = new question();
+        $question->id = (isset($params['id'])) ? $params['id'] : null;
+        $question->value = $params['value'];
+        $question->valueKind = $params['valueKind'];
+        $question->exercises_id = $params['exercises_id'];
+
+        return $question;
+    }
+
     public function getId(): int
     {
         return $this->id;

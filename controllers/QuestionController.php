@@ -24,10 +24,21 @@ class QuestionController extends AbstractController
         }
 
         $form = new FormValidator('field');
-        $form->addField(['label' => new Field('label', 'string', true)]);
-        $form->addField(['value_kind' => new Field('value_kind', 'string', false)]);
+        $form->addField(['value' => new Field('label', 'string', true)]);
+        $form->addField(['valueKind' => new Field('value_kind', 'string', false)]);
 
+        if ($form->process() && $this->csrfValidator()) {
 
+            $question = Question::make([
+                'value' => $form->getFields()['value']->value,
+                'valueKind' => QuestionState::getConstValue($form->getFields()['valueKind']->value),
+                'exercises_id' => $exercise->getId()
+            ]);
+
+            if ($question->create()) {
+                Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
+            }
+        }
 
         Http::response('new/question', ['exercise' => $exercise], hasForm: true);
     }

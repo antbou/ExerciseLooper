@@ -37,7 +37,7 @@
             <section class="column">
                 <h1>New Field</h1>
                 <form action=<?= $router->getUrl('CreateQuestion', ['idExercise' => $exercise->getId()]) ?> accept-charset="UTF-8" method="post">
-                    <input type="hidden" name="authenticity_token" value="<?= $_SESSION['token'] ?>" />
+                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>" />
 
                     <div class=" field">
                         <label for="field_label">Label</label>
