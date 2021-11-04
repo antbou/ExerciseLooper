@@ -59,7 +59,6 @@ class Exercise extends Model
 
     public function getPublicName(): string
     {
-
         $exerciseName = (empty($this->getTitle())) ? self::DEFAULTNAME : ((ctype_space($this->getTitle())) ? self::DEFAULTNAME : $this->getTitle());
         return $exerciseName;
     }

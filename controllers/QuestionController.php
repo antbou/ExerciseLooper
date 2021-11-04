@@ -10,7 +10,6 @@ use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
 use Looper\core\controllers\AbstractController;
-use Looper\models\ExerciseState;
 
 class QuestionController extends AbstractController
 {

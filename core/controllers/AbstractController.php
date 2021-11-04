@@ -8,7 +8,7 @@ use Looper\core\services\Http;
 abstract class AbstractController
 {
     /**
-     * Verifie que le CSRF récupèrer correspont au CRSF de la session
+     * Checks that the CSRF retrieved matches the CRSF of the session
      *
      * @return bool
      */
@@ -33,7 +33,14 @@ abstract class AbstractController
         (is_numeric($id)) ?: Http::notFoundException();
     }
 
-    public function getConstants(string $classname, bool $arrayKeyOnly = false)
+    /**
+     * gets all the contstant in the given class
+     *
+     * @param string $classname
+     * @param boolean $arrayKeyOnly
+     * @return array
+     */
+    public function getConstants(string $classname, bool $arrayKeyOnly = false): array
     {
         $oClass = new ReflectionClass($classname);
         $result = $oClass->getConstants();
