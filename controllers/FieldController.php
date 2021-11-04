@@ -19,10 +19,6 @@ class FieldController extends AbstractController
             Http::notFoundException();
         }
 
-        $defaultDisplayName = 'New exercise';
-
-        $exerciseName = (empty($exercise->getTitle())) ? $defaultDisplayName : ((ctype_space($exercise->getTitle())) ? $defaultDisplayName : $exercise->getTitle());
-
-        Http::response('new/fields', ['exerciseName' => $exerciseName]);
+        Http::response('new/fields', ['exerciseName' => $exercise->getPublicName()]);
     }
 }

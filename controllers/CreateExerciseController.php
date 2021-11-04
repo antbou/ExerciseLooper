@@ -22,7 +22,7 @@ class CreateExerciseController extends AbstractController
 
         // In case of errors
         if (!$form->process() || !$this->csrfValidator()) {
-            Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
+            Http::redirectToRoute('CreateExercise', ['exerciseName' => Exercise::DEFAULTNAME]);
         }
 
         $exercise = Exercise::make([
@@ -30,7 +30,7 @@ class CreateExerciseController extends AbstractController
         ]);
 
         if (!$exercise->create()) {
-            Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
+            Http::redirectToRoute('CreateExercise', ['exerciseName' => Exercise::DEFAULTNAME]);
         }
 
         Http::redirectToRoute('AddFieldExercise', ['idExercise' => $exercise->getId()]);

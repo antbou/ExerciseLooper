@@ -12,6 +12,7 @@ class Exercise extends Model
     private int $status;
 
     protected $table = 'exercises';
+    const DEFAULTNAME = 'New exercise';
 
     public static function make(array $params)
     {
@@ -54,5 +55,12 @@ class Exercise extends Model
     {
         $this->status = $status;
         return $this;
+    }
+
+    public function getPublicName(): string
+    {
+
+        $exerciseName = (empty($this->getTitle())) ? self::DEFAULTNAME : ((ctype_space($this->getTitle())) ? self::DEFAULTNAME : $this->getTitle());
+        return $exerciseName;
     }
 }
