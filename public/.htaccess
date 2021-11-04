@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # si le fichier n'est pas accessible, alors utiliser Rewrite Rule ...
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php?page=$1
+</IfModule>
