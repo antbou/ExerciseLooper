@@ -2,6 +2,7 @@
 
 namespace Looper\core\controllers;
 
+use ReflectionClass;
 use Looper\core\services\Http;
 
 abstract class AbstractController
@@ -30,5 +31,12 @@ abstract class AbstractController
     public function checkNumeric($id): void
     {
         (is_numeric($id)) ?: Http::notFoundException();
+    }
+
+    public function getConstants(string $classname, bool $arrayKeyOnly = false)
+    {
+        $oClass = new ReflectionClass($classname);
+        $result = $oClass->getConstants();
+        return ($arrayKeyOnly) ? array_keys($result) : $result;
     }
 }

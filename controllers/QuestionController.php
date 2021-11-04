@@ -10,6 +10,7 @@ use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
 use Looper\core\controllers\AbstractController;
+use Looper\models\ExerciseState;
 
 class QuestionController extends AbstractController
 {
@@ -24,8 +25,10 @@ class QuestionController extends AbstractController
         }
 
         $form = new FormValidator('field');
-        $form->addField(['value' => new Field('label', 'string', true)]);
-        $form->addField(['valueKind' => new Field('value_kind', 'string', false)]);
+        $form
+            ->addField(['value' => new Field('label', 'string', true)])
+            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $this->getConstants(QuestionState::class, true))]);;
+
 
         if ($form->process() && $this->csrfValidator()) {
 

@@ -39,7 +39,11 @@ class FormValidator
              * Le champs existe
              * Le champs n'est pas vide ou accepte d'être vide
              */
-            if (!$this->isSet($field) || !$this->isNotEmpty($field) || !$this->$checkType($field)) {
+            if (!$this->isSet($field) ||
+                !$this->isNotEmpty($field) ||
+                !$this->$checkType($field) ||
+                (empty($field->valueToVerify)) ? false : !$this->inArray($field)
+            ) {
                 $res = false;
                 continue;
             }
@@ -93,6 +97,11 @@ class FormValidator
         return true;
     }
 
+    private function inArray(Field $field): bool
+    {
+        return in_array($this->post[$field->name], $field->valueToVerify);
+    }
+
     /**
      * Vérifie que POST contient bien un tableau multidimensionnel avec le bon nom
      *
@@ -111,9 +120,10 @@ class FormValidator
         return true;
     }
 
-    public function addField($field): void
+    public function addField($field): FormValidator
     {
         $this->fields += $field;
+        return $this;
     }
 
     public function getFields(): array
