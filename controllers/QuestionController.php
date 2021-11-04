@@ -2,12 +2,14 @@
 
 namespace Looper\controllers;
 
-use Looper\core\services\Http;
-use Looper\core\controllers\AbstractController;
-use Looper\core\models\Repository;
 use Looper\models\Exercise;
 use Looper\models\Question;
+use Looper\core\forms\Field;
+use Looper\core\services\Http;
 use Looper\models\QuestionState;
+use Looper\core\models\Repository;
+use Looper\core\forms\FormValidator;
+use Looper\core\controllers\AbstractController;
 
 class QuestionController extends AbstractController
 {
@@ -21,6 +23,12 @@ class QuestionController extends AbstractController
             Http::notFoundException();
         }
 
-        Http::response('new/question', ['exercise' => $exercise]);
+        $form = new FormValidator('field');
+        $form->addField(['label' => new Field('label', 'string', true)]);
+        $form->addField(['value_kind' => new Field('value_kind', 'string', false)]);
+
+
+
+        Http::response('new/question', ['exercise' => $exercise], hasForm: true);
     }
 }
