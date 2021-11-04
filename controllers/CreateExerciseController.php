@@ -29,6 +29,7 @@ class CreateExerciseController extends AbstractController
             'title' => $form->getFields()['title']->value,
         ]);
 
+        // In case of errors
         if (!$exercise->create()) {
             Http::redirectToRoute('CreateExercise', ['exerciseName' => Exercise::DEFAULTNAME]);
         }

@@ -5,6 +5,7 @@ namespace Looper\core\models;
 use Looper\core\models\Database;
 use Looper\core\models\traits\Children;
 use Looper\models\Exercise;
+use PhpParser\Node\Expr\Cast\Object_;
 
 abstract class Model
 {
@@ -83,7 +84,7 @@ abstract class Model
         }
     }
 
-    abstract function setId(int $id): Exercise;
+    abstract function setId(int $id): object;
 
     abstract function getId(): int;
 }
