@@ -2,35 +2,38 @@
 
 namespace Looper\controllers;
 
-use Looper\core\services\Field;
-use Looper\core\services\FormValidator;
-use Looper\core\controllers\AbstractController;
-use Looper\core\services\Http;
 use Looper\models\Exercise;
+use Looper\core\forms\Field;
+use Looper\core\services\Http;
+use Looper\core\forms\FormValidator;
+use Looper\core\controllers\AbstractController;
 
 class CreateExerciseController extends AbstractController
 {
     public function show()
     {
-        Http::response('new/index', ['exerciseName' => 'New Exercise'], hasForm: true);
+        Http::response('new/index', hasForm: true);
     }
 
     public function validate()
     {
         $form = new FormValidator('exercise');
-        $form->addField(['title' => new Field('title', 'string', false)]);
+        $form->addField(['title' => new Field('title', 'string', true)]);
 
-        // En cas d'erreur
+        // In case of errors
         if (!$form->process() || !$this->csrfValidator()) {
-            Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
+            Http::redirectToRoute('CreateExercise');
         }
 
-        $exercise = new Exercise();
-        $exercise->setTitle($form->getFields()['title']->value);
-        $exercise->setStatus(Exercise::UNDERCONSTRUCT);
+        $exercise = Exercise::make([
+            'title' => $form->getFields()['title']->value,
+        ]);
 
-        if (!$exercise->save()) {
-            Http::redirectToRoute('CreateExercise', ['exerciseName' => 'New Exercise']);
+        // In case of errors
+        if (!$exercise->create()) {
+            Http::redirectToRoute('CreateExercise');
         }
+
+        Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
     }
 }

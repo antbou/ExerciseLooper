@@ -12,7 +12,8 @@ class Route
 
     public function __construct(string $path, string $controllerName, string $method)
     {
-        $this->path = $path === '/' ? $path : trim($path, '/');
+        $this->path = '/' . trim($path, '/');
+
         $this->controllerName = $controllerName;
         $this->method = $method;
     }
@@ -27,8 +28,7 @@ class Route
     public function doesMatch(string $url): bool
     {
         // retire les / inutils
-        $url = $url === '/' ? $url : trim($url, '/');
-
+        $url = '/' . trim($url, '/');
         /**
          * Remplace : x par n'importe quel caractère qui n'est pas un /
          * On utilise # comme délimiteur car le / est déja utilisé

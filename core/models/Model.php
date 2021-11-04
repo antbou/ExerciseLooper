@@ -3,57 +3,88 @@
 namespace Looper\core\models;
 
 use Looper\core\models\Database;
+use Looper\core\models\traits\Children;
+use Looper\models\Exercise;
+use PhpParser\Node\Expr\Cast\Object_;
 
 abstract class Model
 {
+
+    use Children;
+
+
     protected $table;
 
     /**
-     * Sauvegarde les propriétés de l'objet en base de donnée
+     * create db record from object
      *
-     * @param array $attributes
-     * @return void
+     * @return boolean
      */
-    protected function saveObject(array $attributes): bool
+    public function create(): bool
     {
-        $sql = null;
 
-        // Lorsque l'object n'existe pas en base de donnée
-        if (is_null($attributes['id'])) {
-
-            // Transforme le tableau en string et sépare les valeurs avec une ,
-            $fields = implode(',', array_keys($attributes));
-
-            // Transforme le tableau en string et préfixe les valeurs avec un : toujours en les séparant avec une ,
-            $fieldsBind = implode(',', preg_filter('/^/', ':', array_keys($attributes)));
-
-            $sql = "INSERT INTO $this->table($fields) VALUES ($fieldsBind)";
-        } else { // Lorsque l'object existe en base de donnée
-
-            $attributesWithoutId[] = $attributes;
-
-            $fields = [];
-
-            // Préfixe chaque clef du tableau avec la valeur de la clef suivant de " = :" ce qui donne id = :id
-            foreach (array_keys(array_shift($attributesWithoutId)) as $key) {
-                $fields[] = $key . ' = :' . $key;
-            }
-
-            $fields = implode(',', $fields);
-
-            $sql = "UPDATE $this->table SET $fields WHERE id = :id";
+        $fields = [];
+        $fieldsBind = [];
+        foreach ($this->toArray() as $field => $value) {
+            $fields[] = $field;
+            $fieldsBind[] = ":$field";
         }
 
-        return $this->execute($sql, $attributes);
-    }
+        $fields = implode(',', $fields);
+        $fieldsBind = implode(',', $fieldsBind);
+        $query = "INSERT INTO {$this->table} ($fields) VALUES ($fieldsBind)";
 
-    private function execute(string $query, array $params)
-    {
         try {
-            $sth = Database::getPdo()->prepare($query);
-            return $sth->execute($params);
-        } catch (\PDOException $e) {
+            $this->setId(Database::insert($query, $this->toArray()));
+            return true;
+        } catch (\PDOException $Exception) {
             return false;
         }
     }
+
+    /**
+     * Removes the object from the database
+     *
+     * @return boolean
+     */
+    public function delete(): bool
+    {
+        try {
+            Database::execute("DELETE FROM {$this->table} WHERE id = :id", ['id' => $this->getId()]);
+            return true;
+        } catch (\PDOException $Exception) {
+            return false;
+        }
+    }
+
+    /**
+     * update the object in the database
+     *
+     * @return boolean
+     */
+    public function update(): bool
+    {
+        $fields  = [];
+
+        foreach ($this->toArray() as $field => $fieldsBind) {
+
+            if ($field !== 'id') {
+                $fields[] = "$field=:$field";
+            }
+        }
+
+        $fields = implode(',', $fields);
+
+        $query = "UPDATE {$this->table} SET $fields WHERE id=:id";
+
+        try {
+            return Database::execute($query, $this->toArray());
+        } catch (\PDOException $Exception) {
+            return false;
+        }
+    }
+
+    abstract function setId(int $id): object;
+
+    abstract function getId(): int;
 }

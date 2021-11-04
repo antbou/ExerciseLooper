@@ -1,23 +1,29 @@
 # ExerciseLopper
-Il s'agit d'un site web de gestion d'exercice développé en PHP vanilla correspondant au projet MAW1.1
-## Configuration du projet en local
-### Liste des outils à installer :
+
+Perform for WAW1.1
+
+## Local project configuration
+
+### List of tools to install :
+
 - composer (https://getcomposer.org/)
 - docker (https://www.docker.com/products/docker-desktop)
 
-### Configuration des outils
+### Configuration of the tools
 
-#### composer : 
+#### composer :
 
 ```
-# Installer les dépendances 
+# Installing dependencies
 composer i
-# Gener l'autoload
+# Generate autoload
 composer dump-autoload
 ```
-#### docker : 
 
-Un fichier de configuration local docker pour MYSQL
+#### docker :
+
+Local docker configuration file for MYSQL
+
 ```
 # docker/db.env
 MYSQL_ROOT_PASSWORD=TO_CHANGE
@@ -27,23 +33,33 @@ MYSQL_PASSWORD=TO_CHANGE
 ```
 
 ```
-# A effectuer au premier lancement de l'application afain de créer les images :
+# To be done at the first launch :
 docker-compose up
 ```
 
+Start the containers (once the images are created)
+
 ```
-# Démarrer les containers (une fois les images créées)
 docker-compose start
-# Arreter les containers
-docker-compose stop
 ```
 
-### Configuration fichier local
-Le fichier de configuration local ```.env.php``` doit être créer à la racine du projet  et doit contenir les informations suivantes :
+Stop the containers
+
 ```
-# Attention, l'adresse IP à indiquer doit correspondre à l'adresse IP du conteneur MYSQL
-define("DBHOST", "TO_CHANGE"); 
+docker-compose stop
+
+```
+
+### Local file configuration
+
+The local configuration file `.env.php` must be created at the root of the project and must contain the following information:
+
+```
+<?php
+
+define("DBHOST", "TO_CHANGE"); # The IP address to indicate must correspond to the IP address of the MYSQL container
 define("DBNAME", "TO_CHANGE");
 define("DBUSERNAME", "TO_CHANGE");
 define("DBPASSWORD", "TO_CHANGE");
+
 ```
