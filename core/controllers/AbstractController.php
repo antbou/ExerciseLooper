@@ -2,6 +2,8 @@
 
 namespace Looper\core\controllers;
 
+use Looper\core\services\Http;
+
 abstract class AbstractController
 {
     /**
@@ -17,5 +19,16 @@ abstract class AbstractController
             return true;
         }
         return false;
+    }
+
+    /**
+     * returns a 404 page if the id is not numeric
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function checkNumeric($id): void
+    {
+        (is_numeric($id)) ?: Http::notFoundException();
     }
 }

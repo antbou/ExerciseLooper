@@ -11,6 +11,8 @@ class FieldController extends AbstractController
 {
     public function create($id)
     {
+        $this->checkNumeric($id);
+
         $exercise = Repository::find($id, Exercise::class);
 
         if (empty($exercise)) {
