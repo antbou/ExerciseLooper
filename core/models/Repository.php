@@ -24,4 +24,8 @@ class Repository
     {
         return Database::selectMany('select * from ' . self::getShortName($classname), [], $classname);
     }
+    public static function findAllWhere(string $classname, string $fieldToCheck, string $ref): array
+    {
+        return Database::selectMany('select * from ' . self::getShortName($classname) . ' WHERE ' . $fieldToCheck . ' = ' . $ref, [], $classname);
+    }
 }
