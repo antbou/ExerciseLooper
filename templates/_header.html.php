@@ -1,5 +1,5 @@
 <section class="container">
-    <a href=<?= $router->getUrl('HomePage', []); ?>><img src="/resources/logo.png" /></a>
+    <a href="<?= $router->getUrl('HomePage', []); ?>"><img src="/resources/logo.png" /></a>
     <span class="exercise-label">
 
         <?php if (isset($exercise)) : ?>
