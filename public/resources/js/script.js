@@ -6,3 +6,12 @@ document.querySelectorAll(".fa.fa-trash").forEach(item => {
         }
     })
 });
+
+document.querySelectorAll(".fa.fa-comment").forEach(item => {
+    item.parentElement.addEventListener("click", function (event) {
+        if (!confirm(this.dataset.confirm) || this.dataset.method != 'put') {
+            event.preventDefault();
+        }
+    })
+});
+
