@@ -8,7 +8,7 @@
 <div class="container dashboard">
     <section class="row">
         <div class="column">
-            <a class="button answering column" href="?page=exercises/answering">Take an exercise</a>
+            <a class="button answering column" href=<?= $router->getUrl("TakeExercise", []) ?>>Take an exercise</a>
         </div>
         <div class="column">
             <a class="button managing column" href=<?= $router->getUrl("CreateExercise", []) ?>>Create an exercise</a>
