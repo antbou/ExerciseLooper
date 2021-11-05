@@ -7,8 +7,6 @@
 <main class="container">
 
     <body>
-        <h1>Take</h1>
-
         <ul class="ansering-list">
 
             <?php foreach ($exercisesAnswered as $exerciseAnswered) : ?>
