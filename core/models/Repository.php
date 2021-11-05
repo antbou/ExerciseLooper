@@ -24,4 +24,9 @@ class Repository
     {
         return Database::selectMany('select * from ' . self::getShortName($classname), [], $classname);
     }
+
+    public static function findCustom(string $query, array $params, string $className): array
+    {
+        return Database::selectMany($query, $params, $className);
+    }
 }

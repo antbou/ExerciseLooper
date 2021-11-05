@@ -3,6 +3,7 @@
 namespace Looper\models;
 
 use Looper\core\models\Model;
+use Looper\core\models\Repository;
 
 class Exercise extends Model
 {
@@ -13,6 +14,11 @@ class Exercise extends Model
 
     protected $table = 'exercises';
     const DEFAULTNAME = 'New exercise';
+
+    public function __get($name)
+    {
+        echo $name;
+    }
 
     public static function make(array $params)
     {
@@ -61,5 +67,13 @@ class Exercise extends Model
     {
         $exerciseName = (empty($this->getTitle())) ? self::DEFAULTNAME : ((ctype_space($this->getTitle())) ? self::DEFAULTNAME : $this->getTitle());
         return $exerciseName;
+    }
+
+    public function getQuestions()
+    {
+        $query = "SELECT * FROM db_exerciselooper.questions WHERE questions.exercises_id = :id ORDER BY questions.id DESC";
+        $params = ['id' => $this->id];
+
+        return Repository::findCustom($query, $params, Question::class);
     }
 }

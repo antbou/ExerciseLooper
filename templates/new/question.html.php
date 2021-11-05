@@ -20,14 +20,16 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Bla</td>
-                            <td>single_line</td>
-                            <td>
-                                <a title="Edit" href="/exercises/541/fields/752/edit"><i class="fa fa-edit"></i></a>
-                                <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="/exercises/541/fields/752"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+                        <?php foreach ($exercise->getQuestions() as $question) : ?>
+                            <tr>
+                                <td><?= htmlspecialchars($question->getValue()) ?></td>
+                                <td><?= htmlspecialchars($question->getValueKindName()) ?></td>
+                                <td>
+                                    <a title="Edit" href="/exercises/541/fields/752/edit"><i class="fa fa-edit"></i></a>
+                                    <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="/exercises/541/fields/752"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
 

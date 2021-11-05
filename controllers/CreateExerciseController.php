@@ -12,7 +12,7 @@ class CreateExerciseController extends AbstractController
 {
     public function show()
     {
-        Http::response('new/index', hasForm: true);
+        Http::response('new/index', ['title' => Exercise::DEFAULTNAME], hasForm: true);
     }
 
     public function validate()
