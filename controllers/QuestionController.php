@@ -13,9 +13,8 @@ use Looper\core\controllers\AbstractController;
 
 class QuestionController extends AbstractController
 {
-    public function create($id)
+    public function create(int $id)
     {
-        $this->checkNumeric($id);
 
         $exercise = Repository::find($id, Exercise::class);
 

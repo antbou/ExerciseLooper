@@ -4,9 +4,12 @@ namespace Looper\core\services;
 
 use Looper\core\services\Http;
 use Looper\core\services\Route;
+use Looper\core\traits\Verification;
 
 class Router
 {
+    use Verification;
+
     private $url;
     private $routes = [];
 
@@ -51,10 +54,31 @@ class Router
                 // récupère les paramètres de l'url depuis la route
                 $params = $route->getMatches();
 
-                // Permet d'appeler la méthode de l'object (controller) avec ou sans paramètres
-                call_user_func_array([$controller, $method], $params);
+                $paramsType = new \ReflectionMethod($class, $method);
 
-                return;
+                $inc = 0;
+                $flag = true;
+
+                // Checks if the received parameters match the hinting type of the called method
+                foreach ($paramsType->getParameters() as $param) {
+
+                    if (!isset($params[$inc])) continue;
+
+                    $condition = 'is' . ucfirst((string)$param->gettype());
+                    if (!$this->$condition($params[$inc])) {
+                        $flag = false;
+                        break;
+                    }
+
+                    $inc++;
+                }
+
+                if ($flag) {
+                    // Calls the method of the object (controller) with or without parameters
+                    call_user_func_array([$controller, $method], $params);
+
+                    return;
+                }
             }
         }
 
