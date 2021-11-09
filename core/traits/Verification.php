@@ -28,4 +28,21 @@ trait Verification
     {
         return is_float($value);
     }
+
+    public function isMethodParamsValid(string $class, string $method, array $paramsValue): bool
+    {
+        $paramsType = new \ReflectionMethod($class, $method);
+
+        // Checks if the received parameters match the hinting type of the called method
+        foreach ($paramsType->getParameters() as $key => $param) {
+
+            if (!isset($paramsValue[$key])) continue;
+
+            $condition = 'is' . ucfirst((string)$param->gettype());
+
+            if (!$this->$condition($paramsValue[$key])) return false;
+        }
+
+        return true;
+    }
 }

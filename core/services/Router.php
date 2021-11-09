@@ -54,27 +54,17 @@ class Router
                 // récupère les paramètres de l'url depuis la route
                 $params = $route->getMatches();
 
-                $paramsType = new \ReflectionMethod($class, $method);
+                if (!$this->isMethodParamsValid($class, $method, $params)) break;
 
-                $flag = true;
-
-                // Checks if the received parameters match the hinting type of the called method
-                foreach ($paramsType->getParameters() as $key => $param) {
-
-                    if (!isset($params[$key])) continue;
-
-                    $condition = 'is' . ucfirst((string)$param->gettype());
-                    if (!$this->$condition($params[$key])) {
-                        $flag = false;
-                        break;
-                    }
-                }
-
-                if ($flag) {
+                try {
                     // Calls the method of the object (controller) with or without parameters
                     call_user_func_array([$controller, $method], $params);
-
-                    return;
+                    exit();
+                } catch (\Throwable $th) {
+                    if (APP_ENV === APP_ENVIRONMENT_KIND[0]) {
+                        echo $th->getMessage();
+                        exit();
+                    }
                 }
             }
         }
