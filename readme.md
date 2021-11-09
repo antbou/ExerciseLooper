@@ -61,5 +61,5 @@ define("DBHOST", "TO_CHANGE"); # The IP address to indicate must correspond to t
 define("DBNAME", "TO_CHANGE");
 define("DBUSERNAME", "TO_CHANGE");
 define("DBPASSWORD", "TO_CHANGE");
-
+define('APP_ENV', 'dev'); # choice between dev and prod
 ```

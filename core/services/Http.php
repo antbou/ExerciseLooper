@@ -35,4 +35,11 @@ class Http
         http_response_code($responseCode);
         Render::render($path, $variables, $hasForm);
     }
+
+    public static function internalServerError(): void
+    {
+        http_response_code(500);
+        Render::render('errors/500');
+        exit();
+    }
 }

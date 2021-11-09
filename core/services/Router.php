@@ -51,9 +51,10 @@ class Router
 
                 $controller = new $class;
 
-                // récupère les paramètres de l'url depuis la route
+                // get the url parameters from the route
                 $params = $route->getMatches();
 
+                // checks if the type of value expected by the method are correct
                 if (!$this->isMethodParamsValid($class, $method, $params)) break;
 
                 try {
@@ -62,9 +63,10 @@ class Router
                     exit();
                 } catch (\Throwable $th) {
                     if (APP_ENV === APP_ENVIRONMENT_KIND[0]) {
-                        echo $th->getMessage();
+                        echo $th->getMessage(); // for debug
                         exit();
                     }
+                    Http::internalServerError();
                 }
             }
         }
