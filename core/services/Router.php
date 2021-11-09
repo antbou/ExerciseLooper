@@ -5,10 +5,12 @@ namespace Looper\core\services;
 use Looper\core\services\Http;
 use Looper\core\services\Route;
 use Looper\core\traits\Verification;
+use Looper\core\traits\Exception as LooperException;
 
 class Router
 {
     use Verification;
+    use LooperException;
 
     private $url;
     private $routes = [];
@@ -62,10 +64,7 @@ class Router
                     call_user_func_array([$controller, $method], $params);
                     exit();
                 } catch (\Throwable $th) {
-                    if (APP_ENV === APP_ENVIRONMENT_KIND[0]) {
-                        echo $th->getMessage(); // for debug
-                        exit();
-                    }
+                    $this->showErrorIfDevMod($th);
                     Http::internalServerError();
                 }
             }
