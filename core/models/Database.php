@@ -65,7 +65,6 @@ class Database
     {
         $db = self::getPdo();
         $sth = $db->prepare($query);
-        $sth->execute($params);
 
         return $sth->execute($params);
     }
