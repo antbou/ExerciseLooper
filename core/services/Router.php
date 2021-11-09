@@ -56,21 +56,18 @@ class Router
 
                 $paramsType = new \ReflectionMethod($class, $method);
 
-                $inc = 0;
                 $flag = true;
 
                 // Checks if the received parameters match the hinting type of the called method
-                foreach ($paramsType->getParameters() as $param) {
+                foreach ($paramsType->getParameters() as $key => $param) {
 
-                    if (!isset($params[$inc])) continue;
+                    if (!isset($params[$key])) continue;
 
                     $condition = 'is' . ucfirst((string)$param->gettype());
-                    if (!$this->$condition($params[$inc])) {
+                    if (!$this->$condition($params[$key])) {
                         $flag = false;
                         break;
                     }
-
-                    $inc++;
                 }
 
                 if ($flag) {
