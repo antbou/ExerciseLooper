@@ -28,8 +28,11 @@
                                 <td><?= htmlspecialchars($question->getValueKindName()) ?></td>
                                 <td>
                                     <a title="Edit" href="/exercises/541/fields/752/edit"><i class="fa fa-edit"></i></a>
-                                    <i class="fa fa-trash">
-                                        <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="<?= $router->getUrl('DeleteQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?>"><i class="fa fa-trash"></i></a>
+                                    <!-- <i class="fa fa-trash"> -->
+                                    <!-- <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="<?= $router->getUrl('DeleteQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?>"> -->
+                                    <i class="fa fa-trash" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?>" title="Destroy" rel="nofollow" data-method="delete">
+                                    </i>
+                                    <!-- </a> -->
                                 </td>
                             </tr>
                         <?php endforeach; ?>
