@@ -13,7 +13,7 @@
                 <li class="row">
                     <div class="column card">
                         <div class="title"><?= $exerciseAnswered->getTitle(); ?></div>
-                        <a class="button" href="/exercises/<?= $exerciseAnswered->getStatus(); ?>/fulfillments/new">Take it</a>
+                        <a class="button" href=<?= $router->getUrl('AnswerdExercise', ['idExercise' => $exerciseAnswered->getId()]) ?>>Take it</a>
                     </div>
                 </li>
             <?php endforeach ?>

@@ -25,5 +25,10 @@ return [
         'URI' => '/exercises/answering',
         'Controller' => 'TakeExerciseController',
         'Method' => 'show'
+    ],
+    'AnswerdExercise' => [
+        'URI' => '/exercises/:idExercise/fulfillments/new',
+        'Controller' => 'TakeExerciseController',
+        'Method' => 'answeredExrcise'
     ]
 ];

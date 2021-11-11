@@ -8,6 +8,7 @@ use Looper\core\controllers\AbstractController;
 use Looper\core\models\Repository;
 use Looper\core\services\Http;
 use Looper\models\Exercise;
+use Looper\models\Question;
 
 class TakeExerciseController extends AbstractController
 {
@@ -15,5 +16,14 @@ class TakeExerciseController extends AbstractController
     {
         $exercisesAnswered = Repository::findAllWhere(Exercise::class, 'status', '1');
         Http::response('take/index', ['exercisesAnswered' => $exercisesAnswered]);
+    }
+    public function answeredExrcise($id)
+    {
+
+        $focusExercise = Repository::find($id, Exercise::class);
+        if (empty($focusExercise)) {
+            Http::notFoundException();
+        }
+        Http::response('take/answer', ['focusExercise' => $focusExercise->getQuestions()]);
     }
 }
