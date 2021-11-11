@@ -43,4 +43,10 @@ class QuestionController extends AbstractController
 
         Http::response('new/question', ['exercise' => $exercise], hasForm: true);
     }
+
+    public function delete(int $idExercise, int $idQuestion)
+    {
+        echo "bonour";
+        die;
+    }
 }
