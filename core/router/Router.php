@@ -29,9 +29,9 @@ class Router
      * @param string $method
      * @return Router
      */
-    public function add(string $path, string $name, string $controllerName, string $method): void
+    public function add(string $path, string $name, string $controllerName, string $method, ?string $httpMethod): void
     {
-        $route = new Route($path, $controllerName, $method);
+        $route = new Route($path, $controllerName, $method, $httpMethod);
         $this->routes += [$name => $route];
     }
 
@@ -44,7 +44,7 @@ class Router
     {
         foreach ($this->routes as $name => $route) {
 
-            if ($route->doesMatch($this->url) && $route->isMethodParamsValid()) {
+            if ($route->doesMatch($this->url) && $route->isMethodParamsValid() && $route->doesHttpMethodMatch()) {
 
                 $call = $route->call();
                 if (!$call) return Http::internalServerError();
@@ -83,7 +83,13 @@ class Router
         $routes = include('../config/routeConfig.php');
 
         foreach ($routes as $route => $params) {
-            $this->add($params['URI'], $route, $params['Controller'], $params['Method']);
+            $this->add(
+                $params['URI'],
+                $route,
+                $params['Controller'],
+                $params['Method'],
+                (isset($params['HttpMethod'])) ? $params['HttpMethod'] : null
+            );
         }
     }
 }

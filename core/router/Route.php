@@ -15,13 +15,15 @@ class Route
     private $path;
     private $controller;
     private $method;
+    private $httpMethod;
     private $matches;
 
-    public function __construct(string $path, string $className, string $method)
+    public function __construct(string $path, string $className, string $method, ?string $httpMethod)
     {
         $this->path = '/' . trim($path, '/');
         $this->controller = "Looper\controllers\\$className";
         $this->method = $method;
+        $this->httpMethod = $httpMethod;
     }
 
     /**
@@ -59,6 +61,17 @@ class Route
 
         $this->matches = $matches;
         return true;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return boolean true if httpMethod not indicated or httpMethod matches with the http request's method
+     */
+    public function doesHttpMethodMatch(): bool
+    {
+        if (is_null($this->httpMethod) || strtoupper($this->httpMethod) == $_SERVER['REQUEST_METHOD']) return true;
+        return false;
     }
 
     /**
