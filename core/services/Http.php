@@ -3,7 +3,7 @@
 namespace Looper\core\services;
 
 use Looper\core\services\Render;
-use Looper\core\services\RouterManager;
+use Looper\core\router\RouterManager;
 
 class Http
 {
