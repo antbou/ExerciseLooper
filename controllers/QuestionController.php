@@ -44,9 +44,13 @@ class QuestionController extends AbstractController
         Http::response('new/question', ['exercise' => $exercise], hasForm: true);
     }
 
-    public function delete(int $idExercise, int $idQuestion)
+    public function delete(int $idExercise, int $idQuestion): bool
     {
-        echo "bonour";
-        die;
+        if ($this->csrfValidator() && $_POST['_method'] === 'delete') {
+            $question = Repository::find($idQuestion, Question::class);
+            $question->delete();
+        }
+
+        return http_response_code(200);
     }
 }
