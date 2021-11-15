@@ -1,9 +1,9 @@
 @import "variables";
-@import "style";
 @import "_header";
+@import "fa";
 
+@import "../../node_modules/milligram/src/milligram";
+@import "../../node_modules/normalize.css/normalize";
 @import "../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
 @import "../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
 @import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
-
-@import "fa";
