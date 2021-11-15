@@ -3,7 +3,7 @@
 namespace Looper\core\services;
 
 use Looper\core\services\Render;
-use Looper\core\services\RouterManager;
+use Looper\core\router\RouterManager;
 
 class Http
 {
@@ -34,5 +34,12 @@ class Http
     {
         http_response_code($responseCode);
         Render::render($path, $variables, $hasForm);
+    }
+
+    public static function internalServerError(): void
+    {
+        http_response_code(500);
+        Render::render('errors/500');
+        exit();
     }
 }

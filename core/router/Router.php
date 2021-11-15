@@ -1,12 +1,17 @@
 <?php
 
-namespace Looper\core\services;
+namespace Looper\core\router;
 
 use Looper\core\services\Http;
-use Looper\core\services\Route;
+use Looper\core\router\Route;
+use Looper\core\traits\Verification;
+use Looper\core\traits\Exception as LooperException;
 
 class Router
 {
+    use Verification;
+    use LooperException;
+
     private $url;
     private $routes = [];
 
@@ -24,9 +29,9 @@ class Router
      * @param string $method
      * @return Router
      */
-    public function add(string $path, string $name, string $controllerName, string $method): void
+    public function add(string $path, string $name, string $controllerName, string $method, ?string $httpMethod): void
     {
-        $route = new Route($path, $controllerName, $method);
+        $route = new Route($path, $controllerName, $method, $httpMethod);
         $this->routes += [$name => $route];
     }
 
@@ -35,30 +40,19 @@ class Router
      *
      * @return boolean
      */
-    public function process(): void
+    public function process(): mixed
     {
-        /** @var Route */
         foreach ($this->routes as $name => $route) {
 
-            if ($route->doesMatch($this->url)) {
+            if ($route->doesMatch($this->url) && $route->isMethodParamsValid() && $route->doesHttpMethodMatch()) {
 
-                $className = $route->getControllerName();
-                $class = "Looper\controllers\\$className";
-                $method = $route->getMethod();
-
-                $controller = new $class;
-
-                // récupère les paramètres de l'url depuis la route
-                $params = $route->getMatches();
-
-                // Permet d'appeler la méthode de l'object (controller) avec ou sans paramètres
-                call_user_func_array([$controller, $method], $params);
-
-                return;
+                $call = $route->call();
+                if (!$call) return Http::internalServerError();
+                return $call;
             }
         }
 
-        Http::notFoundException();
+        return Http::notFoundException();
     }
 
     /**
@@ -89,7 +83,13 @@ class Router
         $routes = include('../config/routeConfig.php');
 
         foreach ($routes as $route => $params) {
-            $this->add($params['URI'], $route, $params['Controller'], $params['Method']);
+            $this->add(
+                $params['URI'],
+                $route,
+                $params['Controller'],
+                $params['Method'],
+                (isset($params['HttpMethod'])) ? $params['HttpMethod'] : null
+            );
         }
     }
 }

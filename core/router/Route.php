@@ -1,21 +1,29 @@
 <?php
 
-namespace Looper\core\services;
+namespace Looper\core\router;
+
+use Looper\core\traits\Verification;
+use Looper\core\traits\Exception as LooperException;
 
 class Route
 {
+    use Verification {
+        isMethodParamsValid as isMethodParamsValidTrait;
+    }
+    use LooperException;
 
     private $path;
-    private $controllerName;
+    private $controller;
     private $method;
+    private $httpMethod;
     private $matches;
 
-    public function __construct(string $path, string $controllerName, string $method)
+    public function __construct(string $path, string $className, string $method, ?string $httpMethod)
     {
         $this->path = '/' . trim($path, '/');
-
-        $this->controllerName = $controllerName;
+        $this->controller = "Looper\controllers\\$className";
         $this->method = $method;
+        $this->httpMethod = $httpMethod;
     }
 
     /**
@@ -56,6 +64,17 @@ class Route
     }
 
     /**
+     * Undocumented function
+     *
+     * @return boolean true if httpMethod not indicated or httpMethod matches with the http request's method
+     */
+    public function doesHttpMethodMatch(): bool
+    {
+        if (is_null($this->httpMethod) || strtoupper($this->httpMethod) == $_SERVER['REQUEST_METHOD']) return true;
+        return false;
+    }
+
+    /**
      * Genère l'URL de la route avec les paramètres données à cette dernière
      *
      * @param array $params
@@ -74,19 +93,20 @@ class Route
         return $path;
     }
 
-
-    public function getControllerName(): string
+    public function isMethodParamsValid(): bool
     {
-        return $this->controllerName;
+        return $this->isMethodParamsValidTrait($this->controller, $this->method, $this->matches);
     }
 
-    public function getMethod(): string
+    public function call(): bool
     {
-        return $this->method;
-    }
-
-    public function getMatches(): array
-    {
-        return $this->matches;
+        try {
+            // Calls the method of the object (controller) with or without parameters
+            call_user_func_array([new $this->controller, $this->method], $this->matches);
+            return true;
+        } catch (\Throwable $th) {
+            $this->showErrorIfDevMod($th);
+            return false;
+        }
     }
 }

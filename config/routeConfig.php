@@ -4,7 +4,7 @@ return [
     'HomePage' => [
         'URI' => '/',
         'Controller' => 'HomeController',
-        'Method' => 'show'
+        'Method' => 'show',
     ],
     'CreateExercise' => [
         'URI' => '/exercises/new',
@@ -25,5 +25,11 @@ return [
         'URI' => '/exercises/answering',
         'Controller' => 'TakeExerciseController',
         'Method' => 'show'
-    ]
+    ],
+    'DeleteQuestion' => [
+        'URI' => '/exercises/:idExercise/fields/:idQuestion',
+        'Controller' => 'QuestionController',
+        'Method' => 'delete',
+        'HttpMethod' => 'post'
+    ],
 ];

@@ -15,10 +15,7 @@ class Exercise extends Model
     protected $table = 'exercises';
     const DEFAULTNAME = 'New exercise';
 
-    public function __get($name)
-    {
-        echo $name;
-    }
+
 
     public static function make(array $params)
     {

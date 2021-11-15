@@ -1,4 +1,6 @@
-docker/db.env
 .vscode
 vendor
 .env.php
+docker/db.env
+node_modules
+public/resources/style

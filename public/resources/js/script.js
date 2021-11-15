@@ -1,9 +1,23 @@
 document.querySelectorAll(".fa.fa-trash").forEach(item => {
-    item.addEventListener("click", function (event) {
-        const a = this.parentElement;
-        if (!confirm(a.dataset.confirm) || a.dataset.method != 'delete') {
-            event.preventDefault();
+    item.addEventListener("click", function () {
+
+        if (!confirm(item.dataset.confirm) || item.dataset.method != 'delete') {
+            return false;
         }
+
+        const xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () { // listen for state changes
+            if (xhttp.readyState == 4 && xhttp.status == 200) { // when completed we can move away
+                window.location = window.location.href;
+            }
+        }
+
+        const csrf = document.querySelector('meta[name="csrf-token"]').content;
+
+        xhttp.open("POST", item.dataset.href, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("_method=delete&token=" + csrf);
     })
 });
 
