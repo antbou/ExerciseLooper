@@ -33,7 +33,7 @@ class QuestionController extends AbstractController
             if ($question->create()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
         }
 
-        return Http::response('new/question', ['exercise' => $exercise], hasForm: true);
+        return Http::response('questions/new', ['exercise' => $exercise], hasForm: true);
     }
 
     public function delete(int $idExercise, int $idQuestion): bool
@@ -44,5 +44,10 @@ class QuestionController extends AbstractController
         }
 
         return http_response_code(200);
+    }
+
+    public function edit(int $idExercise, int $idQuestion)
+    {
+        return Http::response('questions/edit', ['exercise' => $idExercise], hasForm: true);
     }
 }
