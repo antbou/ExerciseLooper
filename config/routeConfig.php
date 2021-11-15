@@ -32,4 +32,9 @@ return [
         'Method' => 'delete',
         'HttpMethod' => 'post'
     ],
+    'EditQuestion' => [
+        'URI' => '/exercises/:idExercise/fields/:idQuestion/edit',
+        'Controller' => 'QuestionController',
+        'Method' => 'edit',
+    ],
 ];

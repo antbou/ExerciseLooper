@@ -27,7 +27,7 @@
                                 <td><?= htmlspecialchars($question->getValue()) ?></td>
                                 <td><?= htmlspecialchars($question->getValueKindName()) ?></td>
                                 <td>
-                                    <a title="Edit" href="/exercises/541/fields/752/edit"><i class="fa fa-edit"></i></a>
+                                    <a title="Edit" href="<?= $router->getUrl('EditQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?>"><i class="fa fa-edit"></i></a>
 
                                     <i class="fa fa-trash link" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
 
