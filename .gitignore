@@ -2,3 +2,4 @@
 vendor
 .env.php
 docker/db.env
+node_modules
