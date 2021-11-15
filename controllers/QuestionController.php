@@ -48,6 +48,21 @@ class QuestionController extends AbstractController
 
     public function edit(int $idExercise, int $idQuestion)
     {
-        return Http::response('questions/edit', ['exercise' => $idExercise], hasForm: true);
+        $exercise = Repository::find($idExercise, Exercise::class);
+        $question = Repository::find($idQuestion, Question::class);
+
+        if (empty($exercise) || empty($question)) return Http::notFoundException();
+
+        $form = new FormValidator('field');
+        $form->addField(['value' => new Field('label', 'string', true)])
+            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $this->getConstants(QuestionState::class, true))]);
+
+        if ($form->process() && $this->csrfValidator()) {
+            $question->setValue($form->getFields()['value']->value);
+            $question->setValueKind(QuestionState::getConstValue($form->getFields()['valueKind']->value));
+            if ($question->update()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
+        }
+
+        return Http::response('questions/edit', ['exercise' => $exercise, 'question' => $question, 'questionState' => QuestionState::class], hasForm: true);
     }
 }
