@@ -50,6 +50,11 @@ docker-compose stop
 
 ```
 
+#### SASS
+```sh
+sass --watch assets\scss\main.scss .\public\resources\style\style.css
+```
+
 ### Local file configuration
 
 The local configuration file `.env.php` must be created at the root of the project and must contain the following information:
@@ -63,3 +68,4 @@ define("DBUSERNAME", "TO_CHANGE");
 define("DBPASSWORD", "TO_CHANGE");
 define('APP_ENV', 'dev'); # choice between dev and prod
 ```
+
