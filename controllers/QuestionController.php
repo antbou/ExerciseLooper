@@ -9,6 +9,7 @@ use Looper\core\services\Http;
 use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
+use Looper\core\router\RouterManager;
 use Looper\core\controllers\AbstractController;
 
 class QuestionController extends AbstractController
@@ -36,14 +37,19 @@ class QuestionController extends AbstractController
         return Http::response('questions/new', ['exercise' => $exercise], hasForm: true);
     }
 
-    public function delete(int $idExercise, int $idQuestion): bool
+    public function delete(int $idExercise, int $idQuestion)
     {
-        if ($this->csrfValidator() && $_POST['_method'] === 'delete') {
-            $question = Repository::find($idQuestion, Question::class);
-            $question->delete();
-        }
+        $question = Repository::find($idQuestion, Question::class);
 
-        return http_response_code(200);
+        if (empty($question)) return Http::notFoundException();
+
+        $url = ['route' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $question->getExercisesId()])];
+
+        if (!$this->csrfValidator() || $_POST['_method'] !== 'delete') return Http::responseApi($url);
+
+        if (!$question->delete()) return Http::internalServerError();
+
+        return Http::responseApi($url);
     }
 
     public function edit(int $idExercise, int $idQuestion)

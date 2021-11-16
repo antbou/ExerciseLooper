@@ -36,9 +36,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-
-                <a data-confirm="Are you sure? You won&#39;t be able to further edit this exercise" class="button" rel="nofollow" data-method="put" href="/exercises/541?exercise%5Bstatus%5D=answering"><i class="fa fa-comment"></i> Complete and be ready for answers</a>
-
+                <button class="button status" data-confirm="Are you sure? You won&#39;t be able to further edit this exercise" data-href="<?= $router->getUrl('StatusExercise', ['idExercise' => $exercise->getId(), 'slug' => 'answering']) ?>"><i class="fa fa-comment"></i>Complete and be ready for answers</button>
             </section>
             <section class="column">
                 <h1>New Field</h1>

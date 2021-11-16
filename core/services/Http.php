@@ -36,6 +36,13 @@ class Http
         Render::render($path, $variables, $hasForm);
     }
 
+    public static function responseApi(array $variables = [], int $responseCode = 200): void
+    {
+        http_response_code($responseCode);
+        header('Content-Type: application/json; charset=utf-8');
+        Render::renderApi($variables);
+    }
+
     public static function internalServerError(): void
     {
         http_response_code(500);
