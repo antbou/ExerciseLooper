@@ -41,6 +41,7 @@ return [
         'URI' => '/exercises/:idExercise/status/:slug',
         'Controller' => 'ExerciseController',
         'Method' => 'status',
+        'HttpMethod' => 'post'
     ],
     'ShowAllExercise' => [
         'URI' => '/exercises/all',
