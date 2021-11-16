@@ -32,4 +32,11 @@ class Render
 
         require('../templates/base.html.php');
     }
+
+    public static function renderApi(array $variables)
+    {
+        $variables = json_encode($variables, JSON_PRETTY_PRINT);
+
+        require('../templates/api/index.html.php');
+    }
 }

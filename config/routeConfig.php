@@ -37,4 +37,15 @@ return [
         'Controller' => 'QuestionController',
         'Method' => 'edit',
     ],
+    'StatusExercise' => [
+        'URI' => '/exercises/:idExercise/status/:slug',
+        'Controller' => 'ExerciseController',
+        'Method' => 'status',
+        'HttpMethod' => 'post'
+    ],
+    'ShowAllExercise' => [
+        'URI' => '/exercises/all',
+        'Controller' => 'ExerciseController',
+        'Method' => 'status',
+    ],
 ];
