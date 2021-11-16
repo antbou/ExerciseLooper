@@ -7,7 +7,7 @@
 <main class="container">
     <h1>Your take</h1>
     <p>If you'd like to come back later to finish, simply submit it with blanks</p>
-    <form action=<?= $router->getUrl('SaveAnswer', ['idUser' => $focusExercise->getId()]) ?> accept-charset="UTF-8" method="post">
+    <form action=<?= $router->getUrl('SaveAnswer', ['idExercise' => $focusExercise->getId()]) ?> accept-charset="UTF-8" method="post">
 
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
 

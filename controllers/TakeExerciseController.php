@@ -28,4 +28,13 @@ class TakeExerciseController extends AbstractController
         }
         return Http::response('take/answer', ['focusExercise' => $focusExercise, 'questionState' => QuestionState::class], hasForm: true);
     }
+    public function  saveAnswer($id)
+    {
+        $this->checkNumeric($id);
+        $exercise = Repository::find($id, Exercise::class);
+
+        if (empty($exercise)) {
+            Http::notFoundException();
+        }
+    }
 }

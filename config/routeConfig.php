@@ -32,8 +32,8 @@ return [
         'Method' => 'answeredExrcise'
     ],
     'SaveAnswer' => [
-        'URI' => '/exercises/:idExercise/fulfillments/:idUser/edit',
+        'URI' => '/exercises/:idExercise/fulfillments/:idResponse/edit',
         'Controller' => 'TakeExerciseController',
-        'Method' => 'answeredExrcise'
+        'Method' => 'saveAnswer'
     ]
 ];
