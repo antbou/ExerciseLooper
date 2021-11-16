@@ -13,38 +13,27 @@
 
         <?php
         foreach ($focusExercise->getQuestions() as $question) {
-            var_dump($questionState::SINGLE_LINE);
-
         ?>
-            <?= //switch($question->getValueKind()){
-            //case  $questionState::SINGLE_LINE;
-            //case  $questionState::SINGLE_LINE;
-            //case  $questionState::SINGLE_LINE;
-            //}
-            ($question->getValueKind() === $questionState::SINGLE_LINE) ? 'selected="selected"' : ''  ?>
-            <input type="hidden" name="id" value="<?= $question->getId() ?>">
-            <label for="exercise_title"><?= $question->getValue() ?></label>
-            <input>
-            <p></p>
+            <div class=" field">
+                <label for="exercise_title"><?= $question->getValue() ?></label>
+                <?php
+                if ($question->getValueKind() == $questionState::SINGLE_LINE) { ?>
+                    <input id="fulfillment_answers_attributes__value" type="text" name="">
+                <?php
+                } else {
+                ?>
+                    <textarea name="" id="fulfillment_answers_attributes__value"></textarea>
+                <?php
+                }
+                ?>
+                <input type="hidden" name="id" value="<?= $question->getId() ?>">
+            </div>
         <?php
         }
         ?>
-        <div class=" field">
-            <label for="field_label">Label</label>
-            <input type="text" name="field[label]" id="field_label" />
-        </div>
-
-        <div class="field">
-            <label for="field_value_kind">Value kind</label>
-            <select name="field[value_kind]" id="field_value_kind">
-                <option selected="selected" value="SINGLE_LINE">Single line text</option>
-                <option value="SINGLE_LINE_LIST">List of single lines</option>
-                <option value="MULTI_LINE">Multi-line text</option>
-            </select>
-        </div>
 
         <div class="actions">
-            <input type="submit" name="commit" value="Create Field" data-disable-with="Create Field" />
+            <input type="submit" name="commit" value="Save" data-disable-with="Save">
         </div>
     </form>
 

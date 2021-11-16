@@ -8,6 +8,7 @@ use Looper\core\controllers\AbstractController;
 use Looper\core\models\Repository;
 use Looper\core\services\Http;
 use Looper\models\Exercise;
+use Looper\models\ExerciseState;
 use Looper\models\Question;
 use Looper\models\QuestionState;
 
@@ -15,7 +16,7 @@ class TakeExerciseController extends AbstractController
 {
     public function show()
     {
-        $exercisesAnswered = Repository::findAllWhere(Exercise::class, 'status', '1');
+        $exercisesAnswered = Repository::findAllWhere(Exercise::class, 'status', ExerciseState::ANSWERED);
         return Http::response('take/index', ['exercisesAnswered' => $exercisesAnswered]);
     }
     public function answeredExrcise($id)
