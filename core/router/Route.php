@@ -64,13 +64,16 @@ class Route
     }
 
     /**
-     * Undocumented function
+     * Check if the http method indicated corresponds to the one received by the server
      *
      * @return boolean true if httpMethod not indicated or httpMethod matches with the http request's method
      */
     public function doesHttpMethodMatch(): bool
     {
-        if (is_null($this->httpMethod) || strtoupper($this->httpMethod) == $_SERVER['REQUEST_METHOD']) return true;
+        $method = ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_method'])) ? $_POST['_method'] : $_SERVER['REQUEST_METHOD'];
+        if (
+            is_null($this->httpMethod) || strtoupper($this->httpMethod) == strtoupper($method)
+        ) return true;
         return false;
     }
 

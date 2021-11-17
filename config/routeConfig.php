@@ -30,7 +30,7 @@ return [
         'URI' => '/exercises/:idExercise/fields/:idQuestion',
         'Controller' => 'QuestionController',
         'Method' => 'delete',
-        'HttpMethod' => 'post'
+        'HttpMethod' => 'delete'
     ],
     'EditQuestion' => [
         'URI' => '/exercises/:idExercise/fields/:idQuestion/edit',
@@ -41,7 +41,7 @@ return [
         'URI' => '/exercises/:idExercise/status/:slug',
         'Controller' => 'ExerciseController',
         'Method' => 'status',
-        'HttpMethod' => 'post'
+        'HttpMethod' => 'put'
     ],
     'ShowAllExercise' => [
         'URI' => '/exercises/all',
