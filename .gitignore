@@ -2,3 +2,4 @@ docker/db.env
 .vscode
 vendor
 .env.php
+node_modules
