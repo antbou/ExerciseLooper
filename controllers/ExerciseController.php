@@ -8,6 +8,7 @@ use Looper\core\models\Repository;
 use Looper\core\router\RouterManager;
 use Looper\core\controllers\AbstractController;
 use Looper\models\ExerciseState;
+use Looper\models\Status;
 
 class ExerciseController extends AbstractController
 {
@@ -21,7 +22,7 @@ class ExerciseController extends AbstractController
             return http::responseApi(['route' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $exercise->getId()])]);
         }
 
-        $exercise->setStatus(ExerciseState::ANSWERED);
+        $exercise->setStatusId(Repository::findAllWhere(Status::class, 'slug', 'UNDE')[0]->getId());
 
         if (!$exercise->update()) return Http::internalServerError();
 
