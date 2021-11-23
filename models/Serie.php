@@ -13,6 +13,16 @@ class Serie extends Model
 
     protected $table = 'series';
 
+    public static function make(array $params): Serie
+    {
+        $serie = new Serie();
+        $serie->id = (isset($params['id'])) ? $params['id'] : null;
+        $serie->date = $params['date'];
+        $serie->exercise_id = $params['exercise_id'];
+        return $serie;
+    }
+
+
     public function getId(): int
     {
         return $this->id;
