@@ -21,8 +21,6 @@ class Database
 
         try {
             if (self::$instance === null) {
-
-                // var_dump(defined('DBHOST'));
                 if (!defined('DBHOST') || !defined('CHARSET'))  require(APP_ROOT . '/.env.php');
 
                 $host = (self::$host) ? self::$host : DBHOST;
