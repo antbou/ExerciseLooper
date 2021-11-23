@@ -10,7 +10,7 @@ class State extends Model
     private string $name;
     private string $slug;
 
-    protected $table = 'status';
+    protected $table = 'states';
 
     public function getId(): int
     {
