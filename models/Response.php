@@ -10,7 +10,8 @@ class Response extends Model
 
     private ?int $id;
     private string $value;
-    private int $type;
+    private int $question_id;
+    private int $serie_id;
 
     protected $table = 'responses';
 
@@ -18,9 +19,9 @@ class Response extends Model
     {
         $response = new Response();
         $response->id = (isset($params['id'])) ? $params['id'] : null;
-        $response->title = $params['value'];
-        $response->status = (isset($params['type'])) ? $params['type'] : ExerciseState::UNDERCONSTRUCT;
-
+        $response->value = $params['value'];
+        $response->question_id = $params['question_id'];
+        $response->serie_id = $params['serie_id'];
         return $response;
     }
 
@@ -46,14 +47,24 @@ class Response extends Model
         return $this;
     }
 
-    public function getType(): int
+    public function getQuestionId(): int
     {
-        return $this->type;
+        return $this->question_id;
     }
 
-    public function setType(int $type): Response
+    public function setQuestionId(int $question_id): Response
     {
-        $this->type = $type;
+        $this->question_id = $question_id;
+        return $this;
+    }
+    public function getSerieId(): int
+    {
+        return $this->serie_id;
+    }
+
+    public function setSerieId(int $serie_id): Response
+    {
+        $this->serie_id = $serie_id;
         return $this;
     }
 }
