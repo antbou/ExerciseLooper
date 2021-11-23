@@ -20,7 +20,7 @@ class QuestionController extends AbstractController
         $exercise = Repository::find($id, Exercise::class);
 
         if (empty($exercise)) {
-            Http::notFoundException();
+            return Http::notFoundException();
         }
 
         $form = new FormValidator('field');
@@ -38,10 +38,10 @@ class QuestionController extends AbstractController
             ]);
 
             if ($question->create()) {
-                Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
+                return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
             }
         }
 
-        Http::response('new/question', ['exercise' => $exercise], hasForm: true);
+        return Http::response('new/question', ['exercise' => $exercise], hasForm: true);
     }
 }
