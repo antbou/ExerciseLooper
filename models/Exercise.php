@@ -71,7 +71,7 @@ class Exercise extends Model
 
     public function getQuestions()
     {
-        $query = "SELECT * FROM db_exerciselooper.questions WHERE questions.exercises_id = :id ORDER BY questions.id DESC";
+        $query = "SELECT * FROM db_exerciselooper.questions WHERE questions.exercise_id = :id ORDER BY questions.id DESC";
         $params = ['id' => $this->id];
 
         return Repository::findCustom($query, $params, Question::class);

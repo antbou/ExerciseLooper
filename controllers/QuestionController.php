@@ -34,7 +34,7 @@ class QuestionController extends AbstractController
             $question = Question::make([
                 'value' => $form->getFields()['value']->value,
                 'valueKind' => QuestionState::getConstValue($form->getFields()['valueKind']->value),
-                'exercises_id' => $exercise->getId()
+                'exercise_id' => $exercise->getId()
             ]);
 
             if ($question->create()) {
