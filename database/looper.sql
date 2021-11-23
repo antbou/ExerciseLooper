@@ -143,9 +143,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 DELETE FROM `states`;
 /*!40000 ALTER TABLE `states` DISABLE KEYS */;
 INSERT INTO `states` (`id`, `name`, `slug`) VALUES
-	(1, 'single_line', 'SIN_LIN'),
-	(2, 'single_line_list', 'SIN_LIS'),
-	(3, 'multi_line', 'MUL_LIN');
+	(1, 'Single line text', 'SINGLE_LINE'),
+	(2, 'List of single lines', 'SINGLE_LINE_LIST'),
+	(3, 'Multi-line text', 'MULTI_LINE');
 /*!40000 ALTER TABLE `states` ENABLE KEYS */;
 
 -- Listage des données de la table db_exerciselooper.status : ~0 rows (environ)
