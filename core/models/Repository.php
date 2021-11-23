@@ -3,11 +3,11 @@
 namespace Looper\core\models;
 
 use Looper\core\models\Database;
-use Looper\core\models\traits\Table;
+use Looper\core\traits\ClassToTable;
 
 class Repository
 {
-    use Table;
+    use ClassToTable;
 
     /**
      * Return a specific item

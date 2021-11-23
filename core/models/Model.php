@@ -3,15 +3,12 @@
 namespace Looper\core\models;
 
 use Looper\core\models\Database;
-use Looper\core\models\traits\Children;
-use Looper\models\Exercise;
-use PhpParser\Node\Expr\Cast\Object_;
+use Looper\core\traits\GetChildrenProperties;
 
 abstract class Model
 {
 
-    use Children;
-
+    use GetChildrenProperties;
 
     protected $table;
 

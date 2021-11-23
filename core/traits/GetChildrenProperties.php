@@ -1,11 +1,11 @@
 <?php
 
-namespace Looper\core\models\traits;
+namespace Looper\core\traits;
 
 use ReflectionClass;
 use ReflectionProperty;
 
-trait Children
+trait GetChildrenProperties
 {
 
     /**
