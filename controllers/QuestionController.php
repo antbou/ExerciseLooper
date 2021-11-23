@@ -66,7 +66,7 @@ class QuestionController extends AbstractController
         if (empty($exercise) || empty($question)) return Http::notFoundException();
 
         $states = array_map(function ($o) {
-            return strtoupper($o->getName());
+            return $o->getSlug();
         }, Repository::findAll(State::class));
 
         $form = new FormValidator('field');
@@ -80,6 +80,6 @@ class QuestionController extends AbstractController
             if ($question->update()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
         }
 
-        return Http::response('questions/edit', ['exercise' => $exercise, 'question' => $question, 'questionState' => QuestionState::class], hasForm: true);
+        return Http::response('questions/edit', ['exercise' => $exercise, 'question' => $question, 'states' => Repository::findAll(state::class)], hasForm: true);
     }
 }

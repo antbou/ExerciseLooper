@@ -16,9 +16,9 @@
         <div class="field">
             <label for="field_value_kind">Value kind</label>
             <select name="field[value_kind]" id="field_value_kind">
-                <option <?= ($question->getValueKind() === $questionState::SINGLE_LINE) ? 'selected="selected"' : '' ?> value="SINGLE_LINE">Single line text</option>
-                <option <?= ($question->getValueKind() === $questionState::SINGLE_LINE_LIST) ? 'selected="selected"' : '' ?> value="SINGLE_LINE_LIST">List of single lines</option>
-                <option <?= ($question->getValueKind() === $questionState::MULTI_LINE) ? 'selected="selected"' : '' ?> value="MULTI_LINE">Multi-line text</option>
+                <?php foreach ($states as $state) : ?>
+                    <option <?= ($question->getState() == $state) ? 'selected="selected"' : '' ?> value=<?= $state->getSlug() ?>><?= $state->getName() ?></option>
+                <?php endforeach ?>
             </select>
         </div>
         <div class="actions">
