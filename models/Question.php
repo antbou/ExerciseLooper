@@ -3,6 +3,7 @@
 namespace Looper\models;
 
 use Looper\core\models\Model;
+use Looper\core\models\Repository;
 
 class Question extends Model
 {
@@ -66,5 +67,10 @@ class Question extends Model
     {
         $this->exercise_id = $exercise_id;
         return $this;
+    }
+
+    public function getState(): State
+    {
+        return Repository::find($this->state_id, State::class);
     }
 }
