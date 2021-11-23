@@ -20,7 +20,7 @@ class Exercise extends Model
         $exercise = new Exercise();
         $exercise->id = (isset($params['id'])) ? $params['id'] : null;
         $exercise->title = $params['title'];
-        $exercise->status_id = (isset($params['status_id'])) ? $params['status_id'] : Repository::findAllWhere(Status::class, 'slug', 'UND')[0]->getId();
+        $exercise->status_id = (isset($params['status_id'])) ? $params['status_id'] : Repository::findAllWhere(Status::class, 'slug', 'UNDE')[0]->getId();
 
         return $exercise;
     }
