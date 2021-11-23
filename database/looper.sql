@@ -71,17 +71,17 @@ CREATE TABLE IF NOT EXISTS `db_exerciselooper`.`questions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `value` VARCHAR(45) NOT NULL,
   `exercise_id` INT NOT NULL,
-  `states_id` INT NOT NULL,
+  `state_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_fields_exercises_idx` (`exercise_id` ASC) VISIBLE,
-  INDEX `fk_questions_states1_idx` (`states_id` ASC) VISIBLE,
+  INDEX `fk_questions_states1_idx` (`state_id` ASC) VISIBLE,
   CONSTRAINT `fk_fields_exercises`
     FOREIGN KEY (`exercise_id`)
     REFERENCES `db_exerciselooper`.`exercises` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_questions_states1`
-    FOREIGN KEY (`states_id`)
+    FOREIGN KEY (`state_id`)
     REFERENCES `db_exerciselooper`.`states` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -136,6 +136,7 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 
 -- Listage des données de la table db_exerciselooper.states : ~0 rows (environ)
