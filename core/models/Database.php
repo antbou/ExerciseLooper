@@ -21,7 +21,10 @@ class Database
 
         try {
             if (self::$instance === null) {
-                require(APP_ROOT . '/.env.php');
+
+                // var_dump(defined('DBHOST'));
+                if (!defined('DBHOST') || !defined('CHARSET'))  require(APP_ROOT . '/.env.php');
+
                 $host = (self::$host) ? self::$host : DBHOST;
                 self::$instance = new PDO('mysql:host=' . $host . ';dbname=' . DBNAME . ';charset=' . CHARSET, DBUSERNAME, DBPASSWORD);
             }
