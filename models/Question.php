@@ -9,7 +9,7 @@ class Question extends Model
     private ?int $id;
     private string $value;
     private int $valueKind;
-    private int $exercises_id;
+    private int $exercise_id;
 
     protected $table = 'questions';
 
@@ -19,7 +19,7 @@ class Question extends Model
         $question->id = (isset($params['id'])) ? $params['id'] : null;
         $question->value = $params['value'];
         $question->valueKind = $params['valueKind'];
-        $question->exercises_id = $params['exercises_id'];
+        $question->exercise_id = $params['exercise_id'];
 
         return $question;
     }
@@ -59,12 +59,12 @@ class Question extends Model
 
     public function getExercisesId(): int
     {
-        return $this->exercises_id;
+        return $this->exercise_id;
     }
 
-    public function setExercisesId(int $exercises_id): Question
+    public function setExercisesId(int $exercise_id): Question
     {
-        $this->exercises_id = $exercises_id;
+        $this->exercise_id = $exercise_id;
         return $this;
     }
 
