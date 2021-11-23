@@ -10,22 +10,17 @@ class Exercise extends Model
 
     private ?int $id;
     private string $title;
-    private int $status;
+    private int $status_id;
 
     protected $table = 'exercises';
     const DEFAULTNAME = 'New exercise';
 
-    public function __get($name)
-    {
-        echo $name;
-    }
-
-    public static function make(array $params)
+    public static function make(array $params): Exercise
     {
         $exercise = new Exercise();
         $exercise->id = (isset($params['id'])) ? $params['id'] : null;
         $exercise->title = $params['title'];
-        $exercise->status = (isset($params['status'])) ? $params['status'] : ExerciseState::UNDERCONSTRUCT;
+        $exercise->status_id = (isset($params['status_id'])) ? $params['status_id'] : Repository::findAllWhere(Status::class, 'slug', 'UND')[0]->getId();
 
         return $exercise;
     }
@@ -52,14 +47,14 @@ class Exercise extends Model
         return $this;
     }
 
-    public function getStatus(): int
+    public function getStatusId(): int
     {
-        return $this->status;
+        return $this->status_id;
     }
 
-    public function setStatus(int $status): Exercise
+    public function setStatusId(int $status_id): Exercise
     {
-        $this->status = $status;
+        $this->status_id = $status_id;
         return $this;
     }
 
