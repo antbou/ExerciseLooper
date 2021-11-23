@@ -22,26 +22,25 @@ class QuestionController extends AbstractController
         if (empty($exercise)) return Http::notFoundException();
 
         $states = array_map(function ($o) {
-            return strtoupper($o->getName());
+            return $o->getSlug();
         }, Repository::findAll(State::class));
 
         $form = new FormValidator('field');
         $form
             ->addField(['value' => new Field('label', 'string', true)])
-            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $states)]);;
+            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $states)]);
 
-        // DO TO use slug for the list (POST)
         if ($form->process() && $this->csrfValidator()) {
             $question = Question::make([
                 'value' => $form->getFields()['value']->value,
-                'state_id' => Repository::findAllWhere(State::class, 'name', $form->getFields()['valueKind']->value)[0]->getId(),
+                'state_id' => Repository::findAllWhere(State::class, 'slug', $form->getFields()['valueKind']->value)[0]->getId(),
                 'exercise_id' => $exercise->getId()
             ]);
 
             if ($question->create()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
         }
 
-        return Http::response('questions/new', ['exercise' => $exercise], hasForm: true);
+        return Http::response('questions/new', ['exercise' => $exercise, 'states' => Repository::findAll(state::class)], hasForm: true);
     }
 
     public function delete(int $idExercise, int $idQuestion)
@@ -52,7 +51,7 @@ class QuestionController extends AbstractController
 
         $url = ['route' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $question->getExercisesId()])];
 
-        if (!$this->csrfValidator() || $_POST['_method'] !== 'delete') return Http::responseApi($url);
+        if (!$this->csrfValidator()) return Http::responseApi($url);
 
         if (!$question->delete()) return Http::internalServerError();
 
@@ -66,13 +65,18 @@ class QuestionController extends AbstractController
 
         if (empty($exercise) || empty($question)) return Http::notFoundException();
 
+        $states = array_map(function ($o) {
+            return strtoupper($o->getName());
+        }, Repository::findAll(State::class));
+
         $form = new FormValidator('field');
-        $form->addField(['value' => new Field('label', 'string', true)])
-            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $this->getConstants(QuestionState::class, true))]);
+        $form
+            ->addField(['value' => new Field('label', 'string', true)])
+            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $states)]);
 
         if ($form->process() && $this->csrfValidator()) {
             $question->setValue($form->getFields()['value']->value);
-            $question->setValueKind(QuestionState::getConstValue($form->getFields()['valueKind']->value));
+            $question->setStateId(Repository::findAllWhere(State::class, 'slug', $form->getFields()['valueKind']->value)[0]->getId());
             if ($question->update()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
         }
 

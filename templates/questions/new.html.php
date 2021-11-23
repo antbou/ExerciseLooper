@@ -25,7 +25,7 @@
                         <?php foreach ($exercise->getQuestions() as $question) : ?>
                             <tr>
                                 <td><?= htmlspecialchars($question->getValue()) ?></td>
-                                <td><?= htmlspecialchars($question->getValueKindName()) ?></td>
+                                <td><?= htmlspecialchars($question->getState()->getname()) ?></td>
                                 <td>
                                     <a title="Edit" href="<?= $router->getUrl('EditQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?>"><i class="fa fa-edit"></i></a>
 
@@ -51,9 +51,9 @@
                     <div class="field">
                         <label for="field_value_kind">Value kind</label>
                         <select name="field[value_kind]" id="field_value_kind">
-                            <option selected="selected" value="SINGLE_LINE">Single line text</option>
-                            <option value="SINGLE_LINE_LIST">List of single lines</option>
-                            <option value="MULTI_LINE">Multi-line text</option>
+                            <?php foreach ($states as $state) : ?>
+                                <option <?= ($state->getSlug() == 'SINGLE_LINE') ? 'selected="selected"' : '' ?> value=<?= $state->getSlug() ?>><?= $state->getName() ?></option>
+                            <?php endforeach ?>
                         </select>
                     </div>
 
