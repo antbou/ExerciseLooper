@@ -4,7 +4,7 @@ return [
     'HomePage' => [
         'URI' => '/',
         'Controller' => 'HomeController',
-        'Method' => 'show'
+        'Method' => 'show',
     ],
     'CreateExercise' => [
         'URI' => '/exercises/new',
@@ -35,5 +35,27 @@ return [
         'URI' => '/exercises/:idExercise/fulfillments/:idResponse/edit',
         'Controller' => 'TakeExerciseController',
         'Method' => 'saveAnswer'
-    ]
+    ],
+    'DeleteQuestion' => [
+        'URI' => '/exercises/:idExercise/fields/:idQuestion',
+        'Controller' => 'QuestionController',
+        'Method' => 'delete',
+        'HttpMethod' => 'delete'
+    ],
+    'EditQuestion' => [
+        'URI' => '/exercises/:idExercise/fields/:idQuestion/edit',
+        'Controller' => 'QuestionController',
+        'Method' => 'edit',
+    ],
+    'StatusExercise' => [
+        'URI' => '/exercises/:idExercise/status/:slug',
+        'Controller' => 'ExerciseController',
+        'Method' => 'status',
+        'HttpMethod' => 'put'
+    ],
+    'ShowAllExercise' => [
+        'URI' => '/exercises/all',
+        'Controller' => 'ExerciseController',
+        'Method' => 'status',
+    ],
 ];

@@ -2,9 +2,11 @@
     <?php
     include_once('../templates/_header.html.php');
     ?>
+    <meta name="csrf-token" content="<?= $_SESSION['token'] ?>">
 </header>
 
 <main class="container">
+
 
     <body>
         <div class="row">
@@ -25,16 +27,16 @@
                                 <td><?= htmlspecialchars($question->getValue()) ?></td>
                                 <td><?= htmlspecialchars($question->getValueKindName()) ?></td>
                                 <td>
-                                    <a title="Edit" href="/exercises/541/fields/752/edit"><i class="fa fa-edit"></i></a>
-                                    <a data-confirm="Are you sure?" title="Destroy" rel="nofollow" data-method="delete" href="/exercises/541/fields/752"><i class="fa fa-trash"></i></a>
+                                    <a title="Edit" href="<?= $router->getUrl('EditQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?>"><i class="fa fa-edit"></i></a>
+
+                                    <i class="fa fa-trash link" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
+
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-
-                <a data-confirm="Are you sure? You won&#39;t be able to further edit this exercise" class="button" rel="nofollow" data-method="put" href="/exercises/541?exercise%5Bstatus%5D=answering"><i class="fa fa-comment"></i> Complete and be ready for answers</a>
-
+                <button class="button status" data-confirm="Are you sure? You won&#39;t be able to further edit this exercise" data-href="<?= $router->getUrl('StatusExercise', ['idExercise' => $exercise->getId(), 'slug' => 'answering']) ?>" data-method="put"><i class="fa fa-comment"></i>Complete and be ready for answers</button>
             </section>
             <section class="column">
                 <h1>New Field</h1>

@@ -9,20 +9,17 @@ use Looper\core\services\Http;
 use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
+use Looper\core\router\RouterManager;
 use Looper\core\controllers\AbstractController;
 use Looper\models\State;
 
 class QuestionController extends AbstractController
 {
-    public function create($id)
+    public function create(int $id)
     {
-        $this->checkNumeric($id);
-
         $exercise = Repository::find($id, Exercise::class);
 
-        if (empty($exercise)) {
-            return Http::notFoundException();
-        }
+        if (empty($exercise)) return Http::notFoundException();
 
         $states = array_map(function ($o) {
             return strtoupper($o->getName());
@@ -35,18 +32,50 @@ class QuestionController extends AbstractController
 
         // DO TO use slug for the list (POST)
         if ($form->process() && $this->csrfValidator()) {
-
             $question = Question::make([
                 'value' => $form->getFields()['value']->value,
                 'state_id' => Repository::findAllWhere(State::class, 'name', $form->getFields()['valueKind']->value)[0]->getId(),
                 'exercise_id' => $exercise->getId()
             ]);
 
-            if ($question->create()) {
-                return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
-            }
+            if ($question->create()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
         }
 
-        return Http::response('new/question', ['exercise' => $exercise], hasForm: true);
+        return Http::response('questions/new', ['exercise' => $exercise], hasForm: true);
+    }
+
+    public function delete(int $idExercise, int $idQuestion)
+    {
+        $question = Repository::find($idQuestion, Question::class);
+
+        if (empty($question)) return Http::notFoundException();
+
+        $url = ['route' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $question->getExercisesId()])];
+
+        if (!$this->csrfValidator() || $_POST['_method'] !== 'delete') return Http::responseApi($url);
+
+        if (!$question->delete()) return Http::internalServerError();
+
+        return Http::responseApi($url);
+    }
+
+    public function edit(int $idExercise, int $idQuestion)
+    {
+        $exercise = Repository::find($idExercise, Exercise::class);
+        $question = Repository::find($idQuestion, Question::class);
+
+        if (empty($exercise) || empty($question)) return Http::notFoundException();
+
+        $form = new FormValidator('field');
+        $form->addField(['value' => new Field('label', 'string', true)])
+            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $this->getConstants(QuestionState::class, true))]);
+
+        if ($form->process() && $this->csrfValidator()) {
+            $question->setValue($form->getFields()['value']->value);
+            $question->setValueKind(QuestionState::getConstValue($form->getFields()['valueKind']->value));
+            if ($question->update()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
+        }
+
+        return Http::response('questions/edit', ['exercise' => $exercise, 'question' => $question, 'questionState' => QuestionState::class], hasForm: true);
     }
 }

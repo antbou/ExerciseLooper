@@ -70,7 +70,7 @@ class FormValidator
             $field->error = "La valeur entrée n'est pas correcte";
             return false;
         }
-        $field->value = htmlspecialchars($this->post[$field->name]);
+        $field->value = $this->post[$field->name];
         return true;
     }
 

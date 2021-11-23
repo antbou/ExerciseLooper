@@ -2,7 +2,7 @@
 
 namespace Looper\core\services;
 
-use Looper\core\services\RouterManager;
+use Looper\core\router\RouterManager;
 
 class Render
 {
@@ -31,5 +31,12 @@ class Render
         $pageContent = ob_get_clean();
 
         require('../templates/base.html.php');
+    }
+
+    public static function renderApi(array $variables)
+    {
+        $variables = json_encode($variables, JSON_PRETTY_PRINT);
+
+        require('../templates/api/index.html.php');
     }
 }

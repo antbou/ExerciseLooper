@@ -1,8 +1,9 @@
 <?php
 
-use Looper\core\services\Field;
+
+use Looper\core\forms\Field;
 use PHPUnit\Framework\TestCase;
-use Looper\core\services\FormValidator;
+use Looper\core\forms\FormValidator;
 
 
 class FormValidatorTest extends TestCase
@@ -16,7 +17,7 @@ class FormValidatorTest extends TestCase
      */
     protected static function getMethod($name): object
     {
-        $class = new \ReflectionClass('\\Looper\\core\\services\\FormValidator');
+        $class = new \ReflectionClass('\\Looper\\core\\forms\\FormValidator');
         $method = $class->getMethod($name);
         $method->setAccessible(true);
         return $method;
