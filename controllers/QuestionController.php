@@ -10,6 +10,7 @@ use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
 use Looper\core\controllers\AbstractController;
+use Looper\models\State;
 
 class QuestionController extends AbstractController
 {
@@ -23,17 +24,21 @@ class QuestionController extends AbstractController
             return Http::notFoundException();
         }
 
+        $states = array_map(function ($o) {
+            return strtoupper($o->getName());
+        }, Repository::findAll(State::class));
+
         $form = new FormValidator('field');
         $form
             ->addField(['value' => new Field('label', 'string', true)])
-            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $this->getConstants(QuestionState::class, true))]);;
+            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $states)]);;
 
-
+        // DO TO use slug for the list (POST)
         if ($form->process() && $this->csrfValidator()) {
 
             $question = Question::make([
                 'value' => $form->getFields()['value']->value,
-                'valueKind' => QuestionState::getConstValue($form->getFields()['valueKind']->value),
+                'state_id' => Repository::findAllWhere(State::class, 'name', $form->getFields()['valueKind']->value)[0]->getId(),
                 'exercise_id' => $exercise->getId()
             ]);
 
