@@ -18,10 +18,11 @@ class Database
      */
     public static function getPdo(): PDO
     {
-        $host = (self::$host) ? self::$host : DBHOST;
+
         try {
             if (self::$instance === null) {
                 require(APP_ROOT . '/.env.php');
+                $host = (self::$host) ? self::$host : DBHOST;
                 self::$instance = new PDO('mysql:host=' . $host . ';dbname=' . DBNAME . ';charset=' . CHARSET, DBUSERNAME, DBPASSWORD);
             }
             return self::$instance;
