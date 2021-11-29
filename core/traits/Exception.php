@@ -12,10 +12,10 @@ trait Exception
         return (APP_ENV === APP_ENVIRONMENT_KIND[0]) ? true : false;
     }
 
-    public function showErrorIfDevMod(Error $exception)
+    public function showErrorIfDevMod($exception)
     {
         if ($this->isDevEnvironment()) {
-            echo $exception->getMessage(); // for debug
+            echo $exception; // for debug
         }
     }
 }
