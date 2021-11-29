@@ -7,8 +7,8 @@ use Looper\core\models\Model;
 
 class Serie extends Model
 {
-    public ?\DateTime $date;
-    public ?int $exercise_id;
+    public string $date;
+    public int $exercise_id;
 
     protected string $table = 'series';
 

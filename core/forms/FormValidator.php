@@ -28,7 +28,7 @@ class FormValidator
             return false;
         }
 
-        $res = true;
+        $flag = true;
 
         foreach ($this->fields as $field) {
 
@@ -39,17 +39,18 @@ class FormValidator
              * Le champs existe
              * Le champs n'est pas vide ou accepte d'être vide
              */
-            if (!$this->isSet($field) ||
+            if (
+                !$this->isSet($field) ||
                 !$this->isNotEmpty($field) ||
                 !$this->$checkType($field) ||
-                (empty($field->valueToVerify)) ? false : !$this->inArray($field)
+                (empty($field->valueToVerify) ? false : !$this->inArray($field))
             ) {
-                $res = false;
+                $flag = false;
                 continue;
             }
         }
 
-        return $res;
+        return $flag;
     }
 
     private function isInt(Field $field): bool
@@ -66,11 +67,20 @@ class FormValidator
 
     private function isString(Field $field): bool
     {
-        if (!is_string($this->post[$field->name])) {
+        if (!is_string($this->post[$field->name]) && empty($field->multi)) {
             $field->error = "La valeur entrée n'est pas correcte";
             return false;
         }
-        $field->value = $this->post[$field->name];
+        if (empty($field->multi)) {
+            $field->value = $this->post[$field->name];
+        } else {
+            $field->value = [];
+            foreach ($field->multi as $key) {
+
+                $field->value += [array_keys($this->post[$field->name], $this->post[$field->name][$key])[0] => $this->post[$field->name][$key]];
+            }
+        }
+
         return true;
     }
 
@@ -94,6 +104,15 @@ class FormValidator
             $field->error = "Error lors du traitement du champs";
             return false;
         }
+        if (!empty($field->multi)) {
+            foreach ($this->post[$field->name] as $key => $value) {
+                if (in_array($key, $field->multi)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         return true;
     }
 

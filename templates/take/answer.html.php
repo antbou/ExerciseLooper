@@ -7,31 +7,19 @@
 <main class="container">
     <h1>Your take</h1>
     <p>If you'd like to come back later to finish, simply submit it with blanks</p>
-    <form action=<?= $router->getUrl('SaveAnswer', ['idExercise' => $focusExercise->getId()]) ?> accept-charset="UTF-8" method="post">
-
+    <form action=<?= $router->getUrl('SaveAnswer', ['idExercise' => $exercise->id]) ?> accept-charset="UTF-8" method="post">
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-
-        <?php
-        foreach ($focusExercise->getQuestions() as $question) {
-        ?>
+        <?php foreach ($exercise->getQuestions() as $key => $question) : ?>
+            <input type="hidden" name="id" value="<?= $question->id ?>">
             <div class=" field">
-                <label for="exercise_title"><?= $question->getValue() ?></label>
-                <?php
-                if ($question->getValueKind() == $questionState::SINGLE_LINE) { ?>
-                    <input id="fulfillment_answers_attributes__value" type="text" name="">
-                <?php
-                } else {
-                ?>
-                    <textarea name="" id="fulfillment_answers_attributes__value"></textarea>
-                <?php
-                }
-                ?>
-                <input type="hidden" name="id" value="<?= $question->getId() ?>">
+                <label for="fulfillment_answers_attributes__value"><?= htmlspecialchars($question->value) ?></label>
+                <?php if ($question->getState() == $states['SINGLE_LINE']) : ?>
+                    <input type="text" name="fulfillment[answers_attributes][question<?= $question->id ?>]" id="fulfillment_answers_attributes__value">
+                <?php else : ?>
+                    <textarea name="fulfillment[answers_attributes][question<?= $question->id ?>]" id="fulfillment_answers_attributes__value"></textarea>
+                <?php endif; ?>
             </div>
-        <?php
-        }
-        ?>
-
+        <?php endforeach; ?>
         <div class="actions">
             <input type="submit" name="commit" value="Save" data-disable-with="Save">
         </div>
