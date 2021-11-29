@@ -8,11 +8,10 @@ use Looper\core\models\Repository;
 class Exercise extends Model
 {
 
-    private ?int $id;
-    private string $title;
-    private int $status_id;
+    public string $title;
+    public int $status_id;
 
-    protected $table = 'exercises';
+    protected string $table = 'exercises';
     const DEFAULTNAME = 'New exercise';
 
     public static function make(array $params): Exercise
@@ -20,47 +19,14 @@ class Exercise extends Model
         $exercise = new Exercise();
         $exercise->id = (isset($params['id'])) ? $params['id'] : null;
         $exercise->title = $params['title'];
-        $exercise->status_id = (isset($params['status_id'])) ? $params['status_id'] : Repository::findAllWhere(Status::class, 'slug', 'UNDE')[0]->getId();
+        $exercise->status_id = (isset($params['status_id'])) ? $params['status_id'] : Repository::findAllWhere(Status::class, 'slug', 'UNDE')[0]->id;
 
         return $exercise;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): Exercise
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): Exercise
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function getStatusId(): int
-    {
-        return $this->status_id;
-    }
-
-    public function setStatusId(int $status_id): Exercise
-    {
-        $this->status_id = $status_id;
-        return $this;
-    }
-
     public function getPublicName(): string
     {
-        $exerciseName = (empty($this->getTitle())) ? self::DEFAULTNAME : ((ctype_space($this->getTitle())) ? self::DEFAULTNAME : $this->getTitle());
+        $exerciseName = (empty($this->title)) ? self::DEFAULTNAME : ((ctype_space($this->title)) ? self::DEFAULTNAME : $this->title);
         return $exerciseName;
     }
 
