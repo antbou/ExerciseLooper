@@ -24,15 +24,15 @@ return [
     'TakeExercise' => [
         'URI' => '/exercises/answering',
         'Controller' => 'TakeExerciseController',
-        'Method' => 'show'
+        'Method' => 'showAllAnswer'
     ],
-    'AnswerdExercise' => [
+    'showAnswer' => [
         'URI' => '/exercises/:idExercise/fulfillments/new',
         'Controller' => 'TakeExerciseController',
-        'Method' => 'answeredExrcise'
+        'Method' => 'showAnswer'
     ],
     'SaveAnswer' => [
-        'URI' => '/exercises/:idExercise/fulfillments/:idResponse/edit',
+        'URI' => '/exercises/:idExercise/fulfillments',
         'Controller' => 'TakeExerciseController',
         'Method' => 'saveAnswer'
     ],
