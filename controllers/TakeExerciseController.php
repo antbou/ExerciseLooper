@@ -44,7 +44,7 @@ class TakeExerciseController extends AbstractController
             $form->addField([$key => new Field("answers_attributes", 'string', true, multi: ['question' . $question->id])]);
         }
         if (!$form->process() || !$this->csrfValidator()) {
-            return Http::redirectToRoute('SaveAnswer', ['idExercise' => $exercise->id]);
+            return Http::redirectToRoute('ShowAnswer', ['idExercise' => $exercise->id]);
         }
 
         $serie = Serie::make([
@@ -52,7 +52,7 @@ class TakeExerciseController extends AbstractController
             'exercise_id' => $exercise->id
         ]);
 
-        if (!$serie->create()) return Http::redirectToRoute('SaveAnswer', ['idExercise' => $exercise->id]);
+        if (!$serie->create()) return Http::redirectToRoute('ShowAnswer', ['idExercise' => $exercise->id]);
 
         foreach ($exercise->getQuestions() as $key => $question) {
 
@@ -62,7 +62,7 @@ class TakeExerciseController extends AbstractController
                 'question_id' => $question->id,
                 'serie_id' => $serie->id
             ]);
-            if (!$response->create()) return Http::redirectToRoute('SaveAnswer', ['idExercise' => $exercise->id]);
+            if (!$response->create()) return Http::redirectToRoute('ShowAnswer', ['idExercise' => $exercise->id]);
         }
     }
 }
