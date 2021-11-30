@@ -22,4 +22,9 @@ class Response extends Model
         $response->serie_id = $params['serie_id'];
         return $response;
     }
+
+    public function getQuestion()
+    {
+        return Repository::find($this->question_id, Question::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace Looper\models;
 
 
 use Looper\core\models\Model;
+use Looper\core\models\Repository;
 
 class Serie extends Model
 {
@@ -19,5 +20,10 @@ class Serie extends Model
         $serie->date = $params['date'];
         $serie->exercise_id = $params['exercise_id'];
         return $serie;
+    }
+
+    public function getResponses()
+    {
+        return Repository::findAllWhere(Response::class, 'serie_id', $this->id);
     }
 }

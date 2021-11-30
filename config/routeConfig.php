@@ -58,4 +58,14 @@ return [
         'Controller' => 'ExerciseController',
         'Method' => 'status',
     ],
+    'EditAnswer' => [
+        'URI' => '/exercises/:idExercise/fulfillments/:idSerie',
+        'Controller' => 'TakeExerciseController',
+        'Method' => 'edit',
+    ],
+    'ShowAnswerFilled' => [
+        'URI' => '/exercises/:idExercise/fulfillments/:idSerie/edit',
+        'Controller' => 'TakeExerciseController',
+        'Method' => 'showAnswerFilled',
+    ],
 ];

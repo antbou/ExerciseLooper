@@ -11,6 +11,7 @@ use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
 use Looper\core\controllers\AbstractController;
+use Looper\core\router\RouterManager;
 use Looper\models\Response;
 use Looper\models\Serie;
 
@@ -27,7 +28,7 @@ class TakeExerciseController extends AbstractController
         $states = array_column(Repository::findAll(State::class), null, 'slug');
         $focusExercise = Repository::find($id, Exercise::class);
         if (empty($focusExercise)) return Http::notFoundException();
-        return Http::response('take/answer', ['exercise' => $focusExercise, 'questionState' => QuestionState::class, 'states' => $states], hasForm: true);
+        return Http::response('take/answer', ['exercise' => $focusExercise, 'states' => $states, 'route' => RouterManager::getRouter()->getUrl('SaveAnswer', ['idExercise' => $focusExercise->id])], hasForm: true);
     }
 
     public function saveAnswer(int $id)
@@ -56,5 +57,38 @@ class TakeExerciseController extends AbstractController
             ]);
             if (!$response->create()) return Http::redirectToRoute('ShowAnswer', ['idExercise' => $exercise->id]);
         }
+
+        return Http::redirectToRoute('ShowAnswerFilled', ['idExercise' => $exercise->id, 'idSerie' => $serie->id]);
+    }
+
+    public function showAnswerFilled(int $idExercise, int $idSerie)
+    {
+        $states = array_column(Repository::findAll(State::class), null, 'slug');
+        $exercise = Repository::find($idExercise, Exercise::class);
+        $serie = Repository::find($idSerie, Serie::class);
+        if (empty($exercise) || empty($serie)) return Http::notFoundException();
+        return Http::response('take/answer', ['exercise' => $exercise, 'states' => $states, 'edit' => true, 'serie' => $serie, 'route' => RouterManager::getRouter()->getUrl('EditAnswer', ['idExercise' => $exercise->id, 'idSerie' => $serie->id])], hasForm: true);
+    }
+
+    public function edit(int $idExercise, int $idSerie)
+    {
+        $exercise = Repository::find($idExercise, Exercise::class);
+        $serie = Repository::find($idSerie, Serie::class);
+        if (empty($exercise) || empty($serie)) return Http::notFoundException();
+
+        $form = new FormValidator('fulfillment');
+        foreach ($serie->getResponses() as $key => $response) {
+            $form->addField([$key => new Field("answers_attributes", 'string', true, multi: ['response' . $response->id])]);
+        }
+
+        if (!$form->process() || !$this->csrfValidator()) {
+            return Http::redirectToRoute('ShowAnswerFilled', ['idExercise' => $exercise->id, 'idSerie' => $serie->id]);
+        }
+
+        foreach ($serie->getResponses() as $key => $response) {
+            $response->value = $form->getFields()[$key]->value['response' . $response->id];
+            if (!$response->update()) return Http::redirectToRoute('ShowAnswerFilled', ['idExercise' => $exercise->id, 'idSerie' => $serie->id]);
+        }
+        return Http::redirectToRoute('ShowAnswerFilled', ['idExercise' => $exercise->id, 'idSerie' => $serie->id]);
     }
 }
