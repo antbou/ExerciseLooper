@@ -11,7 +11,6 @@ use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
 use Looper\core\controllers\AbstractController;
-use Looper\models\Question;
 use Looper\models\Response;
 use Looper\models\Serie;
 
@@ -34,19 +33,14 @@ class TakeExerciseController extends AbstractController
     public function saveAnswer(int $id)
     {
         $exercise = Repository::find($id, Exercise::class);
-
-        if (empty($exercise)) {
-            return Http::notFoundException();
-        }
+        if (empty($exercise)) return Http::notFoundException();
 
         $form = new FormValidator('fulfillment');
         foreach ($exercise->getQuestions() as $key => $question) {
             $form->addField([$key => new Field("answers_attributes", 'string', true, multi: ['question' . $question->id])]);
         }
-        if (!$form->process() || !$this->csrfValidator()) {
-            return Http::redirectToRoute('ShowAnswer', ['idExercise' => $exercise->id]);
-        }
 
+        if (!$form->process() || !$this->csrfValidator()) return Http::redirectToRoute('ShowAnswer', ['idExercise' => $exercise->id]);
         $serie = Serie::make([
             'date' => (new \DateTime('NOW'))->format('Y-m-d H:i:s'),
             'exercise_id' => $exercise->id
@@ -55,8 +49,6 @@ class TakeExerciseController extends AbstractController
         if (!$serie->create()) return Http::redirectToRoute('ShowAnswer', ['idExercise' => $exercise->id]);
 
         foreach ($exercise->getQuestions() as $key => $question) {
-
-
             $response = Response::make([
                 'value' => $form->getFields()[$key]->value['question' . $question->id],
                 'question_id' => $question->id,
