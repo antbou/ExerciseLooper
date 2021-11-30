@@ -53,9 +53,10 @@ return [
         'Method' => 'status',
         'HttpMethod' => 'put'
     ],
-    'ShowAllExercise' => [
+    'ManageExercise' => [
         'URI' => '/exercises/all',
-        'Controller' => 'ExerciseController',
-        'Method' => 'status',
+        'Controller' => 'ManageExerciseController',
+        'Method' => 'show',
     ],
+
 ];
