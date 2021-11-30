@@ -76,19 +76,15 @@ class FormValidator
         } else {
             $field->value = [];
             foreach ($field->multi as $key) {
-
-                $field->value += [array_keys($this->post[$field->name], $this->post[$field->name][$key])[0] => $this->post[$field->name][$key]];
+                $field->value += [$key => $this->post[$field->name][$key]];
             }
         }
-
         return true;
     }
 
     private function isNotEmpty(Field $field): bool
     {
-        if ($field->canBeEmpty) {
-            return true;
-        }
+        if ($field->canBeEmpty) return true;
 
         if (empty($this->post[$field->name])) {
             $field->error = "Veuillez remplire ce champs";
