@@ -26,7 +26,7 @@ return [
         'Controller' => 'TakeExerciseController',
         'Method' => 'showAllAnswer'
     ],
-    'showAnswer' => [
+    'ShowAnswer' => [
         'URI' => '/exercises/:idExercise/fulfillments/new',
         'Controller' => 'TakeExerciseController',
         'Method' => 'showAnswer'
