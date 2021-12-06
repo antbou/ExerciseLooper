@@ -2,12 +2,14 @@
     <a href="<?= $router->getUrl('HomePage', []); ?>"><img src="/resources/logo.png" /></a>
     <?php if (isset($exercise) || isset($title)) : ?>
         <span class="exercise-label">
-
-            <?php if (isset($exercise)) : ?>
+            <?php if (isset($exercise) && !isset($title)) : ?>
                 Exercise:
                 <a href="<?= $router->getUrl('CreateQuestion', ['idExercise' => $exercise->id]) ?>">
                     <?= $exercise->getPublicName() ?>
                 </a>
+            <?php elseif (isset($exercise) && isset($title)) :  ?>
+                Exercise:
+                <span class="exercise-title"><?= $title ?></span>
             <?php else : ?>
                 <?= $title ?>
             <?php endif ?>

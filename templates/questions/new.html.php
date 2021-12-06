@@ -7,7 +7,6 @@
 
 <main class="container">
 
-
     <body>
         <div class="row">
             <section class="column">
@@ -20,17 +19,14 @@
                             <th></th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <?php foreach ($exercise->getQuestions() as $question) : ?>
                             <tr>
                                 <td><?= htmlspecialchars($question->value) ?></td>
-                                <td><?= htmlspecialchars($question->getState()->name) ?></td>
+                                <td><?= strtolower(htmlspecialchars($question->getState()->slug)) ?></td>
                                 <td>
                                     <a title="Edit" href="<?= $router->getUrl('EditQuestion', ['idExercise' => $exercise->id, 'idQuestion' => $question->id]) ?>"><i class="fa fa-edit"></i></a>
-
                                     <i class="fa fa-trash link" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteQuestion', ['idExercise' => $exercise->id, 'idQuestion' => $question->id]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
-
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -42,12 +38,10 @@
                 <h1>New Field</h1>
                 <form action=<?= $router->getUrl('CreateQuestion', ['idExercise' => $exercise->id]) ?> accept-charset="UTF-8" method="post">
                     <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>" />
-
                     <div class=" field">
                         <label for="field_label">Label</label>
                         <input type="text" name="field[label]" id="field_label" />
                     </div>
-
                     <div class="field">
                         <label for="field_value_kind">Value kind</label>
                         <select name="field[value_kind]" id="field_value_kind">
@@ -56,7 +50,6 @@
                             <?php endforeach ?>
                         </select>
                     </div>
-
                     <div class="actions">
                         <input type="submit" name="commit" value="Create Field" data-disable-with="Create Field" />
                     </div>
