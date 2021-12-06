@@ -58,5 +58,25 @@ return [
         'Controller' => 'ManageExerciseController',
         'Method' => 'show',
     ],
+    'EditExercise' => [
+        'URI' => '/exercises/:idExercise/edit',
+        'Controller' => 'ExerciseController',
+        'Method' => 'edit',
+    ],
+    'DeleteExercise' => [
+        'URI' => '/exercises/:idExercise/delete',
+        'Controller' => 'ExerciseController',
+        'Method' => 'delete',
+    ],
+    'ResultExercise' => [
+        'URI' => '/exercises/:idExercise/results',
+        'Controller' => 'ExerciseController',
+        'Method' => 'results',
+    ],
+    'ClosedExercise' => [
+        'URI' => '/exercises/:idExercise/results',
+        'Controller' => 'ExerciseController',
+        'Method' => 'closed',
+    ],
 
 ];
