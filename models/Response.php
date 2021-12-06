@@ -23,7 +23,7 @@ class Response extends Model
         return $response;
     }
 
-    public function getQuestion()
+    public function getQuestion(): Question
     {
         return Repository::find($this->question_id, Question::class);
     }

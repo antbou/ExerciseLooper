@@ -22,7 +22,7 @@ class Serie extends Model
         return $serie;
     }
 
-    public function getResponses()
+    public function getResponses(): array
     {
         return Repository::findAllWhere(Response::class, 'serie_id', $this->id);
     }

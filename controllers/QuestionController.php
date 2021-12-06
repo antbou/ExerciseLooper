@@ -6,7 +6,6 @@ use Looper\models\Exercise;
 use Looper\models\Question;
 use Looper\core\forms\Field;
 use Looper\core\services\Http;
-use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
 use Looper\core\router\RouterManager;
