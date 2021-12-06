@@ -8,7 +8,9 @@ document.querySelectorAll(".status").forEach(item => {
 
 function ajax(item) {
     return function () {
-        if (!confirm(item.dataset.confirm)) return false;
+        if (item.dataset.confirm) {
+            if (!confirm(item.dataset.confirm)) return false;
+        }
         const csrf = document.querySelector('meta[name="csrf-token"]').content;
         if (!csrf) return false;
         const xhttp = new XMLHttpRequest();
