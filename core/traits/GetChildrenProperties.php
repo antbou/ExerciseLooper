@@ -1,11 +1,11 @@
 <?php
 
-namespace Looper\core\models\traits;
+namespace Looper\core\traits;
 
 use ReflectionClass;
 use ReflectionProperty;
 
-trait Children
+trait GetChildrenProperties
 {
 
     /**
@@ -18,7 +18,7 @@ trait Children
         $properties = [];
         $reflection = new ReflectionClass($this);
 
-        foreach ($reflection->getProperties(ReflectionProperty::IS_PRIVATE) as $key => $value) {
+        foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $key => $value) {
             $value->setAccessible(true);
             $value->getValue($this);
             $properties += [$value->name => $value->getValue($this)];

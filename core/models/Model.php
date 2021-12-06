@@ -3,17 +3,21 @@
 namespace Looper\core\models;
 
 use Looper\core\models\Database;
-use Looper\core\models\traits\Children;
-use Looper\models\Exercise;
-use PhpParser\Node\Expr\Cast\Object_;
+use Looper\core\traits\ClassToTable;
+use Looper\core\traits\GetChildrenProperties;
 
 abstract class Model
 {
 
-    use Children;
+    use GetChildrenProperties, ClassToTable;
 
+    public ?int $id;
+    protected string $table;
 
-    protected $table;
+    public function __construct()
+    {
+        $this->table = ($this->table) ?? self::getShortName(static::class);
+    }
 
     /**
      * create db record from object
@@ -22,7 +26,6 @@ abstract class Model
      */
     public function create(): bool
     {
-
         $fields = [];
         $fieldsBind = [];
         foreach ($this->toArray() as $field => $value) {
@@ -35,9 +38,10 @@ abstract class Model
         $query = "INSERT INTO {$this->table} ($fields) VALUES ($fieldsBind)";
 
         try {
-            $this->setId(Database::insert($query, $this->toArray()));
+            $this->id = Database::insert($query, $this->toArray());
             return true;
         } catch (\PDOException $Exception) {
+            echo $Exception;
             return false;
         }
     }
@@ -50,7 +54,7 @@ abstract class Model
     public function delete(): bool
     {
         try {
-            Database::execute("DELETE FROM {$this->table} WHERE id = :id", ['id' => $this->getId()]);
+            Database::execute("DELETE FROM {$this->table} WHERE id = :id", ['id' => $this->id]);
             return true;
         } catch (\PDOException $Exception) {
             return false;
@@ -83,8 +87,4 @@ abstract class Model
             return false;
         }
     }
-
-    abstract function setId(int $id): object;
-
-    abstract function getId(): int;
 }

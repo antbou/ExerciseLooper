@@ -34,6 +34,6 @@ class CreateExerciseController extends AbstractController
             Http::redirectToRoute('CreateExercise');
         }
 
-        Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
+        Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->id]);
     }
 }

@@ -24,7 +24,17 @@ return [
     'TakeExercise' => [
         'URI' => '/exercises/answering',
         'Controller' => 'TakeExerciseController',
-        'Method' => 'show'
+        'Method' => 'showAllAnswer'
+    ],
+    'ShowAnswer' => [
+        'URI' => '/exercises/:idExercise/fulfillments/new',
+        'Controller' => 'TakeExerciseController',
+        'Method' => 'showAnswer'
+    ],
+    'SaveAnswer' => [
+        'URI' => '/exercises/:idExercise/fulfillments',
+        'Controller' => 'TakeExerciseController',
+        'Method' => 'saveAnswer'
     ],
     'DeleteQuestion' => [
         'URI' => '/exercises/:idExercise/fields/:idQuestion',
@@ -47,5 +57,15 @@ return [
         'URI' => '/exercises/all',
         'Controller' => 'ExerciseController',
         'Method' => 'status',
+    ],
+    'EditAnswer' => [
+        'URI' => '/exercises/:idExercise/fulfillments/:idSerie',
+        'Controller' => 'TakeExerciseController',
+        'Method' => 'edit',
+    ],
+    'ShowAnswerFilled' => [
+        'URI' => '/exercises/:idExercise/fulfillments/:idSerie/edit',
+        'Controller' => 'TakeExerciseController',
+        'Method' => 'showAnswerFilled',
     ],
 ];

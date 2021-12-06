@@ -7,18 +7,18 @@
 
 <main class="container">
     <h1>Editing Field</h1>
-    <form action=<?= $router->getUrl('EditQuestion', ['idExercise' => $exercise->getId(), 'idQuestion' => $question->getId()]) ?> accept-charset="UTF-8" method="post">
+    <form action=<?= $router->getUrl('EditQuestion', ['idExercise' => $exercise->id, 'idQuestion' => $question->id]) ?> accept-charset="UTF-8" method="post">
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>" />
         <div class=" field">
             <label for="field_label">Label</label>
-            <input type="text" name="field[label]" id="field_label" value="<?= $question->getValue() ?>" />
+            <input type="text" name="field[label]" id="field_label" value="<?= $question->value ?>" />
         </div>
         <div class="field">
             <label for="field_value_kind">Value kind</label>
             <select name="field[value_kind]" id="field_value_kind">
-                <option <?= ($question->getValueKind() === $questionState::SINGLE_LINE) ? 'selected="selected"' : '' ?> value="SINGLE_LINE">Single line text</option>
-                <option <?= ($question->getValueKind() === $questionState::SINGLE_LINE_LIST) ? 'selected="selected"' : '' ?> value="SINGLE_LINE_LIST">List of single lines</option>
-                <option <?= ($question->getValueKind() === $questionState::MULTI_LINE) ? 'selected="selected"' : '' ?> value="MULTI_LINE">Multi-line text</option>
+                <?php foreach ($states as $state) : ?>
+                    <option <?= ($question->getState() == $state) ? 'selected="selected"' : '' ?> value=<?= $state->slug ?>><?= $state->name ?></option>
+                <?php endforeach ?>
             </select>
         </div>
         <div class="actions">

@@ -6,11 +6,11 @@ use Looper\models\Exercise;
 use Looper\models\Question;
 use Looper\core\forms\Field;
 use Looper\core\services\Http;
-use Looper\models\QuestionState;
 use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
 use Looper\core\router\RouterManager;
 use Looper\core\controllers\AbstractController;
+use Looper\models\State;
 
 class QuestionController extends AbstractController
 {
@@ -20,21 +20,26 @@ class QuestionController extends AbstractController
 
         if (empty($exercise)) return Http::notFoundException();
 
+        $states = array_map(function ($o) {
+            return $o->slug;
+        }, Repository::findAll(State::class));
+
         $form = new FormValidator('field');
-        $form->addField(['value' => new Field('label', 'string', true)])
-            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $this->getConstants(QuestionState::class, true))]);
+        $form
+            ->addField(['value' => new Field('label', 'string', true)])
+            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $states)]);
 
         if ($form->process() && $this->csrfValidator()) {
             $question = Question::make([
                 'value' => $form->getFields()['value']->value,
-                'valueKind' => QuestionState::getConstValue($form->getFields()['valueKind']->value),
-                'exercises_id' => $exercise->getId()
+                'state_id' => Repository::findAllWhere(State::class, 'slug', $form->getFields()['valueKind']->value)[0]->id,
+                'exercise_id' => $exercise->id
             ]);
 
-            if ($question->create()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
+            if ($question->create()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->id]);
         }
 
-        return Http::response('questions/new', ['exercise' => $exercise], hasForm: true);
+        return Http::response('questions/new', ['exercise' => $exercise, 'states' => Repository::findAll(state::class)], hasForm: true);
     }
 
     public function delete(int $idExercise, int $idQuestion)
@@ -43,9 +48,9 @@ class QuestionController extends AbstractController
 
         if (empty($question)) return Http::notFoundException();
 
-        $url = ['route' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $question->getExercisesId()])];
+        $url = ['route' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $question->exercise_id])];
 
-        if (!$this->csrfValidator() || $_POST['_method'] !== 'delete') return Http::responseApi($url);
+        if (!$this->csrfValidator()) return Http::responseApi($url);
 
         if (!$question->delete()) return Http::internalServerError();
 
@@ -59,16 +64,21 @@ class QuestionController extends AbstractController
 
         if (empty($exercise) || empty($question)) return Http::notFoundException();
 
+        $states = array_map(function ($o) {
+            return $o->slug;
+        }, Repository::findAll(State::class));
+
         $form = new FormValidator('field');
-        $form->addField(['value' => new Field('label', 'string', true)])
-            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $this->getConstants(QuestionState::class, true))]);
+        $form
+            ->addField(['value' => new Field('label', 'string', true)])
+            ->addField(['valueKind' => new Field('value_kind', 'string', false, valueToVerify: $states)]);
 
         if ($form->process() && $this->csrfValidator()) {
-            $question->setValue($form->getFields()['value']->value);
-            $question->setValueKind(QuestionState::getConstValue($form->getFields()['valueKind']->value));
-            if ($question->update()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->getId()]);
+            $question->value = $form->getFields()['value']->value;
+            $question->state_id = Repository::findAllWhere(State::class, 'slug', $form->getFields()['valueKind']->value)[0]->id;
+            if ($question->update()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->id]);
         }
 
-        return Http::response('questions/edit', ['exercise' => $exercise, 'question' => $question, 'questionState' => QuestionState::class], hasForm: true);
+        return Http::response('questions/edit', ['exercise' => $exercise, 'question' => $question, 'states' => Repository::findAll(state::class)], hasForm: true);
     }
 }

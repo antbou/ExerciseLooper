@@ -108,6 +108,7 @@ class Route
             call_user_func_array([new $this->controller, $this->method], $this->matches);
             return true;
         } catch (\Throwable $th) {
+            if (ob_get_contents()) ob_end_clean();
             $this->showErrorIfDevMod($th);
             return false;
         }

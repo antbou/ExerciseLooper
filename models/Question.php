@@ -3,73 +3,29 @@
 namespace Looper\models;
 
 use Looper\core\models\Model;
+use Looper\core\models\Repository;
 
 class Question extends Model
 {
-    private ?int $id;
-    private string $value;
-    private int $valueKind;
-    private int $exercises_id;
+    public string $value;
+    public int $exercise_id;
+    public int $state_id;
 
-    protected $table = 'questions';
+    protected string $table = 'questions';
 
-    public static function make(array $params)
+    public static function make(array $params): Question
     {
         $question = new question();
         $question->id = (isset($params['id'])) ? $params['id'] : null;
         $question->value = $params['value'];
-        $question->valueKind = $params['valueKind'];
-        $question->exercises_id = $params['exercises_id'];
+        $question->state_id = $params['state_id'];
+        $question->exercise_id = $params['exercise_id'];
 
         return $question;
     }
 
-    public function getId(): int
+    public function getState(): State
     {
-        return $this->id;
-    }
-
-    public function setId(int $id): Question
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    public function setValue(string $value): Question
-    {
-        $this->value = $value;
-        return $this;
-    }
-
-    public function getValueKind(): int
-    {
-        return $this->valueKind;
-    }
-
-    public function setValueKind(int $valueKind): Question
-    {
-        $this->valueKind = $valueKind;
-        return $this;
-    }
-
-    public function getExercisesId(): int
-    {
-        return $this->exercises_id;
-    }
-
-    public function setExercisesId(int $exercises_id): Question
-    {
-        $this->exercises_id = $exercises_id;
-        return $this;
-    }
-
-    public function getValueKindName(): string
-    {
-        return QuestionState::toString($this->valueKind);
+        return Repository::find($this->state_id, State::class);
     }
 }

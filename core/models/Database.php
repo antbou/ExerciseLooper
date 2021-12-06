@@ -7,6 +7,7 @@ use PDOException;
 
 class Database
 {
+    public static $host;
 
     private static $instance = null;
 
@@ -17,10 +18,13 @@ class Database
      */
     public static function getPdo(): PDO
     {
+
         try {
             if (self::$instance === null) {
-                require(APP_ROOT . '/.env.php');
-                self::$instance = new PDO('mysql:host=' . DBHOST . ';dbname=' . DBNAME . ';charset=utf8', DBUSERNAME, DBPASSWORD);
+                if (!defined('DBHOST') || !defined('CHARSET'))  require(APP_ROOT . '/.env.php');
+
+                $host = (self::$host) ? self::$host : DBHOST;
+                self::$instance = new PDO('mysql:host=' . $host . ';dbname=' . DBNAME . ';charset=' . CHARSET, DBUSERNAME, DBPASSWORD);
             }
             return self::$instance;
         } catch (PDOException $e) { // in case of error for the debug
@@ -65,7 +69,6 @@ class Database
     {
         $db = self::getPdo();
         $sth = $db->prepare($query);
-
         return $sth->execute($params);
     }
 }

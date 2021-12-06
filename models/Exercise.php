@@ -8,67 +8,31 @@ use Looper\core\models\Repository;
 class Exercise extends Model
 {
 
-    private ?int $id;
-    private string $title;
-    private int $status;
+    public string $title;
+    public int $status_id;
 
-    protected $table = 'exercises';
+    protected string $table = 'exercises';
     const DEFAULTNAME = 'New exercise';
 
-
-
-    public static function make(array $params)
+    public static function make(array $params): Exercise
     {
         $exercise = new Exercise();
         $exercise->id = (isset($params['id'])) ? $params['id'] : null;
         $exercise->title = $params['title'];
-        $exercise->status = (isset($params['status'])) ? $params['status'] : ExerciseState::UNDERCONSTRUCT;
+        $exercise->status_id = (isset($params['status_id'])) ? $params['status_id'] : Repository::findAllWhere(Status::class, 'slug', 'UNDE')[0]->id;
 
         return $exercise;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): Exercise
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): Exercise
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    public function getStatus(): int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): Exercise
-    {
-        $this->status = $status;
-        return $this;
-    }
-
     public function getPublicName(): string
     {
-        $exerciseName = (empty($this->getTitle())) ? self::DEFAULTNAME : ((ctype_space($this->getTitle())) ? self::DEFAULTNAME : $this->getTitle());
+        $exerciseName = (empty($this->title)) ? self::DEFAULTNAME : ((ctype_space($this->title)) ? self::DEFAULTNAME : $this->title);
         return $exerciseName;
     }
 
-    public function getQuestions()
+    public function getQuestions(): array
     {
-        $query = "SELECT * FROM db_exerciselooper.questions WHERE questions.exercises_id = :id ORDER BY questions.id DESC";
+        $query = 'SELECT * FROM db_exerciselooper.questions WHERE questions.exercise_id = :id ORDER BY questions.id DESC';
         $params = ['id' => $this->id];
 
         return Repository::findCustom($query, $params, Question::class);

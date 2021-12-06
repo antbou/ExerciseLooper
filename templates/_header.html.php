@@ -5,7 +5,7 @@
 
             <?php if (isset($exercise)) : ?>
                 Exercise:
-                <a href="<?= $router->getUrl('CreateQuestion', ['idExercise' => $exercise->getId()]) ?>">
+                <a href="<?= $router->getUrl('CreateQuestion', ['idExercise' => $exercise->id]) ?>">
                     <?= $exercise->getPublicName() ?>
                 </a>
             <?php else : ?>
