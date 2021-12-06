@@ -68,4 +68,9 @@ return [
         'Controller' => 'TakeExerciseController',
         'Method' => 'showAnswerFilled',
     ],
+    'ExerciseResults' => [
+        'URI' => '/exercises/:idExercise/results',
+        'Controller' => 'ExerciseController',
+        'Method' => 'results',
+    ]
 ];
