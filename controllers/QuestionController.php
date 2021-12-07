@@ -90,4 +90,12 @@ class QuestionController extends AbstractController
             'link' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $exercise->id])
         ], hasForm: true);
     }
+    public function showResponses(int $idExercise, int $idQuestion)
+    {
+        $exercise = Repository::find($idExercise, Exercise::class);
+        $question = Repository::find($idQuestion, Question::class);
+
+        if (empty($exercise) || empty($question)) return Http::notFoundException();
+        return Http::response('questions/show', ['exercise' => $exercise, 'question' => $question]);
+    }
 }
