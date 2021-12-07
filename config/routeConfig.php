@@ -83,15 +83,15 @@ return [
         'Controller' => 'SerieController',
         'Method' => 'showAnswer',
     ],
-    'ExerciseResults' => [
-        'URI' => '/exercises/:idExercise/results',
-        'Controller' => 'ExerciseController',
-        'Method' => 'results',
-    ],
     'ResultExercise' => [
         'URI' => '/exercises/:idExercise/results',
         'Controller' => 'ExerciseController',
         'Method' => 'results',
+    ],
+    'ResultsQuestion' => [
+        'URI' => '/exercises/:idExercise/results/:idQuestion',
+        'Controller' => 'QuestionController',
+        'Method' => 'showResponses',
     ],
 
 ];

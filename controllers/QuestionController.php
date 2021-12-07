@@ -81,4 +81,12 @@ class QuestionController extends AbstractController
 
         return Http::response('questions/edit', ['exercise' => $exercise, 'question' => $question, 'states' => Repository::findAll(state::class)], hasForm: true);
     }
+    public function showResponses(int $idExercise, int $idQuestion)
+    {
+        $exercise = Repository::find($idExercise, Exercise::class);
+        $question = Repository::find($idQuestion, Question::class);
+
+        if (empty($exercise) || empty($question)) return Http::notFoundException();
+        return Http::response('questions/show', ['exercise' => $exercise, 'question' => $question]);
+    }
 }
