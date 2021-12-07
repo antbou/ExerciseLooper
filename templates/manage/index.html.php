@@ -7,7 +7,7 @@
     <body>
         <div class="row">
             <section class="column">
-                <h1></h1>
+                <h1>Building</h1>
                 <table class="records">
                     <thead>
                         <tr>
@@ -34,7 +34,7 @@
                 </table>
             </section>
             <section class="column">
-                <h1></h1>
+                <h1>Answering</h1>
                 <table class="records">
                     <thead>
                         <tr>
@@ -58,7 +58,7 @@
                 </table>
             </section>
             <section class="column">
-                <h1></h1>
+                <h1>Closed</h1>
                 <table class="records">
                     <thead>
                         <tr>
