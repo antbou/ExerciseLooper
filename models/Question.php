@@ -2,6 +2,7 @@
 
 namespace Looper\models;
 
+use Looper\models\Response;
 use Looper\core\models\Model;
 use Looper\core\models\Repository;
 
@@ -27,5 +28,9 @@ class Question extends Model
     public function getState(): State
     {
         return Repository::find($this->state_id, State::class);
+    }
+    public function getResponses(): array
+    {
+        return Repository::findAllWhere(Response::class, 'question_id', $this->id);
     }
 }
