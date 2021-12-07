@@ -96,6 +96,9 @@ class QuestionController extends AbstractController
         $question = Repository::find($idQuestion, Question::class);
 
         if (empty($exercise) || empty($question)) return Http::notFoundException();
-        return Http::response('questions/show', ['exercise' => $exercise, 'question' => $question]);
+        return Http::response('questions/show', [
+            'exercise' => $exercise, 'question' => $question,
+            'link' => RouterManager::getRouter()->getUrl('ResultExercise', ['idExercise' => $exercise->id])
+        ]);
     }
 }

@@ -9,7 +9,7 @@
             <tr>
                 <th>Take</th>
                 <?php foreach ($exercise->getQuestions() as $question) : ?>
-                    <th><a href="/exercises/579/results/834"><?= $question->value ?></a></th>
+                    <th><a href="<?= $router->getUrl('ResultsQuestion', ['idExercise' => $exercise->id, 'idQuestion' => $question->id]) ?>"><?= $question->value ?></a></th>
                 <?php endforeach; ?>
             </tr>
         </thead>
