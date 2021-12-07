@@ -43,6 +43,9 @@ class ExerciseController extends AbstractController
         $exercise = Repository::find($id, Exercise::class);
         if (empty($exercise)) return Http::notFoundException();
 
-        return Http::response('exercise/results', ['exercise' => $exercise]);
+        return Http::response(
+            'exercise/results',
+            ['exercise' => $exercise, 'link' => RouterManager::getRouter()->getUrl('ResultExercise', ['idExercise' => $exercise->id])]
+        );
     }
 }

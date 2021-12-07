@@ -39,7 +39,11 @@ class QuestionController extends AbstractController
             if ($question->create()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->id]);
         }
 
-        return Http::response('questions/new', ['exercise' => $exercise, 'states' => Repository::findAll(state::class)], hasForm: true);
+        return Http::response('questions/new', [
+            'exercise' => $exercise,
+            'states' => Repository::findAll(state::class),
+            'link' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $exercise->id])
+        ], hasForm: true);
     }
 
     public function delete(int $idExercise, int $idQuestion)
@@ -79,6 +83,11 @@ class QuestionController extends AbstractController
             if ($question->update()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->id]);
         }
 
-        return Http::response('questions/edit', ['exercise' => $exercise, 'question' => $question, 'states' => Repository::findAll(state::class)], hasForm: true);
+        return Http::response('questions/edit', [
+            'exercise' => $exercise,
+            'question' => $question,
+            'states' => Repository::findAll(state::class),
+            'link' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $exercise->id])
+        ], hasForm: true);
     }
 }

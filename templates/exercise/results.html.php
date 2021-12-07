@@ -1,7 +1,5 @@
 <header class="heading managing">
-    <?php
-    include_once('../templates/_header.html.php');
-    ?>
+    <?php include_once('../templates/_header.html.php'); ?>
     <meta name="csrf-token" content="<?= $_SESSION['token'] ?>">
 </header>
 
@@ -10,25 +8,17 @@
         <thead>
             <tr>
                 <th>Take</th>
-                <?php
-                foreach ($exercise->getQuestions() as $question) :
-                ?>
+                <?php foreach ($exercise->getQuestions() as $question) : ?>
                     <th><a href="/exercises/579/results/834"><?= $question->value ?></a></th>
-                <?php
-                endforeach;
-                ?>
+                <?php endforeach; ?>
             </tr>
         </thead>
 
         <tbody>
-            <?php
-            foreach ($exercise->getSeries() as $serie) :
-            ?>
+            <?php foreach ($exercise->getSeries() as $serie) :  ?>
                 <tr>
-                    <td><a href="/exercises/579/fulfillments/380"><?= $serie->date ?> UTC</a></td>
-                    <?php
-                    foreach ($serie->getResponses() as $response) :
-                    ?>
+                    <td><a href="<?= $router->getUrl('ShowSeriesAnswer', ['idExercise' => $exercise->id, 'idSerie' => $serie->id]) ?>"><?= $serie->date ?> UTC</a></td>
+                    <?php foreach ($serie->getResponses() as $response) : ?>
                         <td class="answer">
                             <?php if (strlen($response->value) <= 0) : ?>
                                 <i class="fa fa-times empty"></i>
@@ -38,13 +28,9 @@
                                 <i class="fa fa-check-double filled"></i>
                             <?php endif ?>
                         </td>
-                    <?php
-                    endforeach;
-                    ?>
+                    <?php endforeach;  ?>
                 </tr>
-            <?php
-            endforeach;
-            ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 

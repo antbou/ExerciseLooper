@@ -27,7 +27,16 @@ class TakeExerciseController extends AbstractController
         $states = array_column(Repository::findAll(State::class), null, 'slug');
         $focusExercise = Repository::find($id, Exercise::class);
         if (empty($focusExercise)) return Http::notFoundException();
-        return Http::response('take/answer', ['exercise' => $focusExercise, 'states' => $states, 'route' => RouterManager::getRouter()->getUrl('SaveAnswer', ['idExercise' => $focusExercise->id])], hasForm: true);
+        return Http::response(
+            'take/answer',
+            [
+                'exercise' => $focusExercise,
+                'states' => $states,
+                'route' => RouterManager::getRouter()->getUrl('SaveAnswer', ['idExercise' => $focusExercise->id]),
+                'title' => $focusExercise->title
+            ],
+            hasForm: true
+        );
     }
 
     public function saveAnswer(int $id)
@@ -66,7 +75,13 @@ class TakeExerciseController extends AbstractController
         $exercise = Repository::find($idExercise, Exercise::class);
         $serie = Repository::find($idSerie, Serie::class);
         if (empty($exercise) || empty($serie)) return Http::notFoundException();
-        return Http::response('take/answer', ['exercise' => $exercise, 'states' => $states, 'edit' => true, 'serie' => $serie, 'route' => RouterManager::getRouter()->getUrl('EditAnswer', ['idExercise' => $exercise->id, 'idSerie' => $serie->id])], hasForm: true);
+        return Http::response('take/answer', [
+            'exercise' => $exercise,
+            'states' => $states,
+            'edit' => true, 'serie' => $serie,
+            'route' => RouterManager::getRouter()->getUrl('EditAnswer', ['idExercise' => $exercise->id, 'idSerie' => $serie->id]),
+            'title' => $exercise->title
+        ], hasForm: true);
     }
 
     public function edit(int $idExercise, int $idSerie)

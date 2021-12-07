@@ -1,8 +1,5 @@
 <header class="heading answering">
-    <?php
-    $title = $exercise->title;
-    include_once('../templates/_header.html.php');
-    ?>
+    <?php include_once('../templates/_header.html.php'); ?>
 </header>
 
 <main class="container">

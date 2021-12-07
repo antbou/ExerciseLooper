@@ -21,6 +21,13 @@ class SerieController extends AbstractController
         $exercise = Repository::find($idExercise, Exercise::class);
         $serie = Repository::find($idSerie, Serie::class);
         if (empty($exercise) || empty($serie)) return Http::notFoundException();
-        return Http::response('serie/show', ['exercise' => $exercise, 'serie' => $serie]);
+        return Http::response(
+            'serie/show',
+            [
+                'exercise' => $exercise,
+                'serie' => $serie,
+                'link' => RouterManager::getRouter()->getUrl('ResultExercise', ['idExercise' => $exercise->id])
+            ]
+        );
     }
 }
