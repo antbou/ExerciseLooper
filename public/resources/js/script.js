@@ -1,8 +1,4 @@
-document.querySelectorAll(".fa.fa-trash").forEach(item => {
-    item.addEventListener("click", ajax(item))
-});
-
-document.querySelectorAll(".status").forEach(item => {
+document.querySelectorAll(".ajax").forEach(item => {
     item.addEventListener("click", ajax(item))
 });
 

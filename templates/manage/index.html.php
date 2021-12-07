@@ -31,7 +31,7 @@
                                     ?>
                                     <i></i>
                                     <a title="Edit" href="<?= $router->getUrl('CreateQuestion', ['idExercise' => $buildedExercise->id]) ?>"><i class="fa fa-edit"></i></a>
-                                    <i class="fa fa-trash link" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteExercise', ['idExercise' => $buildedExercise->id]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
+                                    <i class="fa fa-trash link ajax" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteExercise', ['idExercise' => $buildedExercise->id]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
 
                                 </td>
                             </tr>

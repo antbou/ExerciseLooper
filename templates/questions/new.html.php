@@ -29,14 +29,14 @@
                                 <td>
                                     <a title="Edit" href="<?= $router->getUrl('EditQuestion', ['idExercise' => $exercise->id, 'idQuestion' => $question->id]) ?>"><i class="fa fa-edit"></i></a>
 
-                                    <i class="fa fa-trash link" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteQuestion', ['idExercise' => $exercise->id, 'idQuestion' => $question->id]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
+                                    <i class="fa fa-trash link ajax" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteQuestion', ['idExercise' => $exercise->id, 'idQuestion' => $question->id]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
 
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <button class="button status" data-confirm="Are you sure? You won&#39;t be able to further edit this exercise" data-href="<?= $router->getUrl('StatusExercise', ['idExercise' => $exercise->id, 'slug' => 'answering']) ?>" data-method="put"><i class="fa fa-comment"></i>Complete and be ready for answers</button>
+                <button class="button ajax" data-confirm="Are you sure? You won&#39;t be able to further edit this exercise" data-href="<?= $router->getUrl('StatusExercise', ['idExercise' => $exercise->id, 'slug' => 'answering']) ?>" data-method="put"><i class="fa fa-comment"></i>Complete and be ready for answers</button>
             </section>
             <section class="column">
                 <h1>New Field</h1>
