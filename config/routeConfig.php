@@ -73,10 +73,5 @@ return [
         'Controller' => 'ExerciseController',
         'Method' => 'results',
     ],
-    'ClosedExercise' => [
-        'URI' => '/exercises/:idExercise/results',
-        'Controller' => 'ExerciseController',
-        'Method' => 'closed',
-    ],
 
 ];
