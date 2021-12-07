@@ -53,10 +53,20 @@ return [
         'Method' => 'status',
         'HttpMethod' => 'put'
     ],
-    'ShowAllExercise' => [
+    'ManageExercise' => [
         'URI' => '/exercises/all',
+        'Controller' => 'ManageExerciseController',
+        'Method' => 'show',
+    ],
+    'EditExercise' => [
+        'URI' => '/exercises/:idExercise/edit',
         'Controller' => 'ExerciseController',
-        'Method' => 'status',
+        'Method' => 'edit',
+    ],
+    'DeleteExercise' => [
+        'URI' => '/exercises/:idExercise/delete',
+        'Controller' => 'ExerciseController',
+        'Method' => 'delete',
     ],
     'EditAnswer' => [
         'URI' => '/exercises/:idExercise/fulfillments/:idSerie',
@@ -77,5 +87,11 @@ return [
         'URI' => '/exercises/:idExercise/results',
         'Controller' => 'ExerciseController',
         'Method' => 'results',
-    ]
+    ],
+    'ResultExercise' => [
+        'URI' => '/exercises/:idExercise/results',
+        'Controller' => 'ExerciseController',
+        'Method' => 'results',
+    ],
+
 ];

@@ -14,7 +14,7 @@
             <a class="button managing column" href=<?= $router->getUrl("CreateExercise", []) ?>>Create an exercise</a>
         </div>
         <div class="column">
-            <a class="button results column" href="?page=exercises">Manage an exercise</a>
+            <a class="button results column" href=<?= $router->getUrl("ManageExercise", []) ?>>Manage an exercise</a>
         </div>
     </section>
 </div>

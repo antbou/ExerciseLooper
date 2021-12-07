@@ -1,14 +1,12 @@
-document.querySelectorAll(".fa.fa-trash").forEach(item => {
-    item.addEventListener("click", ajax(item))
-});
-
-document.querySelectorAll(".status").forEach(item => {
+document.querySelectorAll(".ajax").forEach(item => {
     item.addEventListener("click", ajax(item))
 });
 
 function ajax(item) {
     return function () {
-        if (!confirm(item.dataset.confirm)) return false;
+        if (item.dataset.confirm) {
+            if (!confirm(item.dataset.confirm)) return false;
+        }
         const csrf = document.querySelector('meta[name="csrf-token"]').content;
         if (!csrf) return false;
         const xhttp = new XMLHttpRequest();

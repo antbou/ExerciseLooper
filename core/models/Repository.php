@@ -34,4 +34,9 @@ class Repository
     {
         return Database::selectMany('select * from ' . self::getShortName($classname) . ' WHERE ' . $fieldToCheck . ' = :' . $fieldToCheck, [$fieldToCheck => $ref], $classname);
     }
+
+    public static function findWhere(string $classname, string $fieldToCheck, string $ref): ?object
+    {
+        return Database::selectOne('select * from ' . self::getShortName($classname) . ' WHERE ' . $fieldToCheck . ' = :' . $fieldToCheck, [$fieldToCheck => $ref], $classname);
+    }
 }
