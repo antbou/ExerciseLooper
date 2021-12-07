@@ -27,4 +27,8 @@ class Response extends Model
     {
         return Repository::find($this->question_id, Question::class);
     }
+    public function getSerie(): Serie
+    {
+        return Repository::find($this->serie_id, Serie::class);
+    }
 }
