@@ -22,17 +22,11 @@
                                     <?= $buildedExercise->title ?>
                                 </td>
                                 <td>
-                                    <?php
-                                    if (count($buildedExercise->getQuestions()) >= 1) {
-                                    ?>
-                                        <i class="fa fa-comment status link" data-href="<?= $router->getUrl('StatusExercise', ['idExercise' => $buildedExercise->id, 'slug' => 'answering']) ?>" data-method="put"></i>
-                                    <?php
-                                    }
-                                    ?>
-                                    <i></i>
+                                    <?php if (count($buildedExercise->getQuestions()) >= 1) : ?>
+                                        <i class="fa fa-comment link ajax" title="Be ready for answers" rel="nofollow" data-href="<?= $router->getUrl('StatusExercise', ['idExercise' => $buildedExercise->id, 'slug' => 'ANSW']) ?>" data-method="put"></i>
+                                    <?php endif; ?>
                                     <a title="Edit" href="<?= $router->getUrl('CreateQuestion', ['idExercise' => $buildedExercise->id]) ?>"><i class="fa fa-edit"></i></a>
                                     <i class="fa fa-trash link ajax" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteExercise', ['idExercise' => $buildedExercise->id]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
-
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -56,7 +50,7 @@
                                 </td>
                                 <td>
                                     <a title="Show Result" href="<?= $router->getUrl('ResultExercise', ['idExercise' => $answeredExercise->id]) ?>"><i class="fa fa-chart-bar"></i></a>
-                                    <i class="fa fa-minus-circle link" data-href=" <?= $router->getUrl('ClosedExercise', ['idExercise' => $answeredExercise->id]) ?>"></i>
+                                    <i class="fa fa-minus-circle link ajax" title="Close" data-href="<?= $router->getUrl('StatusExercise', ['idExercise' => $answeredExercise->id, 'slug' => 'TERM']) ?>" data-method="put"></i>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -80,7 +74,7 @@
                                 </td>
                                 <td>
                                     <a title="Show Result" href="<?= $router->getUrl('ResultExercise', ['idExercise' => $closedExercise->id]) ?>"><i class="fa fa-chart-bar"></i></a>
-                                    <i class="fa fa-trash link" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteExercise', ['idExercise' => $closedExercise->id]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
+                                    <i class="fa fa-trash link ajax" data-confirm="Are you sure?" data-href="<?= $router->getUrl('DeleteExercise', ['idExercise' => $closedExercise->id]) ?>" title="Destroy" rel="nofollow" data-method="delete"></i>
                                 </td>
                             </tr>
                         <?php endforeach ?>

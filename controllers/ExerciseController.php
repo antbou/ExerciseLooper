@@ -15,13 +15,14 @@ class ExerciseController extends AbstractController
     public function status(int $id, string $slug)
     {
         $exercise = Repository::find($id, Exercise::class);
-        if (empty($exercise) || $slug != 'answering') return Http::notFoundException();
+        $status = Repository::findWhere(Status::class, 'slug', $slug);
+        if (empty($exercise) || is_null($status)) return Http::notFoundException();
 
         if (empty($exercise->getQuestions()) || !$this->csrfValidator()) {
             return http::responseApi(['route' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $exercise->id])]);
         }
 
-        $exercise->status_id = Repository::findAllWhere(Status::class, 'slug', 'ANSW')[0]->id;
+        $exercise->status_id = $status->id;
 
         if (!$exercise->update()) return Http::internalServerError();
 
