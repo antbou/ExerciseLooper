@@ -28,4 +28,12 @@ class ExerciseController extends AbstractController
 
         return http::responseApi(['route' => RouterManager::getRouter()->getUrl('ShowAllExercise', [])]);
     }
+
+    public function results(int $id)
+    {
+        $exercise = Repository::find($id, Exercise::class);
+        if (empty($exercise)) return Http::notFoundException();
+
+        return Http::response('exercise/results', ['exercise' => $exercise]);
+    }
 }

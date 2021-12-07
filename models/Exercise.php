@@ -37,4 +37,9 @@ class Exercise extends Model
 
         return Repository::findCustom($query, $params, Question::class);
     }
+
+    public function getSeries(): array
+    {
+        return Repository::findAllWhere(Serie::class, 'exercise_id', $this->id);
+    }
 }
