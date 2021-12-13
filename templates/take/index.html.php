@@ -9,7 +9,7 @@
                 <li class="row">
                     <div class="column card">
                         <div class="title"><?= $exerciseAnswered->title; ?></div>
-                        <a class="button" href=<?= $router->getUrl('ShowAnswer', ['idExercise' => $exerciseAnswered->id]) ?>>Take it</a>
+                        <a class="button" href=<?= $router->getUrl('showQuestions', ['idExercise' => $exerciseAnswered->id]) ?>>Take it</a>
                     </div>
                 </li>
             <?php endforeach ?>
