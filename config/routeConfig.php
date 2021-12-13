@@ -86,7 +86,7 @@ return [
     'ResultsQuestion' => [
         'URI' => '/exercises/:idExercise/results/:idQuestion',
         'Controller' => 'QuestionController',
-        'Method' => 'showResponses',
+        'Method' => 'showAnswers',
     ],
 
 ];

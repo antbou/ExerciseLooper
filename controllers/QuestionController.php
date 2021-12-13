@@ -99,7 +99,7 @@ class QuestionController extends AbstractController
      * @param integer $idQuestion
      * @return void
      */
-    public function showResponses(int $idExercise, int $idQuestion)
+    public function showAnswers(int $idExercise, int $idQuestion)
     {
         $exercise = Repository::find($idExercise, Exercise::class);
         $question = ($exercise) ? $exercise->getQuestionById($idQuestion) : null;
