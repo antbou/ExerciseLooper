@@ -66,7 +66,7 @@ return [
     'SaveAnswer' => [
         'URI' => '/exercises/:idExercise/fulfillments',
         'Controller' => 'TakeExerciseController',
-        'Method' => 'saveAnswer'
+        'Method' => 'createAnswers'
     ],
     'EditAnswer' => [
         'URI' => '/exercises/:idExercise/fulfillments/:idSerie',
