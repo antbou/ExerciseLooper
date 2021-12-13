@@ -1,6 +1,6 @@
 <?php
 
-use Looper\core\router\RouterManager;
+use Core\router\RouterManager;
 
 require(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
 require(dirname(dirname(__FILE__)) . '/config/config.php');

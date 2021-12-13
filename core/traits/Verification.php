@@ -1,6 +1,6 @@
 <?php
 
-namespace Looper\core\traits;
+namespace Core\traits;
 
 trait Verification
 {

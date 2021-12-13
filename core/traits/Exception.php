@@ -1,8 +1,6 @@
 <?php
 
-namespace Looper\core\traits;
-
-use Error;
+namespace Core\traits;
 
 trait Exception
 {

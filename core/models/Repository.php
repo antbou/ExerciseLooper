@@ -1,9 +1,8 @@
 <?php
 
-namespace Looper\core\models;
+namespace Core\models;
 
-use Looper\core\models\Database;
-use Looper\core\traits\ClassToTable;
+use Core\traits\ClassToTable;
 
 class Repository
 {

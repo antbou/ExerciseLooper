@@ -1,9 +1,9 @@
 <?php
 
-namespace Looper\core\services;
+namespace Core\services;
 
-use Looper\core\services\Render;
-use Looper\core\router\RouterManager;
+use Core\services\Render;
+use Core\router\RouterManager;
 
 class Http
 {

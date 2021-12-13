@@ -1,11 +1,11 @@
 <?php
 
-namespace Looper\core\router;
+namespace Core\router;
 
-use Looper\core\services\Http;
-use Looper\core\router\Route;
-use Looper\core\traits\Verification;
-use Looper\core\traits\Exception as LooperException;
+
+use Core\services\Http;
+use Core\traits\Verification;
+use Core\traits\Exception as LooperException;
 
 class Router
 {

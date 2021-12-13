@@ -1,9 +1,6 @@
 <?php
 
-namespace Looper\core\traits;
-
-use ReflectionClass;
-use ReflectionProperty;
+namespace Core\traits;
 
 trait GetChildrenProperties
 {
@@ -16,9 +13,9 @@ trait GetChildrenProperties
     public function toArray(): array
     {
         $properties = [];
-        $reflection = new ReflectionClass($this);
+        $reflection = new \ReflectionClass($this);
 
-        foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $key => $value) {
+        foreach ($reflection->getProperties(\ReflectionProperty::IS_PUBLIC) as $key => $value) {
             $value->setAccessible(true);
             $value->getValue($this);
             $properties += [$value->name => $value->getValue($this)];

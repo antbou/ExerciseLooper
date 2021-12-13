@@ -1,9 +1,8 @@
 <?php
 
-namespace Looper\core\traits;
+namespace Core\traits;
 
-
-use Looper\core\models\Repository;
+use Core\models\Repository;
 
 trait FindBySlug
 {

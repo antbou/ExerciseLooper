@@ -1,8 +1,8 @@
 <?php
 
-namespace Looper\core\services;
+namespace Core\services;
 
-use Looper\core\router\RouterManager;
+use Core\router\RouterManager;
 
 class Render
 {

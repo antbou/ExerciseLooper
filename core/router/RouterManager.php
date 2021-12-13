@@ -1,8 +1,6 @@
 <?php
 
-namespace Looper\core\router;
-
-use Looper\core\router\Router;
+namespace Core\router;
 
 class RouterManager
 {

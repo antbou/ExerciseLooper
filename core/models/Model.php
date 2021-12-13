@@ -1,10 +1,9 @@
 <?php
 
-namespace Looper\core\models;
+namespace Core\models;
 
-use Looper\core\models\Database;
-use Looper\core\traits\ClassToTable;
-use Looper\core\traits\GetChildrenProperties;
+use Core\traits\ClassToTable;
+use Core\traits\GetChildrenProperties;
 
 abstract class Model
 {

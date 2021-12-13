@@ -1,5 +1,7 @@
 <?php
 
+use Core\models\Database;
+
 /**
  * This script automatically loads the database
  */
@@ -7,13 +9,10 @@
 require(dirname(__FILE__) . '/vendor/autoload.php');
 require(dirname(__FILE__) . '/config/config.php');
 
-use Looper\core\models\Database;
 
 const SCHEMA =  './database/looper.sql';
 
 $query = file_get_contents(SCHEMA);
-
-
 
 try {
     Database::$host = "127.0.0.1:9906";

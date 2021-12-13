@@ -1,6 +1,6 @@
 <?php
 
-namespace Looper\core\controllers;
+namespace Core\controllers;
 
 abstract class AbstractController
 {

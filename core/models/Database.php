@@ -1,6 +1,6 @@
 <?php
 
-namespace Looper\core\models;
+namespace Core\models;
 
 use PDO;
 use PDOException;

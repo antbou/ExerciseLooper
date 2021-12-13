@@ -1,9 +1,10 @@
 <?php
 
-namespace Looper\core\router;
+namespace Core\router;
 
-use Looper\core\traits\Verification;
-use Looper\core\traits\Exception as LooperException;
+
+use Core\traits\Verification;
+use Core\traits\Exception as LooperException;
 
 class Route
 {
