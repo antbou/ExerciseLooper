@@ -76,7 +76,7 @@ return [
     'ShowSeriesAnswer' => [
         'URI' => '/exercises/:idExercise/fulfillments/:idSerie/show',
         'Controller' => 'SerieController',
-        'Method' => 'showAnswer',
+        'Method' => 'show',
     ],
     'ResultExercise' => [
         'URI' => '/exercises/:idExercise/results',
