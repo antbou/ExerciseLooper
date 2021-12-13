@@ -9,7 +9,7 @@
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>" />
         <div class=" field">
             <label for="field_label">Label</label>
-            <input type="text" name="field[label]" id="field_label" value="<?= $question->value ?>" />
+            <input type="text" name="field[label]" id="field_label" value="<?= htmlspecialchars($question->value) ?>" />
         </div>
         <div class="field">
             <label for="field_value_kind">Value kind</label>

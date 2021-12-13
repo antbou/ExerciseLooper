@@ -9,9 +9,9 @@
                 </a>
             <?php elseif (isset($exercise) && isset($title)) :  ?>
                 Exercise:
-                <span class="exercise-title"><?= $title ?></span>
+                <span class="exercise-title"><?= htmlspecialchars($title) ?></span>
             <?php else : ?>
-                <?= $title ?>
+                <?= htmlspecialchars($title) ?>
             <?php endif ?>
         </span>
     <?php endif ?>

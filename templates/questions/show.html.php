@@ -1,10 +1,8 @@
 <header class="heading results">
-    <?php
-    include_once('../templates/_header.html.php');
-    ?>
+    <?php include_once('../templates/_header.html.php');  ?>
 </header>
 <main class="container">
-    <h1><?= $question->value ?></h1>
+    <h1><?= htmlspecialchars($question->value) ?></h1>
     <table>
         <thead>
             <tr>

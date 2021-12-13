@@ -46,7 +46,7 @@
                         <?php foreach ($answeredExercises as $answeredExercise) : ?>
                             <tr>
                                 <td>
-                                    <?= $answeredExercise->title ?>
+                                    <?= htmlspecialchars($answeredExercise->title) ?>
                                 </td>
                                 <td>
                                     <a title="Show Result" href="<?= $router->getUrl('ResultExercise', ['idExercise' => $answeredExercise->id]) ?>"><i class="fa fa-chart-bar"></i></a>
@@ -70,7 +70,7 @@
                         <?php foreach ($closedExercises as $closedExercise) : ?>
                             <tr>
                                 <td>
-                                    <?= $closedExercise->title ?>
+                                    <?= htmlspecialchars($closedExercise->title) ?>
                                 </td>
                                 <td>
                                     <a title="Show Result" href="<?= $router->getUrl('ResultExercise', ['idExercise' => $closedExercise->id]) ?>"><i class="fa fa-chart-bar"></i></a>
