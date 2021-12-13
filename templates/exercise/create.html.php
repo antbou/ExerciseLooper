@@ -6,7 +6,7 @@
 
     <body>
         <h1>New Exercise</h1>
-        <form action=<?= $router->getUrl("ValidateExercise", []) ?> accept-charset=" UTF-8" method="post">
+        <form action=<?= $router->getUrl("CreateExercise", []) ?> accept-charset=" UTF-8" method="post">
             <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
             <div class="field">
                 <label for="exercise_title">Title</label>
