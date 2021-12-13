@@ -10,6 +10,7 @@ use Looper\core\models\Repository;
 use Looper\core\forms\FormValidator;
 use Looper\core\router\RouterManager;
 use Looper\core\controllers\AbstractController;
+use Looper\models\Response;
 use Looper\models\State;
 
 class QuestionController extends AbstractController
@@ -32,10 +33,9 @@ class QuestionController extends AbstractController
         if ($form->process() && $this->csrfValidator()) {
             $question = Question::make([
                 'value' => $form->getFields()['value']->value,
-                'state_id' => Repository::findAllWhere(State::class, 'slug', $form->getFields()['valueKind']->value)[0]->id,
+                'state_id' => State::findBySlug($form->getFields()['valueKind']->value)->id,
                 'exercise_id' => $exercise->id
             ]);
-
             if ($question->create()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->id]);
         }
 
@@ -48,9 +48,10 @@ class QuestionController extends AbstractController
 
     public function delete(int $idExercise, int $idQuestion)
     {
-        $question = Repository::find($idQuestion, Question::class);
+        $exercise = Repository::find($idExercise, Exercise::class);
+        $question = ($exercise) ? $exercise->getQuestionById($idQuestion) : null;
 
-        if (empty($question)) return Http::notFoundException();
+        if (empty($exercise) || empty($question)) return Http::notFoundException();
 
         $url = ['route' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $question->exercise_id])];
 
@@ -64,7 +65,7 @@ class QuestionController extends AbstractController
     public function edit(int $idExercise, int $idQuestion)
     {
         $exercise = Repository::find($idExercise, Exercise::class);
-        $question = Repository::find($idQuestion, Question::class);
+        $question = ($exercise) ? $exercise->getQuestionById($idQuestion) : null;
 
         if (empty($exercise) || empty($question)) return Http::notFoundException();
 
@@ -79,7 +80,7 @@ class QuestionController extends AbstractController
 
         if ($form->process() && $this->csrfValidator()) {
             $question->value = $form->getFields()['value']->value;
-            $question->state_id = Repository::findAllWhere(State::class, 'slug', $form->getFields()['valueKind']->value)[0]->id;
+            $question->state_id = State::findBySlug($form->getFields()['valueKind']->value)->id;
             if ($question->update()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->id]);
         }
 
@@ -90,10 +91,18 @@ class QuestionController extends AbstractController
             'link' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $exercise->id])
         ], hasForm: true);
     }
+
+    /**
+     * Display the answers obtained to a specific question
+     *
+     * @param integer $idExercise
+     * @param integer $idQuestion
+     * @return void
+     */
     public function showResponses(int $idExercise, int $idQuestion)
     {
         $exercise = Repository::find($idExercise, Exercise::class);
-        $question = Repository::find($idQuestion, Question::class);
+        $question = ($exercise) ? $exercise->getQuestionById($idQuestion) : null;
 
         if (empty($exercise) || empty($question)) return Http::notFoundException();
         return Http::response('questions/show', [
