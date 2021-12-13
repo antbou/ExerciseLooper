@@ -49,7 +49,7 @@ return [
         'HttpMethod' => 'put'
     ],
     'ManageExercise' => [
-        'URI' => '/exercises/all',
+        'URI' => '/exercises',
         'Controller' => 'ManageExerciseController',
         'Method' => 'show',
     ],
