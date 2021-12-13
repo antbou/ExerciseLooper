@@ -44,6 +44,11 @@ class Exercise extends Model
         return Repository::findAllWhere(Serie::class, 'exercise_id', $this->id);
     }
 
+    public function getStatus(): Status
+    {
+        return Repository::find($this->status_id, Status::class);
+    }
+
     public function getQuestionById(int $id): ?Question
     {
         $table = self::getShortName(Question::class);
