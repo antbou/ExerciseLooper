@@ -51,7 +51,7 @@ class TakeExerciseController extends AbstractController
 
         if (!$form->process() || !$this->csrfValidator()) return Http::redirectToRoute('ShowAnswer', ['idExercise' => $exercise->id]);
         $serie = Serie::make([
-            'date' => (new \DateTime('NOW'))->format('Y-m-d H:i:s'),
+            'date' => (new \DateTime('NOW', new \DateTimeZone("UTC")))->format('Y-m-d H:i:s'),
             'exercise_id' => $exercise->id
         ]);
 
