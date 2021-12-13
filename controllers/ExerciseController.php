@@ -2,12 +2,14 @@
 
 namespace Looper\controllers;
 
+use Looper\models\Status;
 use Looper\models\Exercise;
+use Looper\core\forms\Field;
 use Looper\core\services\Http;
 use Looper\core\models\Repository;
+use Looper\core\forms\FormValidator;
 use Looper\core\router\RouterManager;
 use Looper\core\controllers\AbstractController;
-use Looper\models\Status;
 
 class ExerciseController extends AbstractController
 {
@@ -47,5 +49,20 @@ class ExerciseController extends AbstractController
             'exercise/results',
             ['exercise' => $exercise, 'link' => RouterManager::getRouter()->getUrl('ResultExercise', ['idExercise' => $exercise->id])]
         );
+    }
+
+    public function create()
+    {
+        $form = new FormValidator('exercise');
+        $form->addField(['title' => new Field('title', 'string', true)]);
+
+        if ($form->process() && $this->csrfValidator()) {
+            $exercise = Exercise::make([
+                'title' => $form->getFields()['title']->value,
+            ]);
+            if ($exercise->create()) return Http::redirectToRoute('CreateQuestion', ['idExercise' => $exercise->id]);
+        }
+
+        return Http::response('exercise/create', ['title' => Exercise::DEFAULTNAME], hasForm: true);
     }
 }
