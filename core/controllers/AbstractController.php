@@ -2,9 +2,6 @@
 
 namespace Looper\core\controllers;
 
-use ReflectionClass;
-use Looper\core\services\Http;
-
 abstract class AbstractController
 {
     /**
@@ -23,17 +20,6 @@ abstract class AbstractController
     }
 
     /**
-     * returns a 404 page if the id is not numeric
-     *
-     * @param [type] $id
-     * @return void
-     */
-    public function checkNumeric($id): void
-    {
-        (is_numeric($id)) ?: Http::notFoundException();
-    }
-
-    /**
      * gets all the contstant in the given class
      *
      * @param string $classname
@@ -42,7 +28,7 @@ abstract class AbstractController
      */
     public function getConstants(string $classname, bool $arrayKeyOnly = false): array
     {
-        $oClass = new ReflectionClass($classname);
+        $oClass = new \ReflectionClass($classname);
         $result = $oClass->getConstants();
         return ($arrayKeyOnly) ? array_keys($result) : $result;
     }
