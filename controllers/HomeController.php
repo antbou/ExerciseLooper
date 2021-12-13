@@ -8,6 +8,6 @@ class HomeController
 {
     public function show()
     {
-        Http::response('home/index');
+        return Http::response('home/index');
     }
 }
