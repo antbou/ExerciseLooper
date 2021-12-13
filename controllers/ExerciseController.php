@@ -65,7 +65,8 @@ class ExerciseController extends AbstractController
     public function status(int $id, string $slug)
     {
         $exercise = Repository::find($id, Exercise::class);
-        $status = Repository::findWhere(Status::class, 'slug', $slug);
+        $status = Status::findBySlug($slug);
+
         if (empty($exercise) || is_null($status)) return Http::notFoundException();
 
         if (empty($exercise->getQuestions()) || !$this->csrfValidator()) {
