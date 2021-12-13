@@ -2,6 +2,7 @@
 
 namespace Looper\models;
 
+use Looper\core\models\Database;
 use Looper\core\models\Model;
 use Looper\core\models\Repository;
 
@@ -41,5 +42,10 @@ class Exercise extends Model
     public function getSeries(): array
     {
         return Repository::findAllWhere(Serie::class, 'exercise_id', $this->id);
+    }
+
+    public function getQuestionById(int $id): ?Question
+    {
+        return Database::selectOne('SELECT questions.* FROM ' . self::getShortName(Question::class) . ' WHERE questions.id = :idQuestion AND questions.exercise_id = :idExercise', ['idExercise' => $this->id, 'idQuestion' => $id], Question::class);
     }
 }
