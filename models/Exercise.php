@@ -46,6 +46,7 @@ class Exercise extends Model
 
     public function getQuestionById(int $id): ?Question
     {
-        return Database::selectOne('SELECT questions.* FROM ' . self::getShortName(Question::class) . ' WHERE questions.id = :idQuestion AND questions.exercise_id = :idExercise', ['idExercise' => $this->id, 'idQuestion' => $id], Question::class);
+        $table = self::getShortName(Question::class);
+        return Database::selectOne("SELECT {$table}.* FROM {$table} WHERE {$table}.id = :idQuestion AND {$table}.exercise_id = :idExercise", ['idExercise' => $this->id, 'idQuestion' => $id], Question::class);
     }
 }
