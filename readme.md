@@ -47,12 +47,11 @@ Stop the containers
 
 ```
 docker-compose stop
-
 ```
 
 #### SASS
 ```sh
-sass --watch assets\scss\main.scss .\public\resources\style\style.css
+sass assets\scss\main.scss .\public\resources\style\style.css
 ```
 
 ### Local file configuration
@@ -66,6 +65,7 @@ define("DBHOST", "TO_CHANGE"); # The IP address to indicate must correspond to t
 define("DBNAME", "TO_CHANGE");
 define("DBUSERNAME", "TO_CHANGE");
 define("DBPASSWORD", "TO_CHANGE");
+define('CHARSET', 'utf8');
 define('APP_ENV', 'dev'); # choice between dev and prod
 ```
 
