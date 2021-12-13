@@ -43,7 +43,7 @@ class TakeExerciseController extends AbstractController
             [
                 'exercise' => $focusExercise,
                 'states' => $states,
-                'route' => RouterManager::getRouter()->getUrl('SaveAnswer', ['createAnswers' => $focusExercise->id]),
+                'route' => RouterManager::getRouter()->getUrl('SaveAnswer', ['idExercise' => $focusExercise->id]),
                 'title' => $focusExercise->title
             ],
             hasForm: true
