@@ -3,9 +3,9 @@
 namespace Looper\controllers;
 
 use Looper\models\Exercise;
-use Looper\core\services\Http;
-use Looper\core\models\Repository;
-use Looper\core\controllers\AbstractController;
+use Core\services\Http;
+use Core\models\Repository;
+use Core\controllers\AbstractController;
 use Looper\models\Status;
 
 class ManageExerciseController extends AbstractController

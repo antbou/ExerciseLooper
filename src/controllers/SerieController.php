@@ -3,10 +3,10 @@
 namespace Looper\controllers;
 
 use Looper\models\Exercise;
-use Looper\core\services\Http;
-use Looper\core\models\Repository;
-use Looper\core\router\RouterManager;
-use Looper\core\controllers\AbstractController;
+use Core\services\Http;
+use Core\models\Repository;
+use Core\router\RouterManager;
+use Core\controllers\AbstractController;
 
 class SerieController extends AbstractController
 {

@@ -2,8 +2,8 @@
 
 namespace Looper\models;
 
-use Looper\core\models\Model;
-use Looper\core\traits\FindBySlug;
+use Core\models\Model;
+use Core\traits\FindBySlug;
 
 class State extends Model
 {

@@ -2,8 +2,8 @@
 
 namespace Looper\models;
 
-use Looper\core\models\Model;
-use Looper\core\models\Repository;
+use Core\models\Model;
+use Core\models\Repository;
 
 class Response extends Model
 {

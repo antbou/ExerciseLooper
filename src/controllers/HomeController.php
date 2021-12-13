@@ -2,7 +2,7 @@
 
 namespace Looper\controllers;
 
-use Looper\core\services\Http;
+use Core\services\Http;
 
 class HomeController
 {

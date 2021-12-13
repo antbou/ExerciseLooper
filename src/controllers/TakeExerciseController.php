@@ -5,12 +5,12 @@ namespace Looper\controllers;
 use Looper\models\State;
 use Looper\models\Status;
 use Looper\models\Exercise;
-use Looper\core\forms\Field;
-use Looper\core\services\Http;
-use Looper\core\models\Repository;
-use Looper\core\forms\FormValidator;
-use Looper\core\controllers\AbstractController;
-use Looper\core\router\RouterManager;
+use Core\forms\Field;
+use Core\services\Http;
+use Core\models\Repository;
+use Core\forms\FormValidator;
+use Core\controllers\AbstractController;
+use Core\router\RouterManager;
 use Looper\models\Response;
 use Looper\models\Serie;
 

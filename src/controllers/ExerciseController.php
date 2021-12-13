@@ -4,12 +4,12 @@ namespace Looper\controllers;
 
 use Looper\models\Status;
 use Looper\models\Exercise;
-use Looper\core\forms\Field;
-use Looper\core\services\Http;
-use Looper\core\models\Repository;
-use Looper\core\forms\FormValidator;
-use Looper\core\router\RouterManager;
-use Looper\core\controllers\AbstractController;
+use Core\forms\Field;
+use Core\services\Http;
+use Core\models\Repository;
+use Core\forms\FormValidator;
+use Core\router\RouterManager;
+use Core\controllers\AbstractController;
 
 class ExerciseController extends AbstractController
 {

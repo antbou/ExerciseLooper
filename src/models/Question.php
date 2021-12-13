@@ -3,8 +3,8 @@
 namespace Looper\models;
 
 use Looper\models\Response;
-use Looper\core\models\Model;
-use Looper\core\models\Repository;
+use Core\models\Model;
+use Core\models\Repository;
 
 class Question extends Model
 {

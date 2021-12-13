@@ -2,9 +2,9 @@
 
 namespace Looper\models;
 
-use Looper\core\models\Database;
-use Looper\core\models\Model;
-use Looper\core\models\Repository;
+use Core\models\Database;
+use Core\models\Model;
+use Core\models\Repository;
 
 class Exercise extends Model
 {
