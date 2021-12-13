@@ -1,7 +1,5 @@
 <header class="heading managing">
-    <?php
-    include_once('../templates/_header.html.php');
-    ?>
+    <?php include_once('../templates/_header.html.php'); ?>
     <meta name="csrf-token" content="<?= $_SESSION['token'] ?>">
 </header>
 

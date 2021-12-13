@@ -8,7 +8,7 @@
             <?php foreach ($exercisesAnswered as $exerciseAnswered) : ?>
                 <li class="row">
                     <div class="column card">
-                        <div class="title"><?= $exerciseAnswered->title; ?></div>
+                        <div class="title"><?= htmlspecialchars($exerciseAnswered->title) ?></div>
                         <a class="button" href=<?= $router->getUrl('showQuestions', ['idExercise' => $exerciseAnswered->id]) ?>>Take it</a>
                     </div>
                 </li>

@@ -19,7 +19,7 @@
                         <?php foreach ($buildedExercises as $buildedExercise) : ?>
                             <tr>
                                 <td>
-                                    <?= $buildedExercise->title ?>
+                                    <?= htmlspecialchars($buildedExercise->title) ?>
                                 </td>
                                 <td>
                                     <?php if (count($buildedExercise->getQuestions()) >= 1) : ?>

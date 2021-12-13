@@ -5,7 +5,7 @@
             <?php if (isset($exercise) && !isset($title)) : ?>
                 Exercise:
                 <a href="<?= $link ?>">
-                    <?= $exercise->getPublicName() ?>
+                    <?= htmlspecialchars($exercise->getPublicName()) ?>
                 </a>
             <?php elseif (isset($exercise) && isset($title)) :  ?>
                 Exercise:
