@@ -50,8 +50,9 @@ docker-compose stop
 ```
 
 #### SASS
+
 ```sh
-sass assets\scss\main.scss .\public\resources\style\style.css
+composer asset
 ```
 
 ### Local file configuration
@@ -68,4 +69,3 @@ define("DBPASSWORD", "TO_CHANGE");
 define('CHARSET', 'utf8');
 define('APP_ENV', 'dev'); # choice between dev and prod
 ```
-
