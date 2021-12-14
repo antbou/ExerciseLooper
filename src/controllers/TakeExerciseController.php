@@ -7,7 +7,6 @@ use Looper\models\Status;
 use Looper\models\Exercise;
 use Core\forms\Field;
 use Core\services\Http;
-use Core\models\Repository;
 use Core\forms\FormValidator;
 use Core\controllers\AbstractController;
 use Core\router\RouterManager;
@@ -23,7 +22,7 @@ class TakeExerciseController extends AbstractController
      */
     public function showExercises()
     {
-        $exercisesAnswered = Repository::findAllWhere('status_id', Status::findBySlug('ANSW')->id, Exercise::class);
+        $exercisesAnswered = Exercise::allWhere('status_id', Status::findBySlug('ANSW')->id);
         return Http::response('take/index', ['exercisesAnswered' => $exercisesAnswered]);
     }
 
@@ -35,8 +34,8 @@ class TakeExerciseController extends AbstractController
      */
     public function showQuestions(int $id)
     {
-        $states = array_column(Repository::findAll(State::class), null, 'slug');
-        $focusExercise = Repository::find($id, Exercise::class);
+        $states = array_column(State::all(State::class), null, 'slug');
+        $focusExercise = Exercise::find($id);
         if (empty($focusExercise)) return Http::notFoundException();
         return Http::response(
             'take/answer',
@@ -58,7 +57,7 @@ class TakeExerciseController extends AbstractController
      */
     public function createAnswers(int $id)
     {
-        $exercise = Repository::find($id, Exercise::class);
+        $exercise = Exercise::find($id);
         if (empty($exercise)) return Http::notFoundException();
 
         $form = new FormValidator('fulfillment');
@@ -95,7 +94,7 @@ class TakeExerciseController extends AbstractController
      */
     public function edit(int $idExercise, int $idSerie)
     {
-        $exercise = Repository::find($idExercise, Exercise::class);
+        $exercise = Exercise::find($idExercise);
         $serie = ($exercise) ? $exercise->getSerieById($idSerie) : null;
         if (empty($exercise) || empty($serie)) return Http::notFoundException();
 
@@ -124,8 +123,8 @@ class TakeExerciseController extends AbstractController
      */
     public function showAnswersFilled(int $idExercise, int $idSerie)
     {
-        $states = array_column(Repository::findAll(State::class), null, 'slug');
-        $exercise = Repository::find($idExercise, Exercise::class);
+        $states = array_column(State::all(), null, 'slug');
+        $exercise = Exercise::find($idExercise);
         $serie = ($exercise) ? $exercise->getSerieById($idSerie) : null;
         if (empty($exercise) || empty($serie)) return Http::notFoundException();
         return Http::response('take/answer', [

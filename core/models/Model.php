@@ -5,7 +5,7 @@ namespace Core\models;
 use Core\traits\ClassToTable;
 use Core\traits\GetChildrenProperties;
 
-abstract class Model
+abstract class Model extends Repository
 {
 
     use GetChildrenProperties, ClassToTable;

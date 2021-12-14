@@ -23,6 +23,6 @@ class Serie extends Model
 
     public function getResponses(): array
     {
-        return Repository::findAllWhere('serie_id', $this->id, Response::class);
+        return Response::allWhere('serie_id', $this->id);
     }
 }

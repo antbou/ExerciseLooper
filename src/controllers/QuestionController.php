@@ -6,7 +6,6 @@ use Looper\models\Exercise;
 use Looper\models\Question;
 use Core\forms\Field;
 use Core\services\Http;
-use Core\models\Repository;
 use Core\forms\FormValidator;
 use Core\router\RouterManager;
 use Core\controllers\AbstractController;
@@ -17,13 +16,13 @@ class QuestionController extends AbstractController
 {
     public function create(int $id)
     {
-        $exercise = Repository::find($id, Exercise::class);
+        $exercise = Exercise::find($id);
 
         if (empty($exercise) || ($exercise->getStatus() != Status::findBySlug('UNDE'))) return Http::notFoundException();
 
         $states = array_map(function ($o) {
             return $o->slug;
-        }, Repository::findAll(State::class));
+        }, State::all());
 
         $form = new FormValidator('field');
         $form
@@ -41,14 +40,14 @@ class QuestionController extends AbstractController
 
         return Http::response('questions/new', [
             'exercise' => $exercise,
-            'states' => Repository::findAll(state::class),
+            'states' => State::all(),
             'link' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $exercise->id])
         ], hasForm: true);
     }
 
     public function delete(int $idExercise, int $idQuestion)
     {
-        $exercise = Repository::find($idExercise, Exercise::class);
+        $exercise = Exercise::find($idExercise);
         $question = ($exercise) ? $exercise->getQuestionById($idQuestion) : null;
 
         if (empty($exercise) || ($exercise->getStatus() != Status::findBySlug('UNDE')) || empty($question)) return Http::notFoundException();
@@ -64,14 +63,14 @@ class QuestionController extends AbstractController
 
     public function edit(int $idExercise, int $idQuestion)
     {
-        $exercise = Repository::find($idExercise, Exercise::class);
+        $exercise = Exercise::find($idExercise);
         $question = ($exercise) ? $exercise->getQuestionById($idQuestion) : null;
 
         if (empty($exercise) || ($exercise->getStatus() != Status::findBySlug('UNDE')) || empty($question)) return Http::notFoundException();
 
         $states = array_map(function ($o) {
             return $o->slug;
-        }, Repository::findAll(State::class));
+        }, State::all());
 
         $form = new FormValidator('field');
         $form
@@ -87,7 +86,7 @@ class QuestionController extends AbstractController
         return Http::response('questions/edit', [
             'exercise' => $exercise,
             'question' => $question,
-            'states' => Repository::findAll(state::class),
+            'states' => State::all(),
             'link' => RouterManager::getRouter()->getUrl('CreateQuestion', ['idExercise' => $exercise->id])
         ], hasForm: true);
     }
@@ -101,7 +100,7 @@ class QuestionController extends AbstractController
      */
     public function showAnswers(int $idExercise, int $idQuestion)
     {
-        $exercise = Repository::find($idExercise, Exercise::class);
+        $exercise = Exercise::find($idExercise);
         $question = ($exercise) ? $exercise->getQuestionById($idQuestion) : null;
 
         if (empty($exercise) || empty($question)) return Http::notFoundException();

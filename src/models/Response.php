@@ -3,7 +3,6 @@
 namespace Looper\models;
 
 use Core\models\Model;
-use Core\models\Repository;
 
 class Response extends Model
 {
@@ -25,10 +24,10 @@ class Response extends Model
 
     public function getQuestion(): Question
     {
-        return Repository::find($this->question_id, Question::class);
+        return Question::find($this->question_id);
     }
     public function getSerie(): Serie
     {
-        return Repository::find($this->serie_id, Serie::class);
+        return Serie::find($this->serie_id);
     }
 }

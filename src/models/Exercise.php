@@ -5,7 +5,6 @@ namespace Looper\models;
 use Looper\models\Status;
 use Core\models\Model;
 use Core\models\Database;
-use Core\models\Repository;
 
 class Exercise extends Model
 {
@@ -37,17 +36,17 @@ class Exercise extends Model
         $query = 'SELECT * FROM db_exerciselooper.questions WHERE questions.exercise_id = :id ORDER BY questions.id DESC';
         $params = ['id' => $this->id];
 
-        return Repository::findCustom($query, $params, Question::class);
+        return Question::custom($query, $params);
     }
 
     public function getSeries(): array
     {
-        return Repository::findAllWhere('exercise_id', $this->id, Serie::class);
+        return Serie::allWhere('exercise_id', $this->id);
     }
 
     public function getStatus(): Status
     {
-        return Repository::find($this->status_id, Status::class);
+        return Status::find($this->status_id);
     }
 
     public function getQuestionById(int $id): ?Question

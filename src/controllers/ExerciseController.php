@@ -6,7 +6,6 @@ use Looper\models\Status;
 use Looper\models\Exercise;
 use Core\forms\Field;
 use Core\services\Http;
-use Core\models\Repository;
 use Core\forms\FormValidator;
 use Core\router\RouterManager;
 use Core\controllers\AbstractController;
@@ -31,7 +30,7 @@ class ExerciseController extends AbstractController
 
     public function delete(int $id)
     {
-        $exercise = Repository::find($id, Exercise::class);
+        $exercise = Exercise::find($id);
         if (empty($exercise)) return Http::notFoundException();
         if (!$exercise->delete()) return Http::internalServerError();
 
@@ -46,7 +45,7 @@ class ExerciseController extends AbstractController
      */
     public function results(int $id)
     {
-        $exercise = Repository::find($id, Exercise::class);
+        $exercise = Exercise::find($id);
         if (empty($exercise)) return Http::notFoundException();
 
         return Http::response(
@@ -64,7 +63,7 @@ class ExerciseController extends AbstractController
      */
     public function status(int $id, string $slug)
     {
-        $exercise = Repository::find($id, Exercise::class);
+        $exercise = Exercise::find($id);
         $status = Status::findBySlug($slug);
 
         if (empty($exercise) || is_null($status)) return Http::notFoundException();

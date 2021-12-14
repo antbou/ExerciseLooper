@@ -4,7 +4,6 @@ namespace Looper\models;
 
 use Looper\models\Response;
 use Core\models\Model;
-use Core\models\Repository;
 
 class Question extends Model
 {
@@ -27,10 +26,10 @@ class Question extends Model
 
     public function getState(): State
     {
-        return Repository::find($this->state_id, State::class);
+        return State::find($this->state_id);
     }
     public function getResponses(): array
     {
-        return Repository::findAllWhere('question_id', $this->id, Response::class);
+        return Response::allWhere('question_id', $this->id);
     }
 }

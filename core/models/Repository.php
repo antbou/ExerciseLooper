@@ -4,38 +4,32 @@ namespace Core\models;
 
 use Core\traits\ClassToTable;
 
-class Repository
+abstract class Repository
 {
     use ClassToTable;
 
-    /**
-     * Return a specific item
-     *
-     * @param integer $id
-     * @return void
-     */
-    public static function find(int $id, string $classname): ?object
+    public static function find(int $id): ?object
     {
-        return Database::selectOne('select * from ' . self::getShortName($classname) . ' where id = :id', ['id' => $id], $classname);
+        return Database::selectOne('select * from ' . self::getShortName(static::class) . ' where id = :id', ['id' => $id], static::class);
     }
 
-    public static function findAll(string $classname): array
+    public static function all(): array
     {
-        return Database::selectMany('select * from ' . self::getShortName($classname), [], $classname);
+        return Database::selectMany('select * from ' . self::getShortName(static::class), [], static::class);
     }
 
-    public static function findAllWhere(string $fieldToCheck, string $ref, string $classname): array
+    public static function allWhere(string $fieldToCheck, string $ref): array
     {
-        return Database::selectMany('select * from ' . self::getShortName($classname) . ' WHERE ' . $fieldToCheck . ' = :' . $fieldToCheck, [$fieldToCheck => $ref], $classname);
+        return Database::selectMany('select * from ' . self::getShortName(static::class) . ' WHERE ' . $fieldToCheck . ' = :' . $fieldToCheck, [$fieldToCheck => $ref], static::class);
     }
 
-    public static function findWhere(string $fieldToCheck, string $ref, string $classname): ?object
+    public static function where(string $fieldToCheck, string $ref): ?object
     {
-        return Database::selectOne('select * from ' . self::getShortName($classname) . ' WHERE ' . $fieldToCheck . ' = :' . $fieldToCheck, [$fieldToCheck => $ref], $classname);
+        return Database::selectOne('select * from ' . self::getShortName(static::class) . ' WHERE ' . $fieldToCheck . ' = :' . $fieldToCheck, [$fieldToCheck => $ref], static::class);
     }
 
-    public static function findCustom(string $query, array $params, string $className): array
+    public static function custom(string $query, array $params): array
     {
-        return Database::selectMany($query, $params, $className);
+        return Database::selectMany($query, $params, static::class);
     }
 }
