@@ -15,7 +15,6 @@ const SCHEMA =  './database/looper.sql';
 $query = file_get_contents(SCHEMA);
 
 try {
-    Database::$host = "127.0.0.1:9906";
     Database::execute($query, []);
     print "\e[0;30;42mScript successfully executed \e[0m\n" . PHP_EOL;
     exit(0);
