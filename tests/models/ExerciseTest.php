@@ -32,7 +32,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers Exercise::where()
+     * @covers Exercise::allWhere()
      */
     public function testWhere_ifResultExist()
     {
@@ -40,7 +40,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers Exercise::where()
+     * @covers Exercise::allWhere()
      */
     public function testWhere_ifResultNotExist()
     {
@@ -62,7 +62,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::save()
+     * @covers  Exercise::update()
      * @depends testFind_ifValueExist
      */
     public function testUpdate()
