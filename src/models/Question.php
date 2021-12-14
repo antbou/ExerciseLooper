@@ -31,6 +31,6 @@ class Question extends Model
     }
     public function getResponses(): array
     {
-        return Repository::findAllWhere(Response::class, 'question_id', $this->id);
+        return Repository::findAllWhere('question_id', $this->id, Response::class);
     }
 }

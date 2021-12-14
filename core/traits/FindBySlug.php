@@ -8,6 +8,6 @@ trait FindBySlug
 {
     public static function findBySlug(string $slug): ?object
     {
-        return Repository::findWhere(static::class, 'slug', $slug);
+        return Repository::findWhere('slug', $slug, static::class);
     }
 }

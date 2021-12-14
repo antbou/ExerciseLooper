@@ -23,7 +23,7 @@ class TakeExerciseController extends AbstractController
      */
     public function showExercises()
     {
-        $exercisesAnswered = Repository::findAllWhere(Exercise::class, 'status_id', Status::findBySlug('ANSW')->id);
+        $exercisesAnswered = Repository::findAllWhere('status_id', Status::findBySlug('ANSW')->id, Exercise::class);
         return Http::response('take/index', ['exercisesAnswered' => $exercisesAnswered]);
     }
 

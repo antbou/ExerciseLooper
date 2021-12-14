@@ -2,8 +2,9 @@
 
 namespace Looper\models;
 
-use Core\models\Database;
+use Looper\models\Status;
 use Core\models\Model;
+use Core\models\Database;
 use Core\models\Repository;
 
 class Exercise extends Model
@@ -20,7 +21,7 @@ class Exercise extends Model
         $exercise = new Exercise();
         $exercise->id = (isset($params['id'])) ? $params['id'] : null;
         $exercise->title = $params['title'];
-        $exercise->status_id = (isset($params['status_id'])) ? $params['status_id'] : Repository::findAllWhere(Status::class, 'slug', 'UNDE')[0]->id;
+        $exercise->status_id = (isset($params['status_id'])) ? $params['status_id'] : Status::findBySlug('UNDE')->id;
 
         return $exercise;
     }
@@ -41,7 +42,7 @@ class Exercise extends Model
 
     public function getSeries(): array
     {
-        return Repository::findAllWhere(Serie::class, 'exercise_id', $this->id);
+        return Repository::findAllWhere('exercise_id', $this->id, Serie::class);
     }
 
     public function getStatus(): Status
