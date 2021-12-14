@@ -6,11 +6,11 @@ use Core\models\Database;
  * This script automatically loads the database
  */
 
-require(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
-require(dirname(dirname(__FILE__)) . '/config/config.php');
+require(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php');
+require(dirname(dirname(dirname(__FILE__))) . '/config/config.php');
 
 
-const SCHEMA =  './tests/test.sql';
+const SCHEMA =  './tests/database/test.sql';
 
 $query = file_get_contents(SCHEMA);
 
