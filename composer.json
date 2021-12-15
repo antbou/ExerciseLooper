@@ -11,12 +11,12 @@
     "scripts": {
         "test": [
             "docker exec php-apache-ExerciseLooper php tests/database/loadDataTest.php",
-            "docker exec php-apache-ExerciseLooper vendor/bin/phpunit tests --colors=always"
+            "docker exec php-apache-ExerciseLooper vendor/bin/phpunit tests/models --colors=always"
         ],
         "asset": [
             "sass assets/scss/main.scss ./public/resources/style/style.css"
         ],
-        "loadData":[
+        "loadData": [
             "docker exec php-apache-ExerciseLooper php loadMe.php"
         ]
     }
