@@ -72,6 +72,7 @@ class ResponseTest extends TestCase
         $response = Response::find(3);
         $response->value = 'testUnit';
         $this->assertTrue($response->update());
+        $response = Response::find(3);
         $this->assertEquals("testUnit", Response::find($response->id)->value);
     }
 

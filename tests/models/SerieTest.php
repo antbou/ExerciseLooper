@@ -72,10 +72,11 @@ class SerieTest extends TestCase
     public function testUpdate()
     {
         $date = (new \DateTime('NOW', new \DateTimeZone("UTC")))->format('Y-m-d H:i:s');
-        $response = Serie::find(3);
-        $response->date = $date;
-        $this->assertTrue($response->update());
-        $this->assertEquals($date, Serie::find($response->id)->date);
+        $serie = Serie::find(3);
+        $serie->date = $date;
+        $this->assertTrue($serie->update());
+        $serie = Serie::find(3);
+        $this->assertEquals($date, Serie::find($serie->id)->date);
     }
 
     /**

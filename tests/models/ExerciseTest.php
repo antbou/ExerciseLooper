@@ -73,6 +73,7 @@ class ExerciseTest extends TestCase
         $exercise = Exercise::find(7);
         $exercise->title = 'UnitTest Title';
         $this->assertTrue($exercise->update());
+        $exercise = Exercise::find(7);
         $this->assertEquals("UnitTest Title", Exercise::find($exercise->id)->title);
     }
 
@@ -126,7 +127,7 @@ class ExerciseTest extends TestCase
      * @covers  Exercise->getQuestions()
      * @depends testFind_ifValueExist
      */
-    public function testGetQuestions_ifExerciseDoNotHaveQuestions()
+    public function testGetQuestions_ifExerciseDoesNotHaveQuestions()
     {
         $exercise = Exercise::find(3);
         $this->assertEmpty($exercise->getQuestions());
@@ -147,7 +148,7 @@ class ExerciseTest extends TestCase
      * @covers  Exercise->getSeries()
      * @depends testFind_ifValueExist
      */
-    public function testGetSeries_ifExerciseDoNotHaveSeries()
+    public function testGetSeries_ifExerciseDoesNotHaveSeries()
     {
         $exercise = Exercise::find(3);
         $this->assertEmpty($exercise->getSeries());

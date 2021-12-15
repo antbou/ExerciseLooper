@@ -73,6 +73,7 @@ class QuestionTest extends TestCase
         $question = Question::find(11);
         $question->value = 'test';
         $this->assertTrue($question->update());
+        $question = Question::find(11);
         $this->assertEquals("test", Question::find($question->id)->value);
     }
 
@@ -103,7 +104,7 @@ class QuestionTest extends TestCase
      * @covers  Exercise->getResponses()
      * @depends testFind_ifValueExist
      */
-    public function testGetResponses_ifQuestionDoNotHaveResponses()
+    public function testGetResponses_ifQuestionDoesNotHaveResponses()
     {
         $question = Question::find(3);
         $this->assertEmpty($question->getResponses());
