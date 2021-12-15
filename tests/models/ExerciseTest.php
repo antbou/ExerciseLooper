@@ -4,6 +4,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/config/config.php';
 
 use Looper\models\Exercise;
 use Looper\models\Question;
+use Looper\models\Serie;
 use PHPUnit\Framework\TestCase;
 
 class ExerciseTest extends TestCase
@@ -128,6 +129,27 @@ class ExerciseTest extends TestCase
     {
         $exercise = Exercise::find(3);
         $this->assertEmpty($exercise->getQuestions());
+    }
+
+    /**
+     * @covers  Exercise::getSeries()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetSeries_ifExerciseHasSeries()
+    {
+        $exercise = Exercise::find(2);
+        $this->assertEquals(1, count($exercise->getSeries()));
+        $this->assertInstanceOf(Serie::class, $exercise->getSeries()[0]);
+    }
+
+    /**
+     * @covers  Exercise::getSeries()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetSeries_ifExerciseDoNotHaveSeries()
+    {
+        $exercise = Exercise::find(3);
+        $this->assertEmpty($exercise->getSeries());
     }
 
     /**
