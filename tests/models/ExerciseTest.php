@@ -139,7 +139,7 @@ class ExerciseTest extends TestCase
     public function testGetSeries_ifExerciseHasSeries()
     {
         $exercise = Exercise::find(2);
-        $this->assertEquals(1, count($exercise->getSeries()));
+        $this->assertEquals(3, count($exercise->getSeries()));
         $this->assertInstanceOf(Serie::class, $exercise->getSeries()[0]);
     }
 
