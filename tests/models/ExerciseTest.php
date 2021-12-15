@@ -48,7 +48,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::create()
+     * @covers  Exercise::make()
      * @depends testFind_ifValueExist
      */
     public function testCreate()
@@ -74,14 +74,49 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::delete()
-     * @depends testFind_ifValueExist, testCreate
+     * @covers  Exercise::getPublicName()
+     * @depends testFind_ifValueExist
      */
-    public function testDelete()
+    public function testGetPublicName_ifTitleNotEmpty()
     {
         $exercise = Exercise::find(7);
-        $id = $exercise->id;
-        $this->assertTrue($exercise->delete());
-        $this->assertNull(Exercise::find($id));
+        $title = $exercise->title;
+        $this->assertEquals($exercise->getPublicName(), $title);
     }
+
+    /**
+     * @covers  Exercise::getPublicName()
+     * @depends testFind_ifValueExist, testUpdate
+     */
+    public function testGetPublicName_ifTitleEmpty()
+    {
+        $exercise = Exercise::find(7);
+        $exercise->title = '';
+        $this->assertNotEquals($exercise->getPublicName(), $exercise->title);
+        $this->assertEquals($exercise->getPublicName(), Exercise::DEFAULTNAME);
+    }
+
+    /**
+     * @covers  Exercise::getPublicName()
+     * @depends testFind_ifValueExist, testUpdate
+     */
+    public function testGetPublicName_ifTitleIsOnlySpaces()
+    {
+        $exercise = Exercise::find(7);
+        $exercise->title = '    ';
+        $this->assertNotEquals($exercise->getPublicName(), $exercise->title);
+        $this->assertEquals($exercise->getPublicName(), Exercise::DEFAULTNAME);
+    }
+
+    // /**
+    //  * @covers  Exercise::delete()
+    //  * @depends testFind_ifValueExist, testCreate
+    //  */
+    // public function testDelete()
+    // {
+    //     $exercise = Exercise::find(7);
+    //     $id = $exercise->id;
+    //     $this->assertTrue($exercise->delete());
+    //     $this->assertNull(Exercise::find($id));
+    // }
 }
