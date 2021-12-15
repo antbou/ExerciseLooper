@@ -178,12 +178,12 @@ INSERT INTO `questions` (`id`, `value`, `exercise_id`, `state_id`) VALUES
 	(2, 'Question2', 1, 1),
 	(3, 'Question3', 1, 3),
 	(4, 'Question4', 1, 2),
-	(6, 'Question5', 4, 1),
-	(9, 'Question6', 2, 1),
-	(10, 'Question7', 2, 1),
-	(11, 'Question8', 6, 1),
-	(12, 'Question9', 6, 1),
-	(13, 'Question10', 6, 1);
+	(5, 'Question5', 4, 1),
+	(6, 'Question6', 2, 1),
+	(7, 'Question7', 2, 1),
+	(8, 'Question8', 6, 1),
+	(9, 'Question9', 6, 1),
+	(10, 'Question10', 6, 1);
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 
 -- Listage des données de la table db_exerciselooper.series : ~0 rows (environ)
@@ -191,17 +191,16 @@ DELETE FROM `series`;
 /*!40000 ALTER TABLE `series` DISABLE KEYS */;
 INSERT INTO `series` (`id`, `date`, `exercise_id`) VALUES
 	(1, '2021-12-14 13:55:15', 2),
-	(2, '2021-12-14 13:55:55', 6);
+	(2, '2021-12-14 13:55:55', 6),
+  (3, '2021-12-15 13:55:55', 2),
+  (4, '2021-12-15 13:55:55', 2);
 /*!40000 ALTER TABLE `series` ENABLE KEYS */;
 
--- Listage des données de la table db_exerciselooper.responses : ~0 rows (environ)
+-- Listage des données de la table db_exerciselooper.responses : ~5 rows (environ)
 DELETE FROM `responses`;
 /*!40000 ALTER TABLE `responses` DISABLE KEYS */;
 INSERT INTO `responses` (`id`, `value`, `question_id`, `serie_id`) VALUES
-	(1, 'test1', 10, 1),
-	(2, 'test2', 9, 1),
-	(3, 'test3', 13, 2),
-	(4, 'test4', 12, 2),
-	(5, 'test5', 11, 2);
+	(1, 'test1', 6, 3),
+	(2, 'test2', 6, 4);
 /*!40000 ALTER TABLE `responses` ENABLE KEYS */;
 
