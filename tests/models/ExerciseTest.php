@@ -3,6 +3,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 require_once dirname(dirname(dirname(__FILE__))) . '/config/config.php';
 
 use Looper\models\Exercise;
+use Looper\models\Question;
 use PHPUnit\Framework\TestCase;
 
 class ExerciseTest extends TestCase
@@ -108,15 +109,36 @@ class ExerciseTest extends TestCase
         $this->assertEquals($exercise->getPublicName(), Exercise::DEFAULTNAME);
     }
 
-    // /**
-    //  * @covers  Exercise::delete()
-    //  * @depends testFind_ifValueExist, testCreate
-    //  */
-    // public function testDelete()
-    // {
-    //     $exercise = Exercise::find(7);
-    //     $id = $exercise->id;
-    //     $this->assertTrue($exercise->delete());
-    //     $this->assertNull(Exercise::find($id));
-    // }
+    /**
+     * @covers  Exercise::getQuestions()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetQuestions_ifExerciseHasQuestions()
+    {
+        $exercise = Exercise::find(1);
+        $this->assertEquals(4, count($exercise->getQuestions()));
+        $this->assertInstanceOf(Question::class, $exercise->getQuestions()[0]);
+    }
+
+    /**
+     * @covers  Exercise::getQuestions()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetQuestions_ifExerciseDoNotHaveQuestions()
+    {
+        $exercise = Exercise::find(3);
+        $this->assertEmpty($exercise->getQuestions());
+    }
+
+    /**
+     * @covers  Exercise::delete()
+     * @depends testFind_ifValueExist, testCreate
+     */
+    public function testDelete()
+    {
+        $exercise = Exercise::find(7);
+        $id = $exercise->id;
+        $this->assertTrue($exercise->delete());
+        $this->assertNull(Exercise::find($id));
+    }
 }
