@@ -3,6 +3,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 require_once dirname(dirname(dirname(__FILE__))) . '/config/config.php';
 
 use Looper\models\Question;
+use Looper\models\Response;
 use Looper\models\State;
 use PHPUnit\Framework\TestCase;
 
@@ -69,7 +70,7 @@ class QuestionTest extends TestCase
      */
     public function testUpdate()
     {
-        $question = Question::find(7);
+        $question = Question::find(11);
         $question->value = 'test';
         $this->assertTrue($question->update());
         $this->assertEquals("test", Question::find($question->id)->value);
@@ -85,6 +86,29 @@ class QuestionTest extends TestCase
         $this->assertInstanceOf(State::class, $question->getState());
     }
 
+    /**
+     * @covers  Exercise->getResponses()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetResponses_ifQuestionHasResponses()
+    {
+        $question = Question::find(6);
+        $response = $question->getResponses()[0];
+        $this->assertEquals(2, count($question->getResponses()));
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertEquals($question->id, $response->question_id);
+    }
+
+    /**
+     * @covers  Exercise->getResponses()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetResponses_ifQuestionDoNotHaveResponses()
+    {
+        $question = Question::find(3);
+        $this->assertEmpty($question->getResponses());
+    }
+
 
     /**
      * @covers  Question->delete()
@@ -92,7 +116,8 @@ class QuestionTest extends TestCase
      */
     public function testDelete()
     {
-        $question = Question::find(7);
+
+        $question = Question::find(11);
         $id = $question->id;
         $this->assertTrue($question->delete());
         $this->assertNull(Question::find($id));
