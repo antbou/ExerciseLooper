@@ -3,6 +3,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 require_once dirname(dirname(dirname(__FILE__))) . '/config/config.php';
 
 use Looper\models\Question;
+use Looper\models\State;
 use PHPUnit\Framework\TestCase;
 
 class QuestionTest extends TestCase
@@ -73,6 +74,17 @@ class QuestionTest extends TestCase
         $this->assertTrue($question->update());
         $this->assertEquals("test", Question::find($question->id)->value);
     }
+
+    /**
+     * @covers  Exercise->getState()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetState()
+    {
+        $question = Question::find(1);
+        $this->assertInstanceOf(State::class, $question->getState());
+    }
+
 
     /**
      * @covers  Question->delete()
