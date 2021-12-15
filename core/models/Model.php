@@ -40,7 +40,6 @@ abstract class Model extends Repository
             $this->id = Database::insert($query, $this->toArray());
             return true;
         } catch (\PDOException $Exception) {
-            echo $Exception;
             return false;
         }
     }
