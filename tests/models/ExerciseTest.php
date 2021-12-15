@@ -5,6 +5,7 @@ require_once dirname(dirname(dirname(__FILE__))) . '/config/config.php';
 use Looper\models\Exercise;
 use Looper\models\Question;
 use Looper\models\Serie;
+use Looper\models\Status;
 use PHPUnit\Framework\TestCase;
 
 class ExerciseTest extends TestCase
@@ -64,7 +65,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::update()
+     * @covers  Exercise->update()
      * @depends testFind_ifValueExist
      */
     public function testUpdate()
@@ -76,7 +77,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::getPublicName()
+     * @covers  Exercise->getPublicName()
      * @depends testFind_ifValueExist
      */
     public function testGetPublicName_ifTitleNotEmpty()
@@ -87,7 +88,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::getPublicName()
+     * @covers  Exercise->getPublicName()
      * @depends testFind_ifValueExist, testUpdate
      */
     public function testGetPublicName_ifTitleEmpty()
@@ -99,7 +100,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::getPublicName()
+     * @covers  Exercise->getPublicName()
      * @depends testFind_ifValueExist, testUpdate
      */
     public function testGetPublicName_ifTitleIsOnlySpaces()
@@ -111,7 +112,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::getQuestions()
+     * @covers  Exercise->getQuestions()
      * @depends testFind_ifValueExist
      */
     public function testGetQuestions_ifExerciseHasQuestions()
@@ -122,7 +123,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::getQuestions()
+     * @covers  Exercise->getQuestions()
      * @depends testFind_ifValueExist
      */
     public function testGetQuestions_ifExerciseDoNotHaveQuestions()
@@ -132,7 +133,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::getSeries()
+     * @covers  Exercise->getSeries()
      * @depends testFind_ifValueExist
      */
     public function testGetSeries_ifExerciseHasSeries()
@@ -143,7 +144,7 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::getSeries()
+     * @covers  Exercise->getSeries()
      * @depends testFind_ifValueExist
      */
     public function testGetSeries_ifExerciseDoNotHaveSeries()
@@ -153,7 +154,17 @@ class ExerciseTest extends TestCase
     }
 
     /**
-     * @covers  Exercise::delete()
+     * @covers  Exercise->getStatus()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetStatus()
+    {
+        $exercise = Exercise::find(1);
+        $this->assertInstanceOf(Status::class, $exercise->getStatus());
+    }
+
+    /**
+     * @covers  Exercise->delete()
      * @depends testFind_ifValueExist, testCreate
      */
     public function testDelete()
