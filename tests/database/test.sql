@@ -167,8 +167,7 @@ INSERT INTO `exercises` (`id`, `title`, `status_id`) VALUES
 	(3, 'TestExercise3', 1),
 	(4, 'TestExercise4', 3),
 	(5, 'TestExercise5', 1),
-	(6, 'TestExercise6', 2),
-	(9, 'UnitTest Exercise', 1);
+	(6, 'TestExercise6', 2);
 /*!40000 ALTER TABLE `exercises` ENABLE KEYS */;
 
 -- Listage des données de la table db_exerciselooper.questions : ~4 rows (environ)
