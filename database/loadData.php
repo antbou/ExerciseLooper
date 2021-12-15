@@ -6,8 +6,8 @@ use Core\models\Database;
  * This script automatically loads the database
  */
 
-require(dirname(__FILE__) . '/vendor/autoload.php');
-require(dirname(__FILE__) . '/config/config.php');
+require(dirname(dirname(__FILE__)) . '/vendor/autoload.php');
+require(dirname(dirname(__FILE__)) . '/config/config.php');
 
 
 const SCHEMA =  './database/looper.sql';

@@ -17,7 +17,7 @@
             "sass assets/scss/main.scss ./public/resources/style/style.css"
         ],
         "loadData": [
-            "docker exec php-apache-ExerciseLooper php loadMe.php"
+            "docker exec php-apache-ExerciseLooper php database/loadData.php"
         ]
     }
 }
