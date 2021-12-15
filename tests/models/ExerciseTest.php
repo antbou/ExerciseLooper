@@ -185,6 +185,27 @@ class ExerciseTest extends TestCase
     }
 
     /**
+     * @covers  Exercise->getSerieById()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetSerieById_ifSerieIsRelatedToTheExercise()
+    {
+        $exercise = Exercise::find(2);
+        $this->assertInstanceOf(Serie::class, $exercise->getSerieById(1));
+        $this->assertEquals($exercise->id, $exercise->getSerieById(1)->exercise_id);
+    }
+
+    /**
+     * @covers  Exercise->getSerieById()
+     * @depends testFind_ifValueExist
+     */
+    public function testGetSerieById_ifSerieIsNotRelatedToTheExercise()
+    {
+        $exercise = Exercise::find(2);
+        $this->assertNull($exercise->getSerieById(6));
+    }
+
+    /**
      * @covers  Exercise->delete()
      * @depends testFind_ifValueExist, testCreate
      */
