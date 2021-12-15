@@ -12,7 +12,7 @@ class QuestionTest extends TestCase
      */
     public function testAll()
     {
-        $this->assertEquals(13, count(Question::all()));
+        $this->assertEquals(10, count(Question::all()));
     }
 
     /**
@@ -48,34 +48,34 @@ class QuestionTest extends TestCase
     }
 
     /**
-     * @covers  Question::create()
+     * @covers  Question::make()
      * @depends testFind_ifValueExist
      */
     public function testCreate()
     {
         $question = Question::make(["value" => 'test', "exercise_id" => 1, "state_id" => 1]);
 
-        $this->assertEquals("test", $question->question);
+        $this->assertEquals("test", $question->value);
         $this->assertEquals(1, $question->exercise_id);
-        $this->assertEquals(1, $question->type_id);
+        $this->assertEquals(1, $question->state_id);
         $this->assertTrue($question->create());
         $this->assertNotNull(Question::find($question->id));
     }
 
     /**
-     * @covers  Question::update()
+     * @covers  Question->update()
      * @depends testFind_ifValueExist
      */
     public function testUpdate()
     {
         $question = Question::find(7);
-        $question->title = 'test';
+        $question->value = 'test';
         $this->assertTrue($question->update());
-        $this->assertEquals("test", Question::find($question->id)->title);
+        $this->assertEquals("test", Question::find($question->id)->value);
     }
 
     /**
-     * @covers  Question::delete()
+     * @covers  Question->delete()
      * @depends testFind_ifValueExist, testCreate
      */
     public function testDelete()
