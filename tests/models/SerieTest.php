@@ -96,7 +96,7 @@ class SerieTest extends TestCase
      * @covers  serie->getResponses()
      * @depends testFind_ifValueExist
      */
-    public function testGetResponses_ifSerieDoNotHaveResponses()
+    public function testGetResponses_ifSerieDoesNotHaveResponses()
     {
         $serie = Serie::find(5);
         $this->assertEmpty($serie->getResponses());
