@@ -10,7 +10,7 @@ require(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php');
 require(dirname(dirname(dirname(__FILE__))) . '/config/config.php');
 
 
-const SCHEMA =  './tests/database/test.sql';
+const SCHEMA =  './database/tests/test.sql';
 
 $query = file_get_contents(SCHEMA);
 
