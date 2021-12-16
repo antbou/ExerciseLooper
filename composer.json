@@ -10,7 +10,7 @@
     },
     "scripts": {
         "test": [
-            "docker exec php-apache-ExerciseLooper php tests/database/loadDataTest.php",
+            "docker exec php-apache-ExerciseLooper php database/tests/loadDataTest.php",
             "docker exec php-apache-ExerciseLooper vendor/bin/phpunit tests/models --colors=always"
         ],
         "asset": [
