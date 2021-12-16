@@ -78,4 +78,16 @@ class StatusTest extends TestCase
         $this->assertFalse($status->delete()); // expected to fail due to a foreign key constraint
         $this->assertNotNull(Status::find($id));
     }
+
+    /**
+     * @covers  status->update()
+     * @depends testFind_ifValueExist, testUpdate
+     */
+    public function testResetSlug()
+    {
+        $status = Status::find(3);
+        $status->value = 'terminate';
+        $status->slug = 'TERM';
+        $this->assertTrue($status->update());
+    }
 }

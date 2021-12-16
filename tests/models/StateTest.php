@@ -78,4 +78,16 @@ class StateTest extends TestCase
         $this->assertFalse($state->delete()); // expected to fail due to a foreign key constraint
         $this->assertNotNull(State::find($id));
     }
+
+    /**
+     * @covers  state->update()
+     * @depends testFind_ifValueExist, testUpdate
+     */
+    public function testResetSlug()
+    {
+        $state = State::find(3);
+        $state->name = 'Multi-line text';
+        $state->slug = 'MULTI_LINE';
+        $this->assertTrue($state->update());
+    }
 }
