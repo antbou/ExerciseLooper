@@ -50,7 +50,7 @@ class ExerciseController extends AbstractController
 
         return Http::response(
             'exercise/results',
-            ['exercise' => $exercise, 'link' => RouterManager::getRouter()->getUrl('ResultExercise', ['idExercise' => $exercise->id])]
+            ['exercise' => $exercise, 'link' => RouterManager::getRouter()->getUrl('ResultExercise', ['idExercise' => $exercise->id]), 'title' => $exercise->title]
         );
     }
 
