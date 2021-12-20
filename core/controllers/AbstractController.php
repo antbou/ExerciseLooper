@@ -18,18 +18,4 @@ abstract class AbstractController
         }
         return false;
     }
-
-    /**
-     * gets all the contstant in the given class
-     *
-     * @param string $classname
-     * @param boolean $arrayKeyOnly
-     * @return array
-     */
-    public function getConstants(string $classname, bool $arrayKeyOnly = false): array
-    {
-        $oClass = new \ReflectionClass($classname);
-        $result = $oClass->getConstants();
-        return ($arrayKeyOnly) ? array_keys($result) : $result;
-    }
 }
