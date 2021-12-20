@@ -11,10 +11,15 @@ Il se présente donc en bonne partie sous forme de questions: les questions que 
 
 ### Quelles sont les données / informations que ce site manipule ?
 
->_Endroit pour vos MCD et MLD_
-[MCD]: https://github.com/antbou/ExerciseLooper/blob/develop/docs/models/MCD.png "MCD"
-[MLD]: https://github.com/antbou/ExerciseLooper/blob/develop/docs/models/MLD.png "MLD"
-[Diagramme de classes]: https://github.com/antbou/ExerciseLooper/blob/develop/docs/diagrams/models.png "MLD"
+#### MCD
+
+![alt text](https://raw.githubusercontent.com/antbou/ExerciseLooper/develop/docs/models/MCD.png "MCD")
+
+#### MLD
+![alt text](https://raw.githubusercontent.com/antbou/ExerciseLooper/develop/docs/models/MLD.png "MLD")
+
+#### Diagramme de classe
+![alt text](https://raw.githubusercontent.com/antbou/ExerciseLooper/develop/docs/diagrams/models.png "Models")
 
 ### De quels composants le site est-il fait ? Comment interagissent-ils ?
 
@@ -40,16 +45,34 @@ Se référer un readme pour avoir plus de détails.
 
 ## Quelles astuces avez-vous employés ?
 
-> _Par astuce on entend quelque chose qui n'est pas 'standard' et qui concerne plus d'un fichier (parce que sinon les commentaires suffisent)_ 
-> 
-> _Exemple d'astuce: "L'attribut 'data-modification_date' des div contenant les nouvelles permet au code javascript (new.js) de mettre en évidence les nouvelles les plus récentes. Le gestionnaire d'événement ..."_
-> 
-> _Exemple de **non**-astuce: "L'attribut 'required' du champ input du nom permet d'obliger l'utilisateur à introduire une valeur dans le champ_
+### Astuce #1:
+La classe HTML "ajax" contenu dans les éléments HTML déclenche un event (click) Javascript (script js) au moment où l'utilisateur clique sur l'élément. 
 
-### Astuce #1: (description)
+L'event va déclencher une requête HTTP asynchrone qui sera définie en fonction des attributs de données suivantes :
+- data-href : correspond au l'URL à laquel l'appelle AJAX doit avoir lieux
+- data-method : correspond à la methode http associé
 
-### Astuce #2: (description)
+La réponse à la requête AJAX retourna une URI au format JSON que le script utilisera afin de rediriger l'utilisateur dessus.
 
-### Astuce #3: (description)
+### Astuce #2:
+La classe PHP formvalidator permet de vérifier que le contenu des requêtes HTTP POST est bien valide.
 
-... 
+Pour chaque champ d'un formulaire, il suffit d'appeler la methode addField en lui présisant un nom pour accéder à Field (first).
+Ensuite, il faut préciser le nom de l'input, sont type de valeur attendu et précidier si le champs pour être vide.
+
+```
+form->addField(['first' => new Field('title', 'string', true)]);
+```
+
+Pour terminer, la method process est valide lorsque le formulaire a bien été envoyé et que les données ont bien été vérifié.
+
+Il est donc possible de faire de faire ce type de condition au niveau du controller
+
+```
+if ($form->process() ) {
+    appeler le model ...
+}
+```
+
+### Astuce #3:
+
