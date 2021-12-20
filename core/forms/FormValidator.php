@@ -18,7 +18,7 @@ class FormValidator
     }
 
     /**
-     * Effectue une vérification des différents champs du formulaires
+     * Performs a verification of the different fields of the form
      *
      * @return boolean
      */
@@ -29,16 +29,8 @@ class FormValidator
         }
 
         $flag = true;
-
         foreach ($this->fields as $field) {
-
             $checkType = 'is' . ucfirst($field->type);
-
-            /**
-             * Vérification suivante :
-             * Le champs existe
-             * Le champs n'est pas vide ou accepte d'être vide
-             */
             if (
                 !$this->isSet($field) ||
                 !$this->isNotEmpty($field) ||
@@ -118,7 +110,7 @@ class FormValidator
     }
 
     /**
-     * Vérifie que POST contient bien un tableau multidimensionnel avec le bon nom
+     * Check that POST contains a multidimensional array with the right name
      *
      * @return boolean
      */

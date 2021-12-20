@@ -34,6 +34,7 @@ class Http
     {
         http_response_code($responseCode);
         Render::render($path, $variables, $hasForm);
+        exit();
     }
 
     public static function responseApi(array $variables = [], int $responseCode = 200): void
@@ -41,6 +42,7 @@ class Http
         http_response_code($responseCode);
         header('Content-Type: application/json; charset=utf-8');
         Render::renderApi($variables);
+        exit();
     }
 
     public static function internalServerError(): void

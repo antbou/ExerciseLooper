@@ -7,10 +7,11 @@ use Core\router\RouterManager;
 class Render
 {
     /**
-     * Permet de générer le rendu des pages
+     *  Allows to generate page rendering
      *
      * @param string $path
      * @param array $variables
+     * @param boolean $hasForm
      * @return void
      */
     public static function render(string $path, array $variables = [], bool $hasForm = false)
@@ -20,14 +21,14 @@ class Render
         if ($hasForm) {
             $_SESSION['token'] = md5(uniqid(mt_rand(), true));
         }
-        // Extrait les variables du tableau
+        // Extract the variables from the table
         extract($variables);
 
-        // Toutes les données suivantes seront sotckées dans un tampon temporaire 
+        // All the following data will be stored in a temporary buffer 
         ob_start();
         require('../templates/' . $path . '.html.php');
 
-        // récupère le contenu du tampon puis l'efface
+        // retrieves the content of the buffer and deletes it
         $pageContent = ob_get_clean();
 
         require('../templates/base.html.php');

@@ -31,7 +31,7 @@ class ExerciseController extends AbstractController
     public function delete(int $id)
     {
         $exercise = Exercise::find($id);
-        if (empty($exercise)) return Http::notFoundException();
+        if (empty($exercise) || $exercise->getStatus() == Status::findBySlug('ANSW')) return Http::notFoundException();
         if (!$exercise->delete()) return Http::internalServerError();
 
         return Http::responseApi(['route' => RouterManager::getRouter()->getUrl('ManageExercise', [])]);

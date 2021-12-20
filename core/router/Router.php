@@ -21,13 +21,14 @@ class Router
     }
 
     /**
-     * Créé la route et la stocke dans un tableau
+     * Create the route and store it in a table
      *
      * @param string $path
      * @param string $name
      * @param string $controllerName
      * @param string $method
-     * @return Router
+     * @param string|null $httpMethod
+     * @return void
      */
     public function add(string $path, string $name, string $controllerName, string $method, ?string $httpMethod): void
     {
@@ -36,16 +37,14 @@ class Router
     }
 
     /**
-     * Permet de trouver et d'appeler un contrôleur associé à une route
+     *  Allows to find and call a controller associated to a route
      *
-     * @return boolean
+     * @return mixed
      */
     public function process(): mixed
     {
         foreach ($this->routes as $name => $route) {
-
             if ($route->doesMatch($this->url) && $route->isMethodParamsValid() && $route->doesHttpMethodMatch()) {
-
                 $call = $route->call();
                 if (!$call) return Http::internalServerError();
                 return $call;
@@ -56,11 +55,11 @@ class Router
     }
 
     /**
-     * Permet d'obtenir l'URL d'une route en fonction du nom de cette dernière
+     * Allows you to obtain the URL of a route based on its name
      *
      * @param string $routeName
      * @param array $params
-     * @return Route
+     * @return string
      */
     public function getUrl(string $routeName, array $params): string
     {
@@ -74,7 +73,7 @@ class Router
     }
 
     /**
-     * Récupère les données du fichier de configuration route Config
+     * Retrieves data from the route Config file
      *
      * @return void
      */

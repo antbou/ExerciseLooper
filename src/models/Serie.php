@@ -3,7 +3,6 @@
 namespace Looper\models;
 
 use Core\models\Model;
-use Core\models\Repository;
 
 class Serie extends Model
 {

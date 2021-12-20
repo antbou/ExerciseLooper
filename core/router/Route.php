@@ -28,36 +28,36 @@ class Route
     }
 
     /**
-     * Permet de savoir si l'url donnée correspond à une route enregistrée
-     * Si c'est le cas, les paramètres passés en URL seront sauvegardés dans $matches
+     * Allows to know if the given url corresponds to a registered route
+     * If this is the case, the parameters passed in URL will be saved in $matches
      *
-     * @param [type] $url = URL sur laquelle on essaie d'accéder
+     * @param [type] $url = URL on which we try to access
      * @return boolean
      */
     public function doesMatch(string $url): bool
     {
-        // retire les / inutils
+        // remove the / useless
         $url = '/' . trim($url, '/');
         /**
-         * Remplace : x par n'importe quel caractère qui n'est pas un /
-         * On utilise # comme délimiteur car le / est déja utilisé
+         * Replace : x with any character that is not a /
+         * We use # as delimiter because the / is already used
          */
         $path = preg_replace('#:([\w]+)#', '([^/*]+)', $this->path);
 
 
         /**
-         * Création du regex
-         * # comme délimiteur
-         * i pour case-insensitive
+         * Creation of the regex
+         * # as delimiter
+         * i for case-insensitive
          */
         $regex = "#^$path$#i";
 
-        // si aucun résultat n'est trouvé
+        // if no results are found
         if (!preg_match($regex, $url, $matches)) {
             return false;
         }
 
-        // supprime la 1ère valeur du tableau
+        // deletes the 1st value of the table
         array_shift($matches);
 
         $this->matches = $matches;
@@ -79,7 +79,7 @@ class Route
     }
 
     /**
-     * Genère l'URL de la route avec les paramètres données à cette dernière
+     * Generates the URL of the route with the parameters given to it
      *
      * @param array $params
      * @return void
@@ -89,7 +89,7 @@ class Route
         $path = $this->path;
         if (!empty($params)) {
             foreach ($params as $slug => $value) {
-                // Remplace l'identifiant du paramètre par sa valeur
+                // Replaces the parameter identifier by its value
                 $path = str_replace(":$slug", $value, $path);
             }
         }
