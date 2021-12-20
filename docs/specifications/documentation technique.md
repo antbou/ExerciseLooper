@@ -3,8 +3,6 @@
 Cette documentation a pour but de fournir toutes les informations techniques nécessaires à un-e développeur-se qui rejoindrait l'équipe.  
 Il se présente donc en bonne partie sous forme de questions: les questions que poserait un-e nouvel-le arrivant-e.
 
-> _Les paragraphes formatés comme celui-ci dans le modèle qui vous a été fourni donnent des explications sur comment rédiger la documentation. Ils doivent donc **ABSOLUMENT** disparaître du document final._
-
 ### A quoi sert le site ? A qui est-il destiné et dans quel but ?
 
 ### Dans quel contexte (technique) ce site est-il destiné à fonctionner ?
@@ -14,14 +12,31 @@ Il se présente donc en bonne partie sous forme de questions: les questions que 
 ### Quelles sont les données / informations que ce site manipule ?
 
 >_Endroit pour vos MCD et MLD_
+[MCD]: https://github.com/antbou/ExerciseLooper/blob/develop/docs/models/MCD.png "MCD"
+[MLD]: https://github.com/antbou/ExerciseLooper/blob/develop/docs/models/MLD.png "MLD"
+[Diagramme de classes]: https://github.com/antbou/ExerciseLooper/blob/develop/docs/diagrams/models.png "MLD"
 
 ### De quels composants le site est-il fait ? Comment interagissent-ils ?
 
->_Quelle est l'architecture ?_
+Le site utilise une architecture MVC inspiré du frameworks [symfony](https://symfony.com/)
 
 ### Quelles technologies est-ce que je dois connaître pour pouvoir développer ce site ? 
 
+- PHP
+- SQL
+- JAVASCRIPT
+- HTML
+- CSS
+- DOCKER
+
 ### Qu'est-ce que je dois installer sur mon poste de travail pour pouvoir commencer à bosser sur ce site ?
+
+- DOCKER
+- COMPOSER
+- NODEJS (NPM)
+- SASS
+
+Se référer un readme pour avoir plus de détails.
 
 ## Quelles astuces avez-vous employés ?
 
