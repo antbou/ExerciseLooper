@@ -1,6 +1,6 @@
 <?php
 
-define("DBHOST", "TO_CHANGE:port");
+define("DBHOST", "TO_CHANGE:port"); # if you use docker, put db-ExerciseLooper:3306
 define("DBNAME", "TO_CHANGE");
 define("DBUSERNAME", "TO_CHANGE");
 define("DBPASSWORD", "TO_CHANGE");
