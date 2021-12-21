@@ -35,15 +35,15 @@ class TakeExerciseController extends AbstractController
     public function showQuestions(int $id)
     {
         $states = array_column(State::all(State::class), null, 'slug');
-        $focusExercise = Exercise::find($id);
-        if (empty($focusExercise)) return Http::notFoundException();
+        $exercise = Exercise::find($id);
+        if (empty($exercise) || $exercise->getStatus() != Status::findBySlug('ANSW')) return Http::notFoundException();
         return Http::response(
             'take/answer',
             [
-                'exercise' => $focusExercise,
+                'exercise' => $exercise,
                 'states' => $states,
-                'route' => RouterManager::getRouter()->getUrl('SaveAnswer', ['idExercise' => $focusExercise->id]),
-                'title' => $focusExercise->title
+                'route' => RouterManager::getRouter()->getUrl('SaveAnswer', ['idExercise' => $exercise->id]),
+                'title' => $exercise->title
             ],
             hasForm: true
         );
@@ -58,7 +58,7 @@ class TakeExerciseController extends AbstractController
     public function createAnswers(int $id)
     {
         $exercise = Exercise::find($id);
-        if (empty($exercise)) return Http::notFoundException();
+        if (empty($exercise) || $exercise->getStatus() != Status::findBySlug('ANSW')) return Http::notFoundException();
 
         $form = new FormValidator('fulfillment');
         foreach ($exercise->getQuestions() as $key => $question) {
@@ -66,6 +66,7 @@ class TakeExerciseController extends AbstractController
         }
 
         if (!$form->process() || !$this->csrfValidator()) return Http::redirectToRoute('showQuestions', ['idExercise' => $exercise->id]);
+
         $serie = Serie::make([
             'date' => (new \DateTime('NOW', new \DateTimeZone("UTC")))->format('Y-m-d H:i:s'),
             'exercise_id' => $exercise->id
@@ -96,7 +97,7 @@ class TakeExerciseController extends AbstractController
     {
         $exercise = Exercise::find($idExercise);
         $serie = ($exercise) ? $exercise->getSerieById($idSerie) : null;
-        if (empty($exercise) || empty($serie)) return Http::notFoundException();
+        if (empty($exercise) || $exercise->getStatus() != Status::findBySlug('ANSW') || empty($serie)) return Http::notFoundException();
 
         $form = new FormValidator('fulfillment');
         foreach ($serie->getResponses() as $key => $response) {
