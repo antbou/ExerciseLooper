@@ -1,25 +1,24 @@
-# Documentation technique du projet (xxx)
+## À propos du projet
+Ce projet permet aux utilisateurs de créer des quiz, de répondre à des questions et de consulter les statistiques. Il existe 3 types de quiz : building, answering and closed.
 
-Cette documentation a pour but de fournir toutes les informations techniques nécessaires à un-e développeur-se qui rejoindrait l'équipe.  
-Il se présente donc en bonne partie sous forme de questions: les questions que poserait un-e nouvel-le arrivant-e.
+Un quiz en status "building" est un quiz auquel on peut ajouter des questions et qui peut être supprimé. 
 
-### A quoi sert le site ? A qui est-il destiné et dans quel but ?
+Un quiz en status "answering" peut être fermé et afficher des statistiques. C'est le seul état ou l'utilisateur peut répondre au question du quiz.
 
-### Dans quel contexte (technique) ce site est-il destiné à fonctionner ?
+Enfin, un quiz en status "closed" peut être supprimé ou afficher des statistiques.
 
->_Hébergement, reseau, serveurs, clients, passerelles, ..._
+Il existe également 3 types de questions : texte à ligne unique, liste de lignes uniques et texte à lignes multiples. La seule différence entre eux est la taille des étiquettes des questions.
 
 ### Quelles sont les données / informations que ce site manipule ?
 
 #### MCD
-
-![alt text](https://raw.githubusercontent.com/antbou/ExerciseLooper/develop/docs/models/MCD.png "MCD")
+![MCD](/docs/models/MCD.png)
 
 #### MLD
-![alt text](https://raw.githubusercontent.com/antbou/ExerciseLooper/develop/docs/models/MLD.png "MLD")
+![MLD](/docs/models/MLD.png)
 
-#### Diagramme de classe
-![alt text](https://raw.githubusercontent.com/antbou/ExerciseLooper/develop/docs/diagrams/models.png "Models")
+#### Diagramme de classes
+![Models](/docs/diagrams/models.png)
 
 ### De quels composants le site est-il fait ? Comment interagissent-ils ?
 
@@ -64,7 +63,7 @@ Ensuite, il faut préciser le nom de l'input, sont type de valeur attendu et pr�
 form->addField(['first' => new Field('title', 'string', true)]);
 ```
 
-Pour terminer, la method process est valide lorsque le formulaire a bien été envoyé et que les données ont bien été vérifié.
+Pour terminer, la méthode process est valide lorsque le formulaire a bien été envoyé et que les données ont bien été vérifié.
 
 Il est donc possible de faire de faire ce type de condition au niveau du controller
 
@@ -76,3 +75,15 @@ if ($form->process() ) {
 
 ### Astuce #3:
 
+La méthode csrfvalidator permet de vérifier si l'utilisateur est bien passé par le page du formulaire avant d'envoyer les données.
+
+```
+if ($this->csrfValidator() {
+    appeler le model ...
+}
+```
+
+Il suffit d'implémenter le token de la manière suivante pour le faire marcher.
+```
+<input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+```
