@@ -103,9 +103,9 @@ The script will automatically reload the database with fake data before running 
 composer test
 ```
 
-## Documentation
+## Documentations
 
 - [Technical documentation](/docs/specifications/documentation%20technique.md)
 - [Features](/docs/specifications/ExerciseLooper-Features.md)
-- [database model](/docs/models)
-- [diagrams](/docs/diagrams)
+- [Database model](/docs/models)
+- [Diagrams](/docs/diagrams)
