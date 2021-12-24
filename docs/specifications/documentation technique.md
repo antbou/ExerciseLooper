@@ -146,7 +146,7 @@ Pour chaque champ d'un formulaire, il suffit d'appeler la methode addField en lu
 Ensuite, il faut préciser le nom de l'input, sont type de valeur attendu et précidier si le champs pour être vide.
 
 ```
-form->addField(['first' => new Field('title', 'string', true)]);
+$form->addField(['first' => new Field('title', 'string', true)]);
 ```
 
 Pour terminer, la méthode process est valide lorsque le formulaire a bien été envoyé et que les données ont bien été vérifié.
@@ -155,7 +155,7 @@ Il est donc possible de faire de faire ce type de condition au niveau du control
 
 ```
 if ($form->process() ) {
-    appeler le model ...
+    ...
 }
 ```
 
@@ -165,7 +165,7 @@ La méthode csrfvalidator permet de vérifier si l'utilisateur est bien passé p
 
 ```
 if ($this->csrfValidator() {
-    appeler le model ...
+    ...
 }
 ```
 
