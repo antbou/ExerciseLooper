@@ -109,7 +109,7 @@ Le dossier `templates` contient en d’autre terme nos views.
 - SQL
 - JAVASCRIPT
 - HTML
-- CSS
+- CSS / SCSS
 - DOCKER
 
 ### Qu'est-ce que je dois installer sur mon poste de travail pour pouvoir commencer à bosser sur ce site ?

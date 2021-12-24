@@ -2,6 +2,8 @@
 
 Perform for WAW1.1
 
+Group : `Anthony Bouillant` and `Noah Delgado`.
+
 ## Requirements
 
 | Tools                                         | Version |
@@ -42,7 +44,7 @@ define('CHARSET', 'utf8');
 define('APP_ENV', 'dev'); # choice between dev and prod
 ```
 
-### docker :
+### Docker
 
 We used docker to facilitate the installation and development of the project. This way we can abstract the host on which the project is developed.
 
@@ -62,7 +64,7 @@ MYSQL_PASSWORD=TO_CHANGE
 docker-compose up
 ```
 
-Start the containers (once the image are created)
+Start the containers
 
 ```
 docker-compose start
