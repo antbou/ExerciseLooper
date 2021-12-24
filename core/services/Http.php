@@ -1,9 +1,9 @@
 <?php
 
-namespace Looper\core\services;
+namespace Core\services;
 
-use Looper\core\services\Render;
-use Looper\core\services\RouterManager;
+use Core\services\Render;
+use Core\router\RouterManager;
 
 class Http
 {
@@ -34,5 +34,21 @@ class Http
     {
         http_response_code($responseCode);
         Render::render($path, $variables, $hasForm);
+        exit();
+    }
+
+    public static function responseApi(array $variables = [], int $responseCode = 200): void
+    {
+        http_response_code($responseCode);
+        header('Content-Type: application/json; charset=utf-8');
+        Render::renderApi($variables);
+        exit();
+    }
+
+    public static function internalServerError(): void
+    {
+        http_response_code(500);
+        Render::render('errors/500');
+        exit();
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Looper\core\forms;
+namespace Core\forms;
 
-use Looper\core\forms\Field;
+use Core\forms\Field;
 
 class FormValidator
 {
@@ -18,7 +18,7 @@ class FormValidator
     }
 
     /**
-     * Effectue une vérification des différents champs du formulaires
+     * Performs a verification of the different fields of the form
      *
      * @return boolean
      */
@@ -28,28 +28,21 @@ class FormValidator
             return false;
         }
 
-        $res = true;
-
+        $flag = true;
         foreach ($this->fields as $field) {
-
             $checkType = 'is' . ucfirst($field->type);
-
-            /**
-             * Vérification suivante :
-             * Le champs existe
-             * Le champs n'est pas vide ou accepte d'être vide
-             */
-            if (!$this->isSet($field) ||
+            if (
+                !$this->isSet($field) ||
                 !$this->isNotEmpty($field) ||
                 !$this->$checkType($field) ||
-                (empty($field->valueToVerify)) ? false : !$this->inArray($field)
+                (empty($field->valueToVerify) ? false : !$this->inArray($field))
             ) {
-                $res = false;
+                $flag = false;
                 continue;
             }
         }
 
-        return $res;
+        return $flag;
     }
 
     private function isInt(Field $field): bool
@@ -66,19 +59,24 @@ class FormValidator
 
     private function isString(Field $field): bool
     {
-        if (!is_string($this->post[$field->name])) {
+        if (!is_string($this->post[$field->name]) && empty($field->multi)) {
             $field->error = "La valeur entrée n'est pas correcte";
             return false;
         }
-        $field->value = htmlspecialchars($this->post[$field->name]);
+        if (empty($field->multi)) {
+            $field->value = $this->post[$field->name];
+        } else {
+            $field->value = [];
+            foreach ($field->multi as $key) {
+                $field->value += [$key => $this->post[$field->name][$key]];
+            }
+        }
         return true;
     }
 
     private function isNotEmpty(Field $field): bool
     {
-        if ($field->canBeEmpty) {
-            return true;
-        }
+        if ($field->canBeEmpty) return true;
 
         if (empty($this->post[$field->name])) {
             $field->error = "Veuillez remplire ce champs";
@@ -94,6 +92,15 @@ class FormValidator
             $field->error = "Error lors du traitement du champs";
             return false;
         }
+        if (!empty($field->multi)) {
+            foreach ($this->post[$field->name] as $key => $value) {
+                if (in_array($key, $field->multi)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         return true;
     }
 
@@ -103,7 +110,7 @@ class FormValidator
     }
 
     /**
-     * Vérifie que POST contient bien un tableau multidimensionnel avec le bon nom
+     * Check that POST contains a multidimensional array with the right name
      *
      * @return boolean
      */

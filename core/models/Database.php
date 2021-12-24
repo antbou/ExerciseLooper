@@ -1,6 +1,6 @@
 <?php
 
-namespace Looper\core\models;
+namespace Core\models;
 
 use PDO;
 use PDOException;
@@ -17,10 +17,12 @@ class Database
      */
     public static function getPdo(): PDO
     {
+
         try {
             if (self::$instance === null) {
-                require(APP_ROOT . '/.env.php');
-                self::$instance = new PDO('mysql:host=' . DBHOST . ';dbname=' . DBNAME . ';charset=utf8', DBUSERNAME, DBPASSWORD);
+                if (!defined('DBHOST') || !defined('CHARSET'))  require(APP_ROOT . '/.env.php');
+
+                self::$instance = new PDO('mysql:host=' . DBHOST . ';dbname=' . DBNAME . ';charset=' . CHARSET, DBUSERNAME, DBPASSWORD);
             }
             return self::$instance;
         } catch (PDOException $e) { // in case of error for the debug
@@ -65,8 +67,6 @@ class Database
     {
         $db = self::getPdo();
         $sth = $db->prepare($query);
-        $sth->execute($params);
-
         return $sth->execute($params);
     }
 }

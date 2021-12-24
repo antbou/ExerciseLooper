@@ -2,27 +2,57 @@
 
 Perform for WAW1.1
 
-## Local project configuration
+Group : `Anthony Bouillant` and `Noah Delgado`.
 
-### List of tools to install :
+> This website is a reproduction of
+> [Exercise Looper](https://stormy-plateau-54488.herokuapp.com)
 
-- composer (https://getcomposer.org/)
-- docker (https://www.docker.com/products/docker-desktop)
+## Requirements
 
-### Configuration of the tools
+| Tools                                         | Version |
+| --------------------------------------------- | ------- |
+| [Composer](https://getcomposer.org/download/) | 2.1.6   |
+| [Sass](https://sass-lang.com/install)         | 1.43    |
+| [NPM](https://www.npmjs.com/)                 | 7.20    |
+| [Docker](https://www.docker.com/get-started)  | 20.10   |
 
-#### composer :
+| Images (Docker)                                | 
+| ---------------------------------------------  | 
+| [php:8.0-apache](https://hub.docker.com/_/php) | 
+| [mysql](https://hub.docker.com/_/mysql)        | 
 
-```
-# Installing dependencies
+
+## Install
+
+```bash
+git clone https://github.com/antbou/ExerciseLooper.git
 composer i
-# Generate autoload
-composer dump-autoload
+npm i
 ```
 
-#### docker :
+## Usage
 
-Local docker configuration file for MYSQL
+The different local variables are found in the `.env.php` file which must be located at the root of the project.
+An example file is available at the root of the project under .env-example.php.
+
+### Database configuration
+```
+<?php
+
+define("DBHOST", "TO_CHANGE:3306"); # The IP address to indicate must correspond to the IP address of the MYSQL container
+define("DBNAME", "TO_CHANGE");
+define("DBUSERNAME", "TO_CHANGE");
+define("DBPASSWORD", "TO_CHANGE");
+define('CHARSET', 'utf8');
+define('APP_ENV', 'dev'); # choice between dev and prod
+```
+
+### Docker
+
+We used docker to facilitate the installation and development of the project. This way we can abstract the host on which the project is developed.
+
+Local docker configuration file for MYSQL.
+An example file is available in docker/db-exemple.env
 
 ```
 # docker/db.env
@@ -37,7 +67,7 @@ MYSQL_PASSWORD=TO_CHANGE
 docker-compose up
 ```
 
-Start the containers (once the images are created)
+Start the containers
 
 ```
 docker-compose start
@@ -47,19 +77,35 @@ Stop the containers
 
 ```
 docker-compose stop
-
 ```
 
-### Local file configuration
+## Generate Asset
 
-The local configuration file `.env.php` must be created at the root of the project and must contain the following information:
+The script will run sass command to generate style.css in public/resources/style/
 
+```bash
+composer asset
 ```
-<?php
 
-define("DBHOST", "TO_CHANGE"); # The IP address to indicate must correspond to the IP address of the MYSQL container
-define("DBNAME", "TO_CHANGE");
-define("DBUSERNAME", "TO_CHANGE");
-define("DBPASSWORD", "TO_CHANGE");
+## Load database
 
+The script will load the following sql file `database/looper.sql` through the docker container.
+
+```bash
+composer loadData
 ```
+
+## Test
+
+The script will automatically reload the database with fake data before running the tests through the docker container.
+
+```bash
+composer test
+```
+
+## Documentation
+
+- [Technical documentation](/docs/specifications/documentation%20technique.md)
+- [Features](/docs/specifications/ExerciseLooper-Features.md)
+- [database model](/docs/models)
+- [diagrams](/docs/diagrams)

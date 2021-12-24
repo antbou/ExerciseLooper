@@ -4,3 +4,5 @@
 define('APP_ROOT', dirname(dirname(__FILE__)));
 define('URL_ROOT', '/public');
 define('VIEW_ROOT', APP_ROOT . '/teamplates/');
+
+define('APP_ENVIRONMENT_KIND', ['dev', 'prod']);
