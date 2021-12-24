@@ -22,7 +22,83 @@ Il existe également 3 types de questions : texte à ligne unique, liste de lign
 
 ### De quels composants le site est-il fait ? Comment interagissent-ils ?
 
-Le site utilise une architecture MVC inspiré du frameworks [symfony](https://symfony.com/)
+Le site utilise une architecture MVC inspiré du frameworks [symfony](https://symfony.com/).
+Nous n'utilisons aucuns packages PHP mise à par phpunit afin d'effectuer les tests unitaires.
+
+La liste des différentes dépendances utilisées côté frontend est disponible dans package.json :
+
+- @fortawesome/fontawesome-free: 5.15.4
+- milligram": 1.4.1
+
+#### Structure du site
+```
+Exerciselooper
+│   README.md
+│   docker-compose.yml
+│   ....
+│
+└───assets
+│   └───scss
+└───config
+│   └───config.php
+│   └───routeConfig.php
+└───core
+│   └───controllers
+│   └───forms
+│   └───router
+│   └───services
+│   └───traits
+└───database
+│   └───tests
+│   └───loadData.php
+│   └───looper.sql
+└───docker
+│   └───Dockerfile
+│   └───db.env
+│   └───looper.sql
+└───docs
+│   └───diagrams
+│   └───models
+│   └───specifications
+│   │   └───documentation technique.md
+│   │   └───ExerciseLooper-Features.md
+└───public
+│   └───js
+│   │   └───script.js
+│   └───style
+│   │   └───style.css
+│   └───.htaccess
+│   └───index.php
+└───src
+│   └───controllers
+│   └───models
+└───templates
+│   └───errors
+│   └───exercise
+│   └───...
+└───tests
+    └───models
+```
+
+Le dossier `assets` contient les fichiers non empaquetés par sass. Par défaut, le dossier dist est vide. Pour le remplir, il faut lancer sass.
+Sass utilisera le point d'entrée suivante :
+- main.scss
+
+Le dossier `core` contient le squellette de l'application, c'est un peu la partie caché de l'iceberg. Aucune logique métiers ne se trouve dans se dossier.
+
+Le dossier `database` contient tout ce qui touche à la base de données.
+- un script Sql pour la production
+- un script Sql pour générer les données de test
+
+Le dossier `public` est le point d’entrée de l’application, chaque requête passe forcément par ce dossier et le fichier index.php.
+C’est un dossier accessible par tous, il est généralement utilisé pour mettre à disposition des fichiers de ressources tel que les images.
+
+Le dossier `src` est le cœur du projet. C’est le dossier qui contient la logique de l' application.
+Les dossiers qui seront obligatoires à utiliser pour le fonctionnement de l’application sont :
+- Controllers : Ce dossier contient les contrôleurs qui se chargent de rediriger vers les différents models.
+- Models : Dans ce dossier nous allons définir la structure de votre base de donnée au travers de classes. Chaque Model représente généralement une table en Base de donnée.
+
+Le dossier `templates` contient en d’autre terme nos views.
 
 ### Quelles technologies est-ce que je dois connaître pour pouvoir développer ce site ? 
 
@@ -45,13 +121,22 @@ Se référer un readme pour avoir plus de détails.
 ## Quelles astuces avez-vous employés ?
 
 ### Astuce #1:
-La classe HTML "ajax" contenu dans les éléments HTML déclenche un event (click) Javascript (script js) au moment où l'utilisateur clique sur l'élément. 
+La classe HTML "ajax" contenu dans les éléments HTML déclenche un event (click) Javascript (script js).
 
-L'event va déclencher une requête HTTP asynchrone qui sera définie en fonction des attributs de données suivantes :
+Lorsque l'utlisateur clique sur un élement HTML, L'event associé à la class ajaxt va effectuer une requête HTTP à l'application (controller).
+
+L'élement HTML doit contenir les attributs de données suivantes :
 - data-href : correspond au l'URL à laquel l'appelle AJAX doit avoir lieux
 - data-method : correspond à la methode http associé
 
-La réponse à la requête AJAX retourna une URI au format JSON que le script utilisera afin de rediriger l'utilisateur dessus.
+La réponse du controller retourna une URI au format JSON que le script utilisera afin de rediriger l'utilisateur dessus.
+
+Exemple :
+
+```
+<i class="fa fa-minus-circle link ajax" title="Close" data-href="/exercises/6/status/TERM" data-method="put"></i>
+```
+
 
 ### Astuce #2:
 La classe PHP formvalidator permet de vérifier que le contenu des requêtes HTTP POST est bien valide.
