@@ -22,13 +22,16 @@ Il existe également 3 types de questions : texte à ligne unique, liste de lign
 
 ### De quels composants le site est-il fait ? Comment interagissent-ils ?
 
-Le site utilise une architecture MVC inspiré du frameworks [symfony](https://symfony.com/).
+Le site utilise une architecture MVC. 
+
+Nous nous sommes inspiré du frameworks [symfony](https://symfony.com/) concernant l'architecture des dossiers.
+
 Nous n'utilisons aucuns packages PHP mise à par phpunit afin d'effectuer les tests unitaires.
 
 La liste des différentes dépendances utilisées côté frontend est disponible dans package.json :
 
 - @fortawesome/fontawesome-free: 5.15.4
-- milligram": 1.4.1
+- milligram: 1.4.1
 
 #### Structure du site
 ```
@@ -121,22 +124,20 @@ Se référer un readme pour avoir plus de détails.
 ## Quelles astuces avez-vous employés ?
 
 ### Astuce #1:
-La classe HTML "ajax" contenu dans les éléments HTML déclenche un event (click) Javascript (script js).
+La classe HTML "Ajax" contenu dans les éléments HTML déclenche un event (click) Javascript (script js) afin d'effectuer une requête AJAX au serveur.
 
-Lorsque l'utlisateur clique sur un élement HTML, L'event associé à la class ajaxt va effectuer une requête HTTP à l'application (controller).
+Par exemple, nous utilisons cette astuce sur le bouton "delete" pour la page "Exercise management".
+```
+<i class="fa fa-trash link ajax" ... data-href="/exercises/1/delete" ... data-method="delete"></i>
+```
+
+Lorsque l'utilisateur clique sur un élement HTML, l'event associé à la class ajaxt va effectuer une requête HTTP à l'application (controller).
 
 L'élement HTML doit contenir les attributs de données suivantes :
 - data-href : correspond au l'URL à laquel l'appelle AJAX doit avoir lieux
 - data-method : correspond à la methode http associé
 
 La réponse du controller retourna une URI au format JSON que le script utilisera afin de rediriger l'utilisateur dessus.
-
-Exemple :
-
-```
-<i class="fa fa-minus-circle link ajax" title="Close" data-href="/exercises/6/status/TERM" data-method="put"></i>
-```
-
 
 ### Astuce #2:
 La classe PHP formvalidator permet de vérifier que le contenu des requêtes HTTP POST est bien valide.
