@@ -4,6 +4,9 @@ Perform for WAW1.1
 
 Group : `Anthony Bouillant` and `Noah Delgado`.
 
+> This website is a reproduction of
+> [Exercise Looper](https://stormy-plateau-54488.herokuapp.com)
+
 ## Requirements
 
 | Tools                                         | Version |
@@ -99,3 +102,10 @@ The script will automatically reload the database with fake data before running 
 ```bash
 composer test
 ```
+
+## Documentation
+
+- [Technical documentation](/docs/specifications/documentation%20technique.md)
+- [Features](/docs/specifications/ExerciseLooper-Features.md)
+- [database model](/docs/models)
+- [diagrams](/docs/diagrams)
