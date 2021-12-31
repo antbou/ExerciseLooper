@@ -27,7 +27,8 @@ Lors de la fin du sprint, une review était faite avec ou sans le PO (Product Ow
 #### Sprint
 
 ![Sprint](/docs/diagrams/SprintGraph.PNG)
-La somme du travail restant est définie par le poids des tâches qui lui est définie par leurs complexités
+
+La somme du travail restant correspondant à l'addition du poids des tâches qui lui est définie par leurs complexités
 
 ## Retour
 
